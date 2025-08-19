@@ -1,7 +1,11 @@
 import styled from 'styled-components';
-import { Form, Input, Button, message } from 'antd';
+import { Form, message } from 'antd';
 import { theme } from '../../assets/theme/theme';
 import { Link } from 'react-router-dom';
+import { CustomLabel } from '../../ui/CustomLabel';
+import { CustomInput } from '../../ui/CustomInput';
+import { CustomButton } from '../../ui/CustomButton';
+import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
 
 export const Login = () => {
   const onFinish = (values: { email: string; password: string }) => {
@@ -17,7 +21,7 @@ export const Login = () => {
 
         <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
           <Form.Item
-            label={<Label isRequired>Email</Label>}
+            label={<CustomLabel isRequired>Email</CustomLabel>}
             name="email"
             rules={[
               { required: true, message: 'Введите Email' },
@@ -26,11 +30,11 @@ export const Login = () => {
             required={false}
             style={{ marginBottom: '0.58vw' }}
           >
-            <StyledInput placeholder="example@company.com" />
+            <CustomInput placeholder="example@company.com" />
           </Form.Item>
 
           <Form.Item
-            label={<Label isRequired>Пароль</Label>}
+            label={<CustomLabel isRequired>Пароль</CustomLabel>}
             name="password"
             rules={[
               { required: true, message: 'Введите пароль' },
@@ -45,13 +49,13 @@ export const Login = () => {
             ]}
             required={false}
           >
-            <StyledPasswordInput type="password" placeholder="Введите пароль" />
+            <CustomPasswordInput type="password" placeholder="Введите пароль" />
           </Form.Item>
 
           <Form.Item>
-            <StyledButton type="primary" htmlType="submit" block>
+            <CustomButton type="primary" htmlType="submit" $width="100%">
               Войти
-            </StyledButton>
+            </CustomButton>
           </Form.Item>
         </Form>
 
@@ -67,51 +71,37 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${theme.colors.background};
+  background: ${theme.colors.backgroundPage};
 `;
 
 export const Card = styled.div`
-  background: ${theme.colors.card};
+  background: ${theme.colors.backgroundCard};
   padding: 1.5vw 2.725vw; /* 43px 24px */
   border-radius: 0.825vw;
   box-shadow: 0 0.208vw 1.042vw rgba(0, 0, 0, 0.05);
   width: 100%;
-  max-width: 25vw;
+  max-width: 20vw;
   text-align: center;
 `;
 
 export const Title = styled.h1`
-  font-size: 1.85vw;
+  font-size: 1.65vw;
   font-weight: 400;
-  margin-bottom: 0.26vw;
-  color: ${theme.colors.foreground};
+  margin-bottom: 0.2vw;
+  color: ${theme.colors.textPrimary};
 `;
 
 export const Subtitle = styled.p`
-  font-size: 1.09vw;
-  color: ${theme.colors.mutedForeground};
-  margin-bottom: 1.43vw;
-`;
-
-export const StyledButton = styled(Button)`
-  background: ${theme.colors.primary} !important;
-  border-color: ${theme.colors.primary} !important;
-  height: 2.7vw;
   font-size: 0.95vw;
-  font-weight: 500;
-  margin-top: 0.5vw;
-
-  &:hover {
-    background: ${theme.colors.hoverButton} !important;
-    border-color: ${theme.colors.hoverButton} !important;
-  }
+  color: ${theme.colors.textMuted};
+  margin-bottom: 1.43vw;
 `;
 
 export const LinkText = styled(Link)`
   display: block;
-  font-size: 0.885vw;
+  font-size: 0.78vw;
   font-weight: 500;
-  color: ${theme.colors.primary};
+  color: ${theme.colors.brandPrimary};
   cursor: pointer;
   margin: -0.225vw 0 1vw;
   text-decoration: none;
@@ -123,55 +113,11 @@ export const LinkText = styled(Link)`
 
 export const GreyLinkText = styled.a`
   display: block;
-  font-size: 0.885vw;
-  color: ${theme.colors.secondaryForeground};
+  font-size: 0.78vw;
+  color: ${theme.colors.textSecondary};
   cursor: pointer;
 
   &:hover {
     text-decoration: underline;
   }
-`;
-
-export const StyledInput = styled(Input)`
-  width: 100%;
-  height: 2.8vw;
-  border-radius: 0.3vw;
-  border: 1.52px solid ${theme.colors.border};
-  padding: 0 0.65vw;
-  font-size: 0.9375vw;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-
-  &:hover {
-    border: 1px solid ${theme.colors.accent};
-    box-shadow: 0 0 0.208vw rgba(167, 139, 250, 0.3);
-  }
-
-  &:focus,
-  &:active {
-    border: 1px solid rgba(139, 92, 246, 0.5);
-    box-shadow: 0 0 3px 2px rgba(138, 92, 246, 0.332);
-    outline: none;
-  }
-`;
-export const StyledPasswordInput = styled(StyledInput).attrs({ as: Input.Password })`
-  .ant-input-password-icon {
-    font-size: 1vw;
-  }
-`;
-
-export const Label = styled.span<{ isRequired?: boolean }>`
-  font-size: 0.95vw;
-  color: ${theme.colors.popoverForeground};
-  font-weight: 500;
-  display: block;
-  margin-bottom: -0.5vw;
-  ${({ isRequired }) =>
-    isRequired &&
-    `
-      &::after {
-        content: '*';
-        color: ${theme.colors.foreground};
-        margin-left: 0.3vw;
-      }
-    `}
 `;

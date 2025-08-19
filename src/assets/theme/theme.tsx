@@ -1,39 +1,50 @@
 export const theme = {
   colors: {
-    background: '#f8fafc',
-    foreground: '#1e293b',
-    card: '#ffffff',
-    cardForeground: '#1e293b',
-    popover: '#ffffff',
-    popoverForeground: '#424954',
-    primary: '#8b5cf6',
-    hoverButton: '#764dd7',
-    primaryForeground: '#ffffff',
-    secondary: '#f1f5f9',
-    secondaryForeground: '#64748b',
-    muted: '#f1f5f9',
-    mutedForeground: '#64748b',
-    accent: '#a855f7',
-    accentForeground: '#ffffff',
-    destructive: '#ef4444',
-    destructiveForeground: '#ffffff',
+    // Фоновые
+    backgroundPage: '#f8fafc', // общий фон страницы
+    backgroundCard: '#ffffff', // карточки
+    backgroundInput: '#ffffff', // поля ввода
+    backgroundButtonDisabled: '#d3d1d1', // кнопка отключена
+    backgroundSidebar: '#f8fafc', // сайдбар
+
+    // Тексты
+    textPrimary: '#1e293b', // основной текст
+    textSecondary: '#64748b', // второстепенный текст
+    textMuted: '#64748b', // приглушённый
+    textInverse: '#ffffff', // для светлого текста на кнопках
+
+    // Основные акценты
+    brandPrimary: '#8b5cf6', // основной фирменный
+    brandPrimaryHover: '#764dd7', // hover-состояние
+    brandAccent: '#a855f7', // дополнительный акцент
+    brandAccentHover: '#9333ea', // можно добавить для hover
+
+    // Состояния
+    error: '#ef4444',
+    errorText: '#ffffff',
     border: '#e2e8f0',
-    input: '#ffffff',
-    inputBackground: '#ffffff',
-    switchBackground: '#cbd5e1',
-    ring: '#8b5cf6',
-    chart1: '#8b5cf6',
-    chart2: '#a855f7',
-    chart3: '#06b6d4',
-    chart4: '#f59e0b',
-    chart5: '#10b981',
-    sidebar: '#f8fafc',
-    sidebarForeground: '#1e293b',
-    sidebarPrimary: '#8b5cf6',
-    sidebarPrimaryForeground: '#ffffff',
-    sidebarAccent: '#f1f5f9',
-    sidebarAccentForeground: '#64748b',
+    focusRing: '#8b5cf6',
+    switchTrack: '#cbd5e1',
+
+    // Данные / графики
+    chartViolet: '#8b5cf6',
+    chartPink: '#a855f7',
+    chartCyan: '#06b6d4',
+    chartOrange: '#f59e0b',
+    chartGreen: '#10b981',
+
+    // Sidebar специфично
+    sidebarText: '#1e293b',
+    sidebarTextMuted: '#64748b',
     sidebarBorder: '#e2e8f0',
-    sidebarRing: '#8b5cf6',
+    sidebarActiveBg: '#8b5cf6',
+    sidebarActiveText: '#ffffff',
+  },
+
+  fonts: {
+    fontWeightMedium: 500,
+    fontWeightSemibold: 600,
+    fontWeightBold: 700,
+    fontFamily: '"Inter", sans-serif',
   },
 };

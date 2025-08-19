@@ -1,0 +1,173 @@
+import { useState } from 'react';
+import styled from 'styled-components';
+import { Outlet, NavLink, Link } from 'react-router-dom';
+import { theme } from './assets/theme/theme';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+
+export const Layout = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
+  return (
+    <LayoutWrapper>
+      <Sidebar $collapsed={collapsed}>
+        <SidebarHeader $collapsed={collapsed}>
+          <Avatar>И</Avatar>
+          {!collapsed && (
+            <div>
+              <div style={{ fontWeight: theme.fonts.fontWeightMedium }}>Иван Петров</div>
+              <small style={{ color: theme.colors.sidebarAccentForeground }}>
+                ivan@example.com
+              </small>
+            </div>
+          )}
+        </SidebarHeader>
+
+        <SidebarMenu $collapsed={collapsed}>
+          <SidebarLink to="/">Мои данные</SidebarLink>
+          <SidebarLink to="/tariffs">Доступные тарифы</SidebarLink>
+          <SidebarLink to="/my-tariffs">Мои тарифы</SidebarLink>
+        </SidebarMenu>
+
+        <SidebarFooter>
+          {!collapsed && (
+            <>
+              <Link to={'/signin'}>↩ Выйти</Link>
+            </>
+          )}
+        </SidebarFooter>
+      </Sidebar>
+
+      <Main>
+        <Header>
+          <HeaderLeft>
+            {collapsed ? (
+              <MenuFoldOutlined
+                size={20}
+                onClick={() => setCollapsed(false)}
+                style={{ cursor: 'pointer' }}
+              />
+            ) : (
+              <MenuUnfoldOutlined
+                size={20}
+                onClick={() => setCollapsed(true)}
+                style={{ cursor: 'pointer' }}
+              />
+            )}
+            <h1>Личный кабинет</h1>
+          </HeaderLeft>
+        </Header>
+
+        <Content>
+          <Outlet />
+        </Content>
+      </Main>
+    </LayoutWrapper>
+  );
+};
+const LayoutWrapper = styled.div`
+  display: flex;
+  height: 100vh;
+  background: ${theme.colors.background};
+`;
+
+const Sidebar = styled.div<{ $collapsed: boolean }>`
+  width: ${({ $collapsed }) => ($collapsed ? '20px' : '240px')};
+  transition: width 0.3s ease;
+  background: ${theme.colors.sidebar};
+  border-right: 1px solid ${theme.colors.sidebarBorder};
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+`;
+
+const SidebarHeader = styled.div<{ $collapsed: boolean }>`
+  padding: 0 1rem;
+  margin-bottom: 1.5rem;
+  display: ${({ $collapsed }) => ($collapsed ? 'none' : 'flex')};
+  align-items: center;
+  gap: 0.75rem;
+`;
+
+const Avatar = styled.div`
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: ${theme.colors.primary};
+  color: ${theme.colors.primaryForeground};
+  font-weight: ${theme.fonts.fontWeightSemibold};
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SidebarMenu = styled.nav<{ $collapsed: boolean }>`
+  display: ${({ $collapsed }) => ($collapsed ? 'none' : 'flex')};
+  flex-direction: column;
+  flex: 1;
+  padding: 0 0.5rem;
+`;
+
+const SidebarLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  margin: 0.2rem 0;
+  border-radius: 0.4rem;
+  color: ${theme.colors.sidebarForeground};
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: ${theme.fonts.fontWeightMedium};
+
+  &.active {
+    background: ${theme.colors.sidebarPrimary};
+    color: ${theme.colors.sidebarPrimaryForeground};
+  }
+
+  &:hover {
+    background: ${theme.colors.sidebarAccent};
+    color: ${theme.colors.sidebarAccentForeground};
+  }
+`;
+
+const SidebarFooter = styled.div`
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: ${theme.colors.sidebarAccentForeground};
+  border-top: 1px solid ${theme.colors.sidebarBorder};
+`;
+
+const Main = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Header = styled.header`
+  height: 56px;
+  border-bottom: 1px solid ${theme.colors.border};
+  background: ${theme.colors.card};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+`;
+
+const HeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  h1 {
+    font-size: 1rem;
+    font-weight: ${theme.fonts.fontWeightSemibold};
+    color: ${theme.colors.foreground};
+  }
+`;
+
+const Content = styled.main`
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  color: ${theme.colors.foreground};
+`;
