@@ -17,24 +17,24 @@ export const CustomButton = styled(Button)<CustomButtonProps>`
     $mode === 'secondary'
       ? css`
           border: 1px solid ${theme.colors.border} !important;
-          color: ${theme.colors.gray} !important;
+          color: ${theme.colors.textSecondary} !important;
           height: 1.9vw;
 
           &:hover {
-            background: ${theme.colors.card} !important;
-            border-color: ${theme.colors.primary} !important;
-            color: ${theme.colors.primary} !important;
+            background: ${theme.colors.backgroundCard} !important;
+            border-color: ${theme.colors.brandPrimaryHover} !important;
+            color: ${theme.colors.brandPrimaryHover} !important;
           }
         `
       : css`
-          background: ${theme.colors.primary} !important;
-          border-color: ${theme.colors.primary} !important;
-          color: ${theme.colors.gray} !important;
+          background: ${theme.colors.brandPrimary} !important;
+          border-color: ${theme.colors.brandPrimary} !important;
+          color: ${theme.colors.textInverse} !important;
           height: 2.2vw;
 
           &:hover {
-            background: ${theme.colors.hoverButton} !important;
-            border-color: ${theme.colors.hoverButton} !important;
+            background: ${theme.colors.brandPrimaryHover} !important;
+            border-color: ${theme.colors.brandPrimaryHover} !important;
           }
         `}
 `;

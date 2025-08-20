@@ -15,9 +15,7 @@ export const Layout = () => {
           {!collapsed && (
             <div>
               <div style={{ fontWeight: theme.fonts.fontWeightMedium }}>Иван Петров</div>
-              <small style={{ color: theme.colors.sidebarAccentForeground }}>
-                ivan@example.com
-              </small>
+              <small style={{ color: theme.colors.textSecondary }}>ivan@example.com</small>
             </div>
           )}
         </SidebarHeader>
@@ -67,13 +65,13 @@ export const Layout = () => {
 const LayoutWrapper = styled.div`
   display: flex;
   height: 100vh;
-  background: ${theme.colors.background};
+  background: ${theme.colors.backgroundPage};
 `;
 
 const Sidebar = styled.div<{ $collapsed: boolean }>`
   width: ${({ $collapsed }) => ($collapsed ? '20px' : '240px')};
   transition: width 0.3s ease;
-  background: ${theme.colors.sidebar};
+  background: ${theme.colors.backgroundSidebar};
   border-right: 1px solid ${theme.colors.sidebarBorder};
   display: flex;
   flex-direction: column;
@@ -92,8 +90,8 @@ const Avatar = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: ${theme.colors.primary};
-  color: ${theme.colors.primaryForeground};
+  background: ${theme.colors.brandPrimary};
+  color: ${theme.colors.textPrimary};
   font-weight: ${theme.fonts.fontWeightSemibold};
   font-size: 0.9rem;
   display: flex;
@@ -114,26 +112,26 @@ const SidebarLink = styled(NavLink)`
   padding: 0.6rem 1rem;
   margin: 0.2rem 0;
   border-radius: 0.4rem;
-  color: ${theme.colors.sidebarForeground};
+  color: ${theme.colors.sidebarText};
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: ${theme.fonts.fontWeightMedium};
 
   &.active {
-    background: ${theme.colors.sidebarPrimary};
-    color: ${theme.colors.sidebarPrimaryForeground};
+    background: ${theme.colors.backgroundSidebar};
+    color: ${theme.colors.sidebarText};
   }
 
   &:hover {
-    background: ${theme.colors.sidebarAccent};
-    color: ${theme.colors.sidebarAccentForeground};
+    background: ${theme.colors.brandPrimaryTransparent};
+    color: ${theme.colors.textInverse};
   }
 `;
 
 const SidebarFooter = styled.div`
   padding: 0.75rem 1rem;
   font-size: 0.85rem;
-  color: ${theme.colors.sidebarAccentForeground};
+  color: ${theme.colors.textSecondary};
   border-top: 1px solid ${theme.colors.sidebarBorder};
 `;
 
@@ -146,7 +144,7 @@ const Main = styled.div`
 const Header = styled.header`
   height: 56px;
   border-bottom: 1px solid ${theme.colors.border};
-  background: ${theme.colors.card};
+  background: ${theme.colors.backgroundCard};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -161,7 +159,7 @@ const HeaderLeft = styled.div`
   h1 {
     font-size: 1rem;
     font-weight: ${theme.fonts.fontWeightSemibold};
-    color: ${theme.colors.foreground};
+    color: ${theme.colors.textPrimary};
   }
 `;
 
@@ -169,5 +167,5 @@ const Content = styled.main`
   flex: 1;
   padding: 1.5rem;
   overflow-y: auto;
-  color: ${theme.colors.foreground};
+  color: ${theme.colors.textPrimary};
 `;
