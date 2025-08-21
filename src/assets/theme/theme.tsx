@@ -11,14 +11,14 @@ export const theme = {
     textPrimary: '#1e293b', // основной текст
     textSecondary: '#64748b', // второстепенный текст
     textMuted: '#64748b', // приглушённый
-    textInverse: '#ebebeb', // для светлого текста на кнопках
+    textInverse: '#f0f0f0', // для светлого текста на кнопках
 
     // Основные акценты
     brandPrimary: '#8b5cf6', // основной фирменный
     brandPrimaryHover: '#764dd7', // hover-состояние
     brandAccent: '#a855f7', // дополнительный акцент
     brandAccentHover: '#9333ea', // можно добавить для hover
-    brandPrimaryTransparent: '#8a5cf6ae',
+    brandPrimaryTransparent: '#8a5cf64c',
 
     // Состояния
     error: '#ef4444',
@@ -35,11 +35,9 @@ export const theme = {
     chartGreen: '#10b981',
 
     // Sidebar специфично
-    sidebarText: '#1e293b',
     sidebarTextMuted: '#64748b',
     sidebarBorder: '#e2e8f0',
-    sidebarActiveBg: '#8b5cf6',
-    sidebarActiveText: '#ffffff',
+    sideBarActivebg: '#e9e9f0',
   },
 
   fonts: {

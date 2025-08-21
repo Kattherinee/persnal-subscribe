@@ -22,4 +22,12 @@ export const CustomInput = styled(Input)`
     box-shadow: 0 0 3px 2px rgba(138, 92, 246, 0.332);
     outline: none;
   }
+
+  &:disabled {
+    border: none;
+    &:hover {
+      border: none;
+      box-shadow: none;
+    }
+  }
 `;

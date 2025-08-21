@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Outlet, NavLink, Link } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import { theme } from './assets/theme/theme';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
@@ -29,7 +29,7 @@ export const Layout = () => {
         <SidebarFooter>
           {!collapsed && (
             <>
-              <Link to={'/signin'}>↩ Выйти</Link>
+              <SidebarLink to={'/signin'}>↩ Выйти</SidebarLink>
             </>
           )}
         </SidebarFooter>
@@ -112,30 +112,28 @@ const SidebarLink = styled(NavLink)`
   padding: 0.6rem 1rem;
   margin: 0.2rem 0;
   border-radius: 0.4rem;
-  color: ${theme.colors.sidebarText};
+  color: ${theme.colors.textSecondary};
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: ${theme.fonts.fontWeightMedium};
 
   &.active {
-    background: ${theme.colors.backgroundSidebar};
-    color: ${theme.colors.sidebarText};
+    background: ${theme.colors.sideBarActivebg};
+    color: ${theme.colors.textPrimary};
   }
 
   &:hover {
     background: ${theme.colors.brandPrimaryTransparent};
-    color: ${theme.colors.textInverse};
+    color: ${theme.colors.textPrimary};
   }
 `;
 
 const SidebarFooter = styled.div`
-  padding: 0.75rem 1rem;
+  padding: 0 0.5rem;
   font-size: 0.85rem;
-  color: ${theme.colors.textSecondary};
-  border-top: 1px solid ${theme.colors.sidebarBorder};
 `;
 
-const Main = styled.div`
+const Main = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;

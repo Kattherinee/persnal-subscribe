@@ -1,8 +1,31 @@
 import styled from 'styled-components';
 import { theme } from '../../../assets/theme/theme';
 import { CustomButton } from '../../../ui/CustomButton';
+import { CustomLabel } from '../../../ui/CustomLabel';
+import { CustomInput } from '../../../ui/CustomInput';
+import { useState } from 'react';
 
 export const ProfilePage = () => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    name: 'Иван Петров',
+    email: 'ivan@example.com',
+  });
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSave = () => {
+    console.log('Сохраняем данные:', formData);
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setFormData({ name: 'Иван Петров', email: 'ivan@example.com' }); // сброс
+    setIsEditing(false);
+  };
+
   return (
     <Wrapper>
       <div>
@@ -24,27 +47,50 @@ export const ProfilePage = () => {
 
         <FieldRow>
           <Field>
-            <Label>Имя</Label>
-            <Value>Иван Петров</Value>
+            <CustomLabel>Имя</CustomLabel>
+            <CustomInput
+              value={formData.name}
+              disabled={!isEditing}
+              onChange={(e) => handleChange('name', e.target.value)}
+            />
           </Field>
           <Field>
-            <Label>Email</Label>
-            <Value>ivan@example.com</Value>
+            <CustomLabel>Email</CustomLabel>
+            <CustomInput
+              value={formData.email}
+              disabled={!isEditing}
+              onChange={(e) => handleChange('email', e.target.value)}
+            />
           </Field>
         </FieldRow>
 
         <Buttons>
-          <CustomButton type="text" $mode="secondary">
-            Редактировать профиль
-          </CustomButton>
-          <CustomButton type="text" $mode="secondary">
-            Сменить пароль
-          </CustomButton>
+          {isEditing ? (
+            <>
+              <CustomButton $mode="primary" $height="2vw" onClick={handleSave}>
+                Сохранить изменения
+              </CustomButton>
+              <CustomButton $mode="secondary" $height="2vw" onClick={handleCancel}>
+                Отмена
+              </CustomButton>
+            </>
+          ) : (
+            <>
+              <CustomButton $mode="secondary" $height="2vw" onClick={() => setIsEditing(true)}>
+                Редактировать профиль
+              </CustomButton>
+              <CustomButton $mode="secondary" $height="2vw">
+                Сменить пароль
+              </CustomButton>
+            </>
+          )}
         </Buttons>
       </Card>
     </Wrapper>
   );
 };
+
+// ====== styled-components ======
 
 const Wrapper = styled.div`
   display: flex;
@@ -87,25 +133,14 @@ const FieldRow = styled.div`
 
 const Field = styled.div`
   flex: 1;
-`;
-
-const Label = styled.div`
-  font-size: 0.8rem;
-  color: ${theme.colors.textMuted};
-  margin-bottom: 0.3rem;
-`;
-
-const Value = styled.div`
-  background: ${theme.colors.backgroundInput};
-  border: 1px solid ${theme.colors.border};
-  border-radius: 0.4rem;
-  padding: 0.6rem 0.75rem;
-  font-size: 0.9rem;
-  color: ${theme.colors.textPrimary};
+  display: flex;
+  flex-direction: column;
+  gap: 0.83vw;
 `;
 
 const Buttons = styled.div`
   display: flex;
+  align-items: center;
   gap: 0.75rem;
   margin-top: 1rem;
 `;
