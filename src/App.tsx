@@ -3,6 +3,7 @@ import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
 import { Layout } from './layout';
 import { ProfilePage } from './pages/auth/mainPages/ProfilePage';
+import { TariffsPage } from './pages/auth/mainPages/TariffsPage';
 
 function App() {
   return (
@@ -14,8 +15,8 @@ function App() {
       {/* приватные страницы внутри Личного кабинета */}
       <Route path="/" element={<Layout />}>
         <Route index element={<ProfilePage />} /> {/* / */}
-        {/* <Route path="tariffs" element={<TariffsPage />} /> 
-        <Route path="my-tariffs" element={<MyTariffsPage />} />  */}
+        <Route path="tariffs" element={<TariffsPage />} />
+        {/* <Route path="my-tariffs" element={<MyTariffsPage />} />   */}
       </Route>
 
       {/* 404 */}

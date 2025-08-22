@@ -28,22 +28,14 @@ export const ProfilePage = () => {
 
   return (
     <Wrapper>
-      <div>
+      <TitleContainer>
         <Title>Мои данные</Title>
         <Subtitle>Управление основной информацией аккаунта</Subtitle>
-      </div>
+      </TitleContainer>
 
       <Card>
         <CardTitle>Профиль</CardTitle>
-        <p
-          style={{
-            fontSize: '0.85rem',
-            color: theme.colors.textMuted,
-            marginBottom: '1rem',
-          }}
-        >
-          Основная информация о вашем аккаунте
-        </p>
+        <CardInfo>Основная информация о вашем аккаунте</CardInfo>
 
         <FieldRow>
           <Field>
@@ -90,39 +82,48 @@ export const ProfilePage = () => {
   );
 };
 
-// ====== styled-components ======
-
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 `;
 
-const Title = styled.h2`
-  font-size: 1.3rem;
+export const Title = styled.h2`
+  font-size: 1.2vw;
+  margin-block: 0;
   font-weight: ${theme.fonts.fontWeightSemibold};
   color: ${theme.colors.textPrimary};
 `;
 
-const Subtitle = styled.p`
-  font-size: 0.9rem;
+export const Subtitle = styled.p`
+  font-size: 0.9vw;
   color: ${theme.colors.textMuted};
-  margin-bottom: 1rem;
+  margin-block: 0;
 `;
-
+export const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.6vw;
+  margin-bottom: 1.2vw;
+`;
 const Card = styled.div`
   background: ${theme.colors.backgroundCard};
   border: 1px solid ${theme.colors.border};
   border-radius: 0.6rem;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  padding: 1.2vw 0.94vw;
+  box-shadow: 0 0 2px 1.5px rgba(0, 0, 0, 0.046);
 `;
 
 const CardTitle = styled.h3`
-  font-size: 1rem;
-  font-weight: ${theme.fonts.fontWeightMedium};
+  font-size: 0.94vw;
+  font-weight: ${theme.fonts.fontWeightSemibold};
   color: ${theme.colors.textPrimary};
+  margin-block: 0;
   margin-bottom: 0.75rem;
+`;
+const CardInfo = styled.div`
+  font-size: 0.83vw;
+  color: ${theme.colors.textMuted};
+  margin-bottom: 0.94vw;
 `;
 
 const FieldRow = styled.div`
