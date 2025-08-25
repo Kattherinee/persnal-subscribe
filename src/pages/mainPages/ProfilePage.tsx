@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { theme } from '../../../assets/theme/theme';
-import { CustomButton } from '../../../ui/CustomButton';
-import { CustomLabel } from '../../../ui/CustomLabel';
-import { CustomInput } from '../../../ui/CustomInput';
+import { theme } from '../../assets/theme/theme';
+import { CustomButton } from '../../ui/CustomButton';
+import { CustomLabel } from '../../ui/CustomLabel';
+import { CustomInput } from '../../ui/CustomInput';
 import { useState } from 'react';
 
 export const ProfilePage = () => {

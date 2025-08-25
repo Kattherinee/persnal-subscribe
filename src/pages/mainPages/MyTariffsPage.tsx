@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import { Subtitle, Title, TitleContainer, Wrapper } from './ProfilePage';
-import { CardMyPlan } from '../../../components/CardMyPlan';
-import { mockPlan } from '../../../assets/mockData';
+import { CardMyPlan } from '../../components/CardMyPlan';
+import { mockPlan } from '../../assets/mockData';
 // import { CustomButton } from '../../../ui/CustomButton';
 // import { CustomLabel } from '../../../ui/CustomLabel';
 // import { CustomInput } from '../../../ui/CustomInput';

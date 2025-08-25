@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CardPlan } from '../../../components/CardPlan';
+import { CardPlan } from '../../components/CardPlan';
 import { Subtitle, Title, TitleContainer, Wrapper } from './ProfilePage';
 // import { CustomButton } from '../../../ui/CustomButton';
 // import { CustomLabel } from '../../../ui/CustomLabel';

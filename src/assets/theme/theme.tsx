@@ -5,7 +5,7 @@ export const theme = {
     backgroundCard: '#ffffff', // карточки
     backgroundInput: '#ffffff', // поля ввода
     backgroundButtonDisabled: '#d3d1d1', // кнопка отключена
-    backgroundSidebar: '#f8fafc', // сайдбар
+    backgroundSidebar: '#fcfcfc', // сайдбар
     backgroundGray: '#c7c9cd',
 
     // Тексты
@@ -43,6 +43,7 @@ export const theme = {
   },
 
   fonts: {
+    fontRegular: 400,
     fontWeightMedium: 500,
     fontWeightSemibold: 600,
     fontWeightBold: 700,

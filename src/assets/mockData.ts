@@ -1,4 +1,4 @@
-import type { PlanData } from '../pages/auth/PlanDetailPage';
+import type { PlanData } from '../pages/PlanDetailPage';
 
 export const mockPlan: PlanData = {
   id: '111',

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { theme } from '../assets/theme/theme';
 import { CustomButton } from '../ui/CustomButton';
 import { Link } from 'react-router-dom';
+import { KeyOutlined } from '@ant-design/icons';
 
 type CardMyPlanProps = {
   title: string;
@@ -25,11 +26,11 @@ export const CardMyPlan = ({ title, price, endDate, isActive, idPlan }: CardMyPl
           <>
             <StyledTag $isActive={isActive}>Активен</StyledTag>
 
-            <CustomButton type="text" $mode="secondary">
-              🔑 Получить ключ
+            <CustomButton type="text" $mode="secondary" $height="2vw">
+              <KeyOutlined /> Получить ключ
             </CustomButton>
             <Link to={`/my-tariffs/${idPlan}`}>
-              <CustomButton type="primary" $mode="primary">
+              <CustomButton type="primary" $mode="primary" $height="2vw">
                 Подробнее
               </CustomButton>
             </Link>
@@ -84,7 +85,7 @@ const Actions = styled.div`
   gap: 0.6vw;
 `;
 
-const StyledTag = styled.div<{ $isActive: boolean }>`
+export const StyledTag = styled.div<{ $isActive: boolean }>`
   background-color: ${({ $isActive }) =>
     $isActive ? theme.colors.backgroundCard : theme.colors.sideBarActivebg};
   color: ${({ $isActive }) => ($isActive ? theme.colors.brandPrimary : theme.colors.textMuted)};

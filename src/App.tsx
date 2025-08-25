@@ -2,10 +2,10 @@ import { Route, Routes } from 'react-router-dom';
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
 import { Layout } from './layout';
-import { ProfilePage } from './pages/auth/mainPages/ProfilePage';
-import { TariffsPage } from './pages/auth/mainPages/TariffsPage';
-import { MyTariffsPage } from './pages/auth/mainPages/MyTariffsPage';
-import { PlanDetailPage } from './pages/auth/PlanDetailPage';
+import { ProfilePage } from './pages/mainPages/ProfilePage';
+import { TariffsPage } from './pages/mainPages/TariffsPage';
+import { MyTariffsPage } from './pages/mainPages/MyTariffsPage';
+import { PlanDetailPage } from './pages/PlanDetailPage';
 
 function App() {
   return (

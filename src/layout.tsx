@@ -2,7 +2,13 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Outlet, NavLink } from 'react-router-dom';
 import { theme } from './assets/theme/theme';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import {
+  CreditCardOutlined,
+  KeyOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 
 export const Layout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -20,9 +26,18 @@ export const Layout = () => {
         </SidebarHeader>
 
         <SidebarMenu $collapsed={collapsed}>
-          <SidebarLink to="/">Мои данные</SidebarLink>
-          <SidebarLink to="/tariffs">Доступные тарифы</SidebarLink>
-          <SidebarLink to="/my-tariffs">Мои тарифы</SidebarLink>
+          <SidebarLink to="/">
+            <UserOutlined />
+            Мои данные
+          </SidebarLink>
+          <SidebarLink to="/tariffs">
+            <CreditCardOutlined />
+            Доступные тарифы
+          </SidebarLink>
+          <SidebarLink to="/my-tariffs">
+            <KeyOutlined />
+            Мои тарифы
+          </SidebarLink>
         </SidebarMenu>
 
         <SidebarFooter>
@@ -95,6 +110,7 @@ const SidebarMenu = styled.nav<{ $collapsed: boolean }>`
 const SidebarLink = styled(NavLink)`
   display: flex;
   align-items: center;
+  gap: 0.4vw;
   padding: 0.6rem 1rem;
   margin: 0.2rem 0;
   border-radius: 0.4rem;
