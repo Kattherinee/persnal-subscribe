@@ -9,9 +9,8 @@ interface CustomButtonProps {
 }
 
 export const CustomButton = styled(Button)<CustomButtonProps>`
-  font-size: 0.82vw;
+  font-size: 0.93vw;
   font-weight: 500;
-  margin-top: 0.5vw;
   width: ${({ $width }) => ($width ? $width : 'auto')};
   height: ${({ $height }) => ($height ? $height : '2.2vw')};
 

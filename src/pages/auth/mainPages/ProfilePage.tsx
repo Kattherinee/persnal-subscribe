@@ -59,20 +59,17 @@ export const ProfilePage = () => {
         <Buttons>
           {isEditing ? (
             <>
-              <CustomButton $mode="primary" $height="2vw" onClick={handleSave}>
+              <CustomButton $mode="primary" onClick={handleSave}>
                 Сохранить изменения
               </CustomButton>
-              <CustomButton $mode="secondary" $height="2vw" onClick={handleCancel}>
+              <CustomButton $mode="secondary" onClick={handleCancel}>
                 Отмена
               </CustomButton>
             </>
           ) : (
             <>
-              <CustomButton $mode="secondary" $height="2vw" onClick={() => setIsEditing(true)}>
+              <CustomButton $mode="secondary" onClick={() => setIsEditing(true)}>
                 Редактировать профиль
-              </CustomButton>
-              <CustomButton $mode="secondary" $height="2vw">
-                Сменить пароль
               </CustomButton>
             </>
           )}
@@ -110,7 +107,7 @@ const Card = styled.div`
   border: 1px solid ${theme.colors.border};
   border-radius: 0.6rem;
   padding: 1.2vw 0.94vw;
-  box-shadow: 0 0 2px 1.5px rgba(0, 0, 0, 0.046);
+  box-shadow: 0 0 4px 2px rgba(45, 45, 45, 0.046);
 `;
 
 const CardTitle = styled.h3`

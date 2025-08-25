@@ -11,7 +11,6 @@ export const Layout = () => {
     <LayoutWrapper>
       <Sidebar $collapsed={collapsed}>
         <SidebarHeader $collapsed={collapsed}>
-          <Avatar>И</Avatar>
           {!collapsed && (
             <div>
               <div style={{ fontWeight: theme.fonts.fontWeightMedium }}>Иван Петров</div>
@@ -39,13 +38,13 @@ export const Layout = () => {
         <Header>
           <HeaderLeft>
             {collapsed ? (
-              <MenuFoldOutlined
+              <MenuUnfoldOutlined
                 size={20}
                 onClick={() => setCollapsed(false)}
                 style={{ cursor: 'pointer' }}
               />
             ) : (
-              <MenuUnfoldOutlined
+              <MenuFoldOutlined
                 size={20}
                 onClick={() => setCollapsed(true)}
                 style={{ cursor: 'pointer' }}
@@ -55,7 +54,7 @@ export const Layout = () => {
           </HeaderLeft>
         </Header>
 
-        <Content>
+        <Content $collapsed={collapsed}>
           <Outlet />
         </Content>
       </Main>
@@ -84,19 +83,6 @@ const SidebarHeader = styled.div<{ $collapsed: boolean }>`
   display: ${({ $collapsed }) => ($collapsed ? 'none' : 'flex')};
   align-items: center;
   gap: 0.75rem;
-`;
-
-const Avatar = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: ${theme.colors.brandPrimary};
-  color: ${theme.colors.textPrimary};
-  font-weight: ${theme.fonts.fontWeightSemibold};
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const SidebarMenu = styled.nav<{ $collapsed: boolean }>`
@@ -161,9 +147,9 @@ const HeaderLeft = styled.div`
   }
 `;
 
-const Content = styled.main`
+const Content = styled.main<{ $collapsed: boolean }>`
   flex: 1;
-  padding: 1.5rem;
+  padding: ${({ $collapsed }) => ($collapsed ? '1.6vw 7vw 1.6vw 7vw' : '1.6vw 4vw 1.6vw 3.5vw')};
   overflow-y: auto;
   color: ${theme.colors.textPrimary};
 `;

@@ -6,9 +6,11 @@ export const theme = {
     backgroundInput: '#ffffff', // поля ввода
     backgroundButtonDisabled: '#d3d1d1', // кнопка отключена
     backgroundSidebar: '#f8fafc', // сайдбар
+    backgroundGray: '#c7c9cd',
 
     // Тексты
     textPrimary: '#1e293b', // основной текст
+    textMedium: '#333b49', // chtlybq текст
     textSecondary: '#64748b', // второстепенный текст
     textMuted: '#64748b', // приглушённый
     textInverse: '#f0f0f0', // для светлого текста на кнопках

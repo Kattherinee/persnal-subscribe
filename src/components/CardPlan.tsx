@@ -43,12 +43,13 @@ const Card = styled.div`
   background: ${theme.colors.backgroundCard};
   border: 1px solid ${theme.colors.border};
   border-radius: 0.6rem;
+
   padding: 1.5rem;
   width: 100%;
   max-width: 40vw;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0 4px 2px rgba(24, 24, 24, 0.046);
   transition: transform 0.2s ease;
 
   &:hover {
@@ -73,28 +74,28 @@ const Subtitle = styled.div`
 const Price = styled.div`
   font-size: 1.4rem;
   font-weight: ${theme.fonts.fontWeightMedium};
-  color: ${theme.colors.textPrimary};
+  color: ${theme.colors.textMedium};
   margin: 0.9vw 0 1.2vw;
 `;
 
 const Features = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.5vw;
   margin-bottom: 1rem;
 `;
 
 const Feature = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: ${theme.colors.textPrimary};
+  gap: 0.6vw;
+  font-size: 0.8vw;
+  color: ${theme.colors.textMedium};
 `;
 
 const Dot = styled.div`
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: ${theme.colors.brandPrimary};
 `;
