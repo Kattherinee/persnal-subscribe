@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { Subtitle, Title, TitleContainer, Wrapper } from './ProfilePage';
 import { CardMyPlan } from '../../components/CardMyPlan';
-import { mockPlan } from '../../assets/mockData';
+import { mockPlans } from '../../assets/mockData';
 // import { CustomButton } from '../../../ui/CustomButton';
 // import { CustomLabel } from '../../../ui/CustomLabel';
 // import { CustomInput } from '../../../ui/CustomInput';
@@ -15,14 +15,18 @@ export const MyTariffsPage = () => {
         <Subtitle>Управление активными подписками и получение API ключей</Subtitle>
       </TitleContainer>
       <CardContainer>
-        <CardMyPlan
-          title={mockPlan.title}
-          price={mockPlan.price}
-          endDate={mockPlan.endDate}
-          isActive={true}
-          idPlan={mockPlan.id}
-        />
-        <CardMyPlan title="Премиум" price="2999 ₽/мес" isActive={false} idPlan="123" />
+        {mockPlans.map((plan, i) => {
+          return (
+            <CardMyPlan
+              key={i}
+              title={plan.title}
+              price={plan.price}
+              endDate={plan.endDate}
+              isActive={plan.isActive}
+              idPlan={plan.id}
+            />
+          );
+        })}
       </CardContainer>
     </Wrapper>
   );

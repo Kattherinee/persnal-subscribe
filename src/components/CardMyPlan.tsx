@@ -3,6 +3,8 @@ import { theme } from '../assets/theme/theme';
 import { CustomButton } from '../ui/CustomButton';
 import { Link } from 'react-router-dom';
 import { KeyOutlined } from '@ant-design/icons';
+import { GenerateKeyModal } from './GenerateKeyModal ';
+import { useState } from 'react';
 
 type CardMyPlanProps = {
   title: string;
@@ -13,6 +15,7 @@ type CardMyPlanProps = {
 };
 
 export const CardMyPlan = ({ title, price, endDate, isActive, idPlan }: CardMyPlanProps) => {
+  const [open, setOpen] = useState(false);
   return (
     <Card>
       <Info>
@@ -22,22 +25,25 @@ export const CardMyPlan = ({ title, price, endDate, isActive, idPlan }: CardMyPl
       </Info>
 
       <Actions>
-        {isActive ? (
+        <StyledTag $isActive={isActive}>Активен</StyledTag>
+        {isActive && (
           <>
-            <StyledTag $isActive={isActive}>Активен</StyledTag>
-
-            <CustomButton type="text" $mode="secondary" $height="2vw">
-              <KeyOutlined /> Получить ключ
+            <CustomButton onClick={() => setOpen(true)} type="text" $mode="secondary" $height="2vw">
+              <KeyOutlined />
+              Получить ключ
             </CustomButton>
-            <Link to={`/my-tariffs/${idPlan}`}>
-              <CustomButton type="primary" $mode="primary" $height="2vw">
-                Подробнее
-              </CustomButton>
-            </Link>
+            <GenerateKeyModal open={open} onClose={() => setOpen(false)} />
           </>
-        ) : (
-          <StyledTag $isActive={isActive}>Неактивен</StyledTag>
         )}
+        <Link to={`/my-tariffs/${idPlan}`}>
+          <CustomButton
+            type={isActive ? 'primary' : 'text'}
+            $mode={isActive ? 'primary' : 'secondary'}
+            $height="2vw"
+          >
+            Подробнее
+          </CustomButton>
+        </Link>
       </Actions>
     </Card>
   );

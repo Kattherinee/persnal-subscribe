@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { theme } from '../assets/theme/theme';
 import { Progress, Spin } from 'antd';
 import { ArrowLeftOutlined, CalendarOutlined, CreditCardOutlined } from '@ant-design/icons';
-import { mockPlan } from '../assets/mockData';
+import { mockPlanActive, mockPlanDisAbled } from '../assets/mockData';
 import { StyledTag } from '../components/CardMyPlan';
+import { Dot } from '../components/CardPlan';
 
 export interface PlanData {
   id: string;
@@ -32,7 +33,7 @@ export const PlanDetailPage = () => {
       setLoading(true);
       try {
         // допустим GET /api/plans/:id
-        const res = await fetch(`/api/plans/${id}`);
+        const res = await fetch(`/api/plan/${id}`);
         const data: PlanData = await res.json();
         setPlan(data);
       } catch (e) {
@@ -42,7 +43,7 @@ export const PlanDetailPage = () => {
       }
     }
     fetchPlan();
-    setPlan(mockPlan);
+    setPlan(mockPlanActive);
   }, [id]);
 
   if (loading)
@@ -75,7 +76,9 @@ export const PlanDetailPage = () => {
                   <CreditCardOutlined style={{ marginRight: '0.6vw' }} />
                   {plan.title}
                 </Title>
-                <StyledTag $isActive={true}>Активен</StyledTag>
+                <StyledTag $isActive={plan.isActive}>
+                  {plan.isActive ? 'Активен' : 'Неактивен'}
+                </StyledTag>
               </TitleContainer>
 
               <Price>{plan.price}</Price>
@@ -99,8 +102,9 @@ export const PlanDetailPage = () => {
             </DateBlock>
 
             <InfoText>
-              Для получения API ключей перейдите в раздел "Мои тарифы" и нажмите кнопку "Получить
-              ключ".
+              {plan.isActive
+                ? "Для получения API ключей перейдите в раздел 'Мои тарифы' и нажмите кнопку 'Получить ключ'"
+                : 'Для неактивного тарифа нет API ключей'}
             </InfoText>
           </Card>
         </LeftColumn>
@@ -108,25 +112,30 @@ export const PlanDetailPage = () => {
         <RightColumn>
           <Card>
             <SubTitle>Возможности тарифа</SubTitle>
-            <List>
-              {plan.features.map((f, i) => (
-                <ListItem key={i}> {f}</ListItem>
+            <Features>
+              {plan.features.map((feature, i) => (
+                <Feature key={i}>
+                  <Dot />
+                  <span>{feature}</span>
+                </Feature>
               ))}
-            </List>
+            </Features>
           </Card>
 
-          <Card>
-            <SubTitle>Использование</SubTitle>
-            <UsageText>
-              Запросы сегодня <b>{plan.usage.today}</b> / {plan.usage.limit}
-            </UsageText>
-            <Progress
-              percent={(plan.usage.today / plan.usage.limit) * 100}
-              showInfo={false}
-              strokeColor={theme.colors.brandPrimary}
-            />
-            <MutedText>Статистика обновляется каждые 5 минут</MutedText>
-          </Card>
+          {plan.isActive && (
+            <Card>
+              <SubTitle>Использование</SubTitle>
+              <UsageText>
+                Запросы сегодня <b>{plan.usage.today}</b> / {plan.usage.limit}
+              </UsageText>
+              <Progress
+                percent={(plan.usage.today / plan.usage.limit) * 100}
+                showInfo={false}
+                strokeColor={theme.colors.brandPrimary}
+              />
+              <MutedText>Статистика обновляется каждые 5 минут</MutedText>
+            </Card>
+          )}
         </RightColumn>
       </Content>
     </Page>
@@ -257,20 +266,26 @@ const InfoText = styled.p`
 `;
 
 const SubTitle = styled.h4`
+  font-size: 1.15vw;
+  color: ${theme.colors.textPrimary};
+
+  font-weight: ${theme.fonts.fontWeightMedium};
+  margin-block: 0;
+  margin-bottom: 0.9vw;
+`;
+
+const Features = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.68vw;
+`;
+
+const Feature = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8vw;
   font-size: 1vw;
-  color: ${theme.colors.textPrimary};
-  margin-bottom: 0.8vw;
-`;
-
-const List = styled.ul`
-  margin: 0;
-  padding-left: 1vw;
-`;
-
-const ListItem = styled.li`
-  font-size: 0.9vw;
-  color: ${theme.colors.textPrimary};
-  margin-bottom: 0.5vw;
+  color: ${theme.colors.textMedium};
 `;
 
 const UsageText = styled.p`

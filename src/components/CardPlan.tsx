@@ -93,7 +93,7 @@ const Feature = styled.div`
   color: ${theme.colors.textMedium};
 `;
 
-const Dot = styled.div`
+export const Dot = styled.div`
   width: 7px;
   height: 7px;
   border-radius: 50%;
