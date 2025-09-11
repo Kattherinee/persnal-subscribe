@@ -6,34 +6,18 @@ import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { CustomButton } from '../../ui/CustomButton';
 import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
-import { loginUser } from '../../api/auth';
-import { useAuthStore } from '../../store/authStore';
 
-export const Login = () => {
-  const setUser = useAuthStore((state) => state.setUser);
-
-  const onFinish = async (values: { email: string; password: string }) => {
-    try {
-      const payload = {
-        email: values.email,
-        password: values.password,
-      };
-      const res = await loginUser(payload);
-      setUser(res.user);
-      // localStorage.setItem('token', res.token);
-
-      message.success('Успешный вход!');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      message.error(err.response?.data?.message || 'Ошибка авторизации');
-    }
+export const LoginAdmin = () => {
+  const onFinish = (values: { email: string; password: string }) => {
+    console.log('Success:', values);
+    message.success('Успешный вход!');
   };
 
   return (
     <Container>
       <Card>
         <Title>Добро пожаловать</Title>
-        <Subtitle>Войдите в свой аккаунт для продолжения</Subtitle>
+        <Subtitle>Войдите в аккаунт админ-панели для продолжения</Subtitle>
 
         <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
           <Form.Item
@@ -74,8 +58,6 @@ export const Login = () => {
             </CustomButton>
           </Form.Item>
         </Form>
-
-        <LinkText to="/signup">Создать новый аккаунт</LinkText>
         <GreyLinkText>Забыли пароль?</GreyLinkText>
       </Card>
     </Container>

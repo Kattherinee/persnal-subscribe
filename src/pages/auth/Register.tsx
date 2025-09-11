@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from 'styled-components';
 import { Form, message } from 'antd';
 import { theme } from '../../assets/theme/theme';
@@ -7,11 +8,23 @@ import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
 import { CustomButton } from '../../ui/CustomButton';
+import { registerUser } from '../../api/auth';
 
 export const Register = () => {
-  const onFinish = (values: { email: string; password: string; name: string }) => {
-    console.log('Success:', values);
-    message.success('Регистрация успешно завершена!');
+  const onFinish = async (values: { email: string; password: string; name: string }) => {
+    try {
+      const payload = {
+        email: values.email,
+        password: values.password,
+        fullName: values.name,
+      };
+
+      await registerUser(payload);
+
+      message.success('Регистрация успешно завершена!');
+    } catch (err: any) {
+      message.error(err.response?.data?.message || 'Ошибка регистрации');
+    }
   };
 
   return (

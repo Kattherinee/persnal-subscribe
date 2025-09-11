@@ -1,42 +1,20 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Outlet, NavLink } from 'react-router-dom';
-import { theme } from './assets/theme/theme';
-import {
-  CreditCardOutlined,
-  KeyOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { theme } from '../assets/theme/theme';
+import { MenuFoldOutlined, MenuUnfoldOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 
-export const Layout = () => {
+export const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
     <LayoutWrapper>
       <Sidebar $collapsed={collapsed}>
-        <SidebarHeader $collapsed={collapsed}>
-          {!collapsed && (
-            <div>
-              <div style={{ fontWeight: theme.fonts.fontWeightMedium }}>Иван Петров</div>
-              <small style={{ color: theme.colors.textSecondary }}>ivan@example.com</small>
-            </div>
-          )}
-        </SidebarHeader>
-
+        <SidebarHeader $collapsed={collapsed} />
         <SidebarMenu $collapsed={collapsed}>
-          <SidebarLink to="/">
-            <UserOutlined />
-            Мои данные
-          </SidebarLink>
-          <SidebarLink to="/tariffs">
-            <CreditCardOutlined />
-            Доступные тарифы
-          </SidebarLink>
-          <SidebarLink to="/my-tariffs">
-            <KeyOutlined />
-            Мои тарифы
+          <SidebarLink to="/admin/users">
+            <UsergroupAddOutlined />
+            Все пользователи
           </SidebarLink>
         </SidebarMenu>
 
@@ -65,7 +43,7 @@ export const Layout = () => {
                 style={{ cursor: 'pointer' }}
               />
             )}
-            <h1>Личный кабинет</h1>
+            <h1>Админ-панель</h1>
           </HeaderLeft>
         </Header>
 
@@ -83,21 +61,22 @@ const LayoutWrapper = styled.div`
 `;
 
 const Sidebar = styled.div<{ $collapsed: boolean }>`
-  width: ${({ $collapsed }) => ($collapsed ? '20px' : '240px')};
+  width: ${({ $collapsed }) => ($collapsed ? '20px' : '210px')};
   transition: width 0.3s ease;
   background: ${theme.colors.backgroundSidebar};
   border-right: 1px solid ${theme.colors.sidebarBorder};
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  padding-bottom: 1rem;
 `;
 
 const SidebarHeader = styled.div<{ $collapsed: boolean }>`
-  padding: 0 1rem;
-  margin-bottom: 1.5rem;
+  height: 56px;
+  border-bottom: 1px solid ${theme.colors.border};
+
   display: ${({ $collapsed }) => ($collapsed ? 'none' : 'flex')};
-  align-items: center;
-  gap: 0.75rem;
+  background-color: ${theme.colors.backgroundCard};
+  margin-bottom: 1vw;
 `;
 
 const SidebarMenu = styled.nav<{ $collapsed: boolean }>`

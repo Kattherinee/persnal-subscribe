@@ -1,6 +1,6 @@
-import type { PlanData } from '../pages/PlanDetailPage';
+import type { MyDetailTariff } from '../dto/tariffs';
 
-export const mockPlans: PlanData[] = [
+export const mockPlans: MyDetailTariff[] = [
   {
     id: '111',
     title: 'Базовый',
@@ -28,7 +28,7 @@ export const mockPlans: PlanData[] = [
     isActive: false,
   },
 ];
-export const mockPlanActive: PlanData = {
+export const mockPlanActive: MyDetailTariff = {
   id: '111',
   title: 'Базовый',
   price: '999 ₽/мес',
@@ -41,7 +41,7 @@ export const mockPlanActive: PlanData = {
   },
   isActive: true,
 };
-export const mockPlanDisAbled: PlanData = {
+export const mockPlanDisAbled: MyDetailTariff = {
   id: '222',
   title: 'Премиум',
   price: '2899 ₽/мес',

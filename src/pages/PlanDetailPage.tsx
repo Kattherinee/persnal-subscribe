@@ -7,25 +7,14 @@ import { ArrowLeftOutlined, CalendarOutlined, CreditCardOutlined } from '@ant-de
 import { mockPlanActive, mockPlanDisAbled } from '../assets/mockData';
 import { StyledTag } from '../components/CardMyPlan';
 import { Dot } from '../components/CardPlan';
-
-export interface PlanData {
-  id: string;
-  title: string;
-  price: string;
-  startDate: string;
-  endDate: string;
-  features: string[];
-  usage: {
-    today: number;
-    limit: number;
-  };
-  isActive: boolean;
-}
+import type { MyDetailTariff } from '../dto/tariffs';
+import { usePlanStore } from '../store/planStore';
 
 export const PlanDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [plan, setPlan] = useState<PlanData | null>(null);
   const [loading, setLoading] = useState(true);
+  const plan = usePlanStore((state) => state.plan);
+  const setPlan = usePlanStore((state) => state.setPlan);
 
   useEffect(() => {
     // заглушка под API запрос
@@ -34,7 +23,7 @@ export const PlanDetailPage = () => {
       try {
         // допустим GET /api/plans/:id
         const res = await fetch(`/api/plan/${id}`);
-        const data: PlanData = await res.json();
+        const data: MyDetailTariff = await res.json();
         setPlan(data);
       } catch (e) {
         console.error('Ошибка при загрузке тарифа:', e);
@@ -44,7 +33,7 @@ export const PlanDetailPage = () => {
     }
     fetchPlan();
     setPlan(mockPlanActive);
-  }, [id]);
+  }, [id, setPlan]);
 
   if (loading)
     return (

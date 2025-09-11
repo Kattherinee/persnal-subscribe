@@ -91,7 +91,7 @@ const Actions = styled.div`
   gap: 0.6vw;
 `;
 
-export const StyledTag = styled.div<{ $isActive: boolean }>`
+export const StyledTag = styled.div<{ $isActive: boolean; $width?: string }>`
   background-color: ${({ $isActive }) =>
     $isActive ? theme.colors.backgroundCard : theme.colors.sideBarActivebg};
   color: ${({ $isActive }) => ($isActive ? theme.colors.brandPrimary : theme.colors.textMuted)};
@@ -104,4 +104,6 @@ export const StyledTag = styled.div<{ $isActive: boolean }>`
       ? `1px solid ${theme.colors.brandPrimary}`
       : `1px solid ${theme.colors.sideBarActivebg}`};
   margin-right: 0.3vw;
+  width: ${({ $width }) => ($width ? $width : 'auto')};
+  text-align: center;
 `;

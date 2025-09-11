@@ -33,7 +33,7 @@ export const ProfilePage = () => {
         <Subtitle>Управление основной информацией аккаунта</Subtitle>
       </TitleContainer>
 
-      <Card>
+      <PageCard>
         <CardTitle>Профиль</CardTitle>
         <CardInfo>Основная информация о вашем аккаунте</CardInfo>
 
@@ -65,6 +65,12 @@ export const ProfilePage = () => {
               <CustomButton $mode="secondary" onClick={handleCancel}>
                 Отмена
               </CustomButton>
+              <CustomButton style={{ marginLeft: 'auto' }} $mode="secondary" onClick={handleCancel}>
+                Сменить пароль
+              </CustomButton>
+              <CustomButton style={{ color: 'red' }} $mode="secondary" onClick={handleCancel}>
+                Удалить аккаунт
+              </CustomButton>
             </>
           ) : (
             <>
@@ -74,7 +80,7 @@ export const ProfilePage = () => {
             </>
           )}
         </Buttons>
-      </Card>
+      </PageCard>
     </Wrapper>
   );
 };
@@ -102,7 +108,7 @@ export const TitleContainer = styled.div`
   gap: 0.6vw;
   margin-bottom: 1.2vw;
 `;
-const Card = styled.div`
+export const PageCard = styled.div`
   background: ${theme.colors.backgroundCard};
   border: 1px solid ${theme.colors.border};
   border-radius: 0.6rem;

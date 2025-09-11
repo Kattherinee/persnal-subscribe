@@ -23,7 +23,7 @@ export const TariffsPage = () => {
           title="Стартер"
           subtitle="Идеально для начинающих"
           price="599 ₽/мес"
-          features={['1 проект', '5GB хранилища', 'Email поддержка']}
+          features={['1 проект', '5GB хранилища', 'Email поддержка', '1 vtczw']}
         />
       </CardContainer>
     </Wrapper>
