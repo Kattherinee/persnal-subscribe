@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Form, message } from 'antd';
 import { theme } from '../../assets/theme/theme';
 import { Card, Container, Subtitle, Title } from './Login';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
@@ -11,6 +11,7 @@ import { CustomButton } from '../../ui/CustomButton';
 import { registerUser } from '../../api/auth';
 
 export const Register = () => {
+  const navigate = useNavigate();
   const onFinish = async (values: { email: string; password: string; name: string }) => {
     try {
       const payload = {
@@ -20,7 +21,7 @@ export const Register = () => {
       };
 
       await registerUser(payload);
-
+      navigate('/signin');
       message.success('Регистрация успешно завершена!');
     } catch (err: any) {
       message.error(err.response?.data?.message || 'Ошибка регистрации');

@@ -16,10 +16,9 @@ export const CustomInput = styled(Input)`
     box-shadow: 0 0 0.208vw rgba(167, 139, 250, 0.3);
   }
 
-  &:focus,
-  &:active {
-    border: 1px solid rgba(139, 92, 246, 0.5);
-    box-shadow: 0 0 3px 2px rgba(138, 92, 246, 0.332);
+  &.ant-input-outlined:focus {
+    border-color: ${theme.colors.brandPrimaryHover} !important;
+    box-shadow: 0 0 2px 1px rgba(138, 92, 246, 0.201);
     outline: none;
   }
 

@@ -1,5 +1,11 @@
 import axios from 'axios';
-import type { AuthResponse, UserLoginParams, UserRegisterParams } from '../dto/user';
+import type {
+  AuthResponse,
+  PasswordUpdateParams,
+  UserLoginParams,
+  UserRegisterParams,
+  UserUpdateParams,
+} from '../dto/user';
 
 const API_URL = 'http://212.74.231.109:8181'; // замени на твой backend
 
@@ -12,5 +18,22 @@ export const loginUser = async (data: UserLoginParams) => {
 // Регистрация
 export const registerUser = async (data: UserRegisterParams) => {
   const response = await axios.post(`${API_URL}/User/Register`, data);
+  return response.data;
+};
+
+export const updateUser = async (data: UserUpdateParams) => {
+  const response = await axios.put(`${API_URL}/User/Update`, data);
+  return response.data;
+};
+
+export const updatePassword = async (data: PasswordUpdateParams) => {
+  const response = await axios.put(`${API_URL}/User/UpdatePassword`, data);
+  return response.data;
+};
+
+export const deleteUser = async (id: string) => {
+  const response = await axios.delete(`${API_URL}/User/DeleteUser`, {
+    params: { id },
+  });
   return response.data;
 };

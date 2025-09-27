@@ -5,6 +5,7 @@ import { theme } from '../assets/theme/theme';
 import {
   CreditCardOutlined,
   KeyOutlined,
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
@@ -13,7 +14,7 @@ import { useAuthStore } from '../store/authStore';
 
 export const Layout = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const logout = useAuthStore((state) => state.logout);
+  const { logout, user } = useAuthStore();
 
   return (
     <LayoutWrapper>
@@ -21,8 +22,8 @@ export const Layout = () => {
         <SidebarHeader $collapsed={collapsed}>
           {!collapsed && (
             <div>
-              <div style={{ fontWeight: theme.fonts.fontWeightMedium }}>Иван Петров</div>
-              <small style={{ color: theme.colors.textSecondary }}>ivan@example.com</small>
+              <div style={{ fontWeight: theme.fonts.fontWeightMedium }}>{user?.fullname}</div>
+              <small style={{ color: theme.colors.textSecondary }}>{user?.email}</small>
             </div>
           )}
         </SidebarHeader>
@@ -45,8 +46,8 @@ export const Layout = () => {
         <SidebarFooter>
           {!collapsed && (
             <>
-              <SidebarLink to={'/signin'} onClick={() => logout()}>
-                ↩ Выйти
+              <SidebarLink className="logout" to={'/signin'} onClick={() => logout()}>
+                <LogoutOutlined /> Выйти
               </SidebarLink>
             </>
           )}
@@ -122,6 +123,10 @@ const SidebarLink = styled(NavLink)`
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: ${theme.fonts.fontWeightMedium};
+
+  &.logout {
+    border: 1px solid ${theme.colors.sideBarActivebg};
+  }
 
   &.active {
     background: ${theme.colors.sideBarActivebg};

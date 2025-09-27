@@ -4,26 +4,64 @@ import { CustomButton } from '../../ui/CustomButton';
 import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { useState } from 'react';
+import { useAuthStore } from '../../store/authStore';
+import { deleteUser, updateUser } from '../../api/auth';
+import { ChangePasswordModal } from '../../components/ChangePasswordModal';
+import { App } from 'antd';
+import { WarningTwoTone } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 export const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user, setUser, logout } = useAuthStore();
   const [formData, setFormData] = useState({
-    name: 'Иван Петров',
-    email: 'ivan@example.com',
+    fullname: user?.fullname || '',
+    email: user?.email || '',
+    id: user?.id || '',
   });
+  const navigate = useNavigate();
+  const { modal, message } = App.useApp();
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSave = () => {
-    console.log('Сохраняем данные:', formData);
+    setUser(formData);
+    updateUser(formData);
     setIsEditing(false);
   };
 
   const handleCancel = () => {
-    setFormData({ name: 'Иван Петров', email: 'ivan@example.com' }); // сброс
-    setIsEditing(false);
+    if (!user) return;
+    setFormData({ ...formData, fullname: user.fullname, email: user.email });
+  };
+
+  const handleDeleteAccount = () => {
+    console.log('handleDeleteAccount вызвана');
+    modal.confirm({
+      title: 'Вы уверены, что хотите удалить аккаунт?',
+      icon: <WarningTwoTone twoToneColor="#ff1c1c" />,
+      content: 'Это действие нельзя отменить. Все ваши данные будут безвозвратно удалены.',
+      okText: 'Удалить',
+      okType: 'danger',
+
+      cancelText: 'Отмена',
+      async onOk() {
+        try {
+          if (!user) return;
+
+          await deleteUser(user.id);
+          navigate('/signup');
+          logout();
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+          message.error('Ошибка при удалении аккаунта', error);
+        }
+      },
+      onCancel() {},
+    });
   };
 
   return (
@@ -41,15 +79,15 @@ export const ProfilePage = () => {
           <Field>
             <CustomLabel>Имя</CustomLabel>
             <CustomInput
-              value={formData.name}
+              value={formData?.fullname}
               disabled={!isEditing}
-              onChange={(e) => handleChange('name', e.target.value)}
+              onChange={(e) => handleChange('fullname', e.target.value)}
             />
           </Field>
           <Field>
             <CustomLabel>Email</CustomLabel>
             <CustomInput
-              value={formData.email}
+              value={formData?.email}
               disabled={!isEditing}
               onChange={(e) => handleChange('email', e.target.value)}
             />
@@ -65,10 +103,15 @@ export const ProfilePage = () => {
               <CustomButton $mode="secondary" onClick={handleCancel}>
                 Отмена
               </CustomButton>
-              <CustomButton style={{ marginLeft: 'auto' }} $mode="secondary" onClick={handleCancel}>
+              <CustomButton
+                style={{ marginLeft: 'auto' }}
+                $mode="secondary"
+                onClick={() => setIsModalOpen(true)}
+              >
                 Сменить пароль
               </CustomButton>
-              <CustomButton style={{ color: 'red' }} $mode="secondary" onClick={handleCancel}>
+              <ChangePasswordModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+              <CustomButton $mode="secondary" onClick={handleDeleteAccount}>
                 Удалить аккаунт
               </CustomButton>
             </>
