@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Form, message } from 'antd';
 import { theme } from '../../assets/theme/theme';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { CustomButton } from '../../ui/CustomButton';
@@ -10,25 +10,33 @@ import { loginUser } from '../../api/auth';
 import { useAuthStore } from '../../store/authStore';
 
 export const Login = () => {
-  const setUser = useAuthStore((state) => state.setUser);
+  const setAuth = useAuthStore((state) => state.setAuth);
+  const navigate = useNavigate();
 
-  const onFinish = async (values: { email: string; password: string }) => {
+  const onFinish = async (values: { login: string; password: string }) => {
     try {
       const payload = {
-        email: values.email,
+        login: values.login,
         password: values.password,
       };
+
       const res = await loginUser(payload);
-      setUser(res.user);
-      // localStorage.setItem('token', res.token);
+
+      setAuth(
+        {
+          email: res.email,
+          fullname: res.fullname,
+        },
+        res.access_token,
+      );
 
       message.success('Успешный вход!');
+      navigate('/');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       message.error(err.response?.data?.message || 'Ошибка авторизации');
     }
   };
-
   return (
     <Container>
       <Card>
@@ -38,7 +46,7 @@ export const Login = () => {
         <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
           <Form.Item
             label={<CustomLabel isRequired>Email</CustomLabel>}
-            name="email"
+            name="login"
             rules={[
               { required: true, message: 'Введите Email' },
               { type: 'email', message: 'Введите корректный Email' },

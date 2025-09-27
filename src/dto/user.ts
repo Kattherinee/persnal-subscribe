@@ -5,17 +5,17 @@ export interface UserRegisterParams {
 }
 
 export interface UserLoginParams {
-  email: string;
+  login: string;
   password: string;
 }
 
 export interface User {
   email: string;
-  fullName: string;
-  role: 'user';
+  fullname: string;
 }
 
 export interface AuthResponse {
-  token: string;
-  user: User;
+  access_token: string;
+  email: string;
+  fullname: string;
 }

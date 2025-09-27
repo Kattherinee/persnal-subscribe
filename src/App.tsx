@@ -11,7 +11,7 @@ import { PlanDetailPage } from './pages/PlanDetailPage';
 import { AllUsersPage } from './pages/admin/AllUsersPage';
 // import { AdminLayout } from './layout/AdminLayout';
 import { RequireAuth } from './utils/RequireAuth';
-import { RequireAdmin } from './utils/RequireAdmin';
+// import { RequireAdmin } from './utils/RequireAdmin';
 import { AdminLayout } from './layouts/adminLayout';
 
 function App() {
@@ -41,9 +41,9 @@ function App() {
       <Route
         path="/admin"
         element={
-          <RequireAdmin>
-            <AdminLayout />
-          </RequireAdmin>
+          // <RequireAdmin>
+          <AdminLayout />
+          // </RequireAdmin>
         }
       >
         <Route path="users" element={<AllUsersPage />} />

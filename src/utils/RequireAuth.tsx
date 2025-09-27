@@ -3,10 +3,11 @@ import { useAuthStore } from '../store/authStore';
 import type { JSX } from 'react';
 
 export const RequireAuth = ({ children }: { children: JSX.Element }) => {
-  // const { isAuthenticated } = useAuthStore();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)();
 
-  // if (!isAuthenticated) {
-  //   return <Navigate to="/signin" replace />;
-  // }
-  // return children;
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" replace />;
+  }
+
+  return children;
 };

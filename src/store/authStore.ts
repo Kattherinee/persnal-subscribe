@@ -1,17 +1,35 @@
 import { create } from 'zustand';
-import type { User } from '../dto/user';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import { devtools } from 'zustand/middleware';
+import type { User } from '../dto/user';
 
 interface AuthState {
   user: User | null;
-  setUser: (user: User | null) => void;
+  token: string | null;
+  setAuth: (user: User, token: string) => void;
   logout: () => void;
+  setToken: (token: string) => void;
+  setUser: (user: User) => void;
+  isAuthenticated: () => boolean;
 }
 
-export const useAuthStore = create(
-  devtools<AuthState>((set) => ({
-    user: null,
-    setUser: (user) => set({ user }),
-    logout: () => set({ user: null }),
-  })),
+export const useAuthStore = create<AuthState>()(
+  devtools(
+    persist(
+      (set, get) => ({
+        user: null,
+        token: null,
+        setAuth: (user, token) => set({ user, token }, false, 'setAuth'),
+        logout: () => set({ user: null, token: null }, false, 'logout'),
+        setToken: (token) => set({ token }, false, 'setToken'),
+        setUser: (user) => set({ user }, false, 'setUser'),
+        isAuthenticated: () => !!get().token,
+      }),
+      {
+        name: 'auth', // ключ в localStorage
+        storage: createJSONStorage(() => localStorage),
+      },
+    ),
+    { name: 'AuthStore' },
+  ),
 );
