@@ -10,6 +10,7 @@ import { ChangePasswordModal } from '../../components/ChangePasswordModal';
 import { App } from 'antd';
 import { WarningTwoTone } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import type { AxiosError } from 'axios';
 
 export const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -27,10 +28,17 @@ export const ProfilePage = () => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSave = () => {
-    setUser(formData);
-    updateUser(formData);
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      await updateUser(formData);
+      setUser(formData);
+      setIsEditing(false);
+      message.success('Успешно отредактировано!');
+    } catch (err) {
+      message.error('Ошибка редактирования профиля');
+      const error = err as AxiosError;
+      console.error(error.response);
+    }
   };
 
   const handleCancel = () => {

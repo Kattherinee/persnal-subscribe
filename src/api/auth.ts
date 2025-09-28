@@ -26,14 +26,14 @@ export const updateUser = async (data: UserUpdateParams) => {
   return response.data;
 };
 
-export const updatePassword = async (data: PasswordUpdateParams) => {
-  const response = await axios.put(`${API_URL}/User/UpdatePassword`, data);
+export const updatePassword = async ({ userId, newPassword }: PasswordUpdateParams) => {
+  const response = await axios.put(
+    `${API_URL}/User/UpdatePassword?userId=${userId}&newPassword=${newPassword}`,
+  );
   return response.data;
 };
 
-export const deleteUser = async (id: string) => {
-  const response = await axios.delete(`${API_URL}/User/DeleteUser`, {
-    params: { id },
-  });
+export const deleteUser = async (userId: string) => {
+  const response = await axios.delete(`${API_URL}/User/DeleteUser?userId=${userId}`);
   return response.data;
 };

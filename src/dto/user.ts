@@ -28,6 +28,6 @@ export interface UserUpdateParams {
 }
 
 export interface PasswordUpdateParams {
-  id: string;
+  userId: string;
   newPassword: string;
 }

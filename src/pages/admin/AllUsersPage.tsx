@@ -73,7 +73,7 @@ export const AllUsersPage = () => {
       render: (date: string) => {
         const isExpired = dayjs(date).isBefore(dayjs());
         return (
-          <StyledTag $isActive={!isExpired} $width="4vw">
+          <StyledTag $isActive={!isExpired} $width="5vw">
             {!isExpired ? 'Активен' : 'Неактивен'}
           </StyledTag>
         );

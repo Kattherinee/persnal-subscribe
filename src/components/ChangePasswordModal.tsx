@@ -8,6 +8,7 @@ import { CustomLabel } from '../ui/CustomLabel';
 import { CustomPasswordInput } from '../ui/CustomPasswordInput';
 import { useAuthStore } from '../store/authStore';
 import { updatePassword } from '../api/auth';
+import type { AxiosError } from 'axios';
 
 type GenerateKeyModalProps = {
   open: boolean;
@@ -17,20 +18,25 @@ type GenerateKeyModalProps = {
 export const ChangePasswordModal = ({ open, onClose }: GenerateKeyModalProps) => {
   const [messageApi, contextHolder] = message.useMessage();
   const { user } = useAuthStore();
+  const [form] = Form.useForm();
   const onFinish = async (values: { newPassword: string }) => {
     try {
       if (!user) return;
       const payload = {
-        id: user.id,
+        userId: user.id,
         newPassword: values.newPassword,
       };
 
       await updatePassword(payload);
       messageApi.success('Пароль изменен успешно!');
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      messageApi.error(err.response?.data?.message || 'Ошибка смены пароля');
+      form.resetFields();
+      onClose();
+    } catch (err) {
+      messageApi.error('Ошибка смены пароля');
+      const error = err as AxiosError;
+      console.error(error.response);
+      form.resetFields();
+      onClose();
     }
   };
 
@@ -45,10 +51,16 @@ export const ChangePasswordModal = ({ open, onClose }: GenerateKeyModalProps) =>
         centered
         width={400}
       >
-        <Form name="changePassword" layout="vertical" onFinish={onFinish} autoComplete="on">
+        <Form
+          form={form}
+          name="changePassword"
+          layout="vertical"
+          onFinish={onFinish}
+          autoComplete="on"
+        >
           <Form.Item
-            label={<CustomLabel isRequired>Новый пароль</CustomLabel>}
             name="newPassword"
+            label={<CustomLabel isRequired>Новый пароль</CustomLabel>}
             rules={[
               { required: true, message: 'Введите пароль' },
               {

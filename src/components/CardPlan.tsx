@@ -23,7 +23,7 @@ export const CardPlan: React.FC<PlanCardProps> = ({
       <Subtitle>{subtitle}</Subtitle>
       <Price>{price}</Price>
 
-      <Features>
+      <Features $count={features.length}>
         {features.map((feature, i) => (
           <Feature key={i}>
             <Dot />
@@ -52,6 +52,10 @@ const Card = styled.div`
   box-shadow: 0 0 4px 2px rgba(24, 24, 24, 0.046);
   transition: transform 0.2s ease;
 
+  button {
+    margin-top: auto;
+  }
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -78,11 +82,14 @@ const Price = styled.div`
   margin: 0.9vw 0 1.2vw;
 `;
 
-const Features = styled.div`
-  display: flex;
-  flex-direction: column;
+const Features = styled.div<{ $count: number }>`
+  display: grid;
   gap: 0.5vw;
   margin-bottom: 1rem;
+
+  grid-template-columns: ${({ $count }) => ($count > 3 ? 'repeat(2, 1fr)' : '1fr')};
+
+  grid-auto-rows: ${({ $count }) => ($count > 6 ? 'minmax(1.5rem, auto)' : 'auto')};
 `;
 
 const Feature = styled.div`

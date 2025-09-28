@@ -92,18 +92,21 @@ const Actions = styled.div`
 `;
 
 export const StyledTag = styled.div<{ $isActive: boolean; $width?: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: ${({ $isActive }) =>
     $isActive ? theme.colors.backgroundCard : theme.colors.sideBarActivebg};
   color: ${({ $isActive }) => ($isActive ? theme.colors.brandPrimary : theme.colors.textMuted)};
   font-size: 0.75vw;
-  height: 1vw;
-  padding: 0.2vw 0.6vw;
+
+  padding: 0.05vw 0.6vw;
   border-radius: 0.5vw;
   border: ${({ $isActive }) =>
     $isActive
       ? `1px solid ${theme.colors.brandPrimary}`
       : `1px solid ${theme.colors.sideBarActivebg}`};
   margin-right: 0.3vw;
-  width: ${({ $width }) => ($width ? $width : 'auto')};
+  width: ${({ $width }) => ($width ? $width : 'fit-content')};
   text-align: center;
 `;

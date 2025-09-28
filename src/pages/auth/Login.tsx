@@ -8,6 +8,7 @@ import { CustomButton } from '../../ui/CustomButton';
 import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
 import { loginUser } from '../../api/auth';
 import { useAuthStore } from '../../store/authStore';
+import type { AxiosError } from 'axios';
 
 export const Login = () => {
   const { setAuth } = useAuthStore();
@@ -34,9 +35,10 @@ export const Login = () => {
 
       messageLogin.success('Успешный вход!');
       navigate('/');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      messageLogin.error(err.response?.data?.message || 'Ошибка авторизации');
+    } catch (err) {
+      const error = err as AxiosError;
+      messageLogin.error('Ошибка авторизации: неверный логин/пароль, или аккаунт был удален');
+      console.log(error);
     }
   };
   return (
