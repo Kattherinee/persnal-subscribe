@@ -2,13 +2,14 @@
 import styled from 'styled-components';
 import { Form, message } from 'antd';
 import { theme } from '../../assets/theme/theme';
-import { Card, Container, Subtitle, Title } from './Login';
+import { Card, Subtitle, Title } from './Login';
 import { Link, useNavigate } from 'react-router-dom';
 import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
 import { CustomButton } from '../../ui/CustomButton';
 import { registerUser } from '../../api/auth';
+import { Container } from './LoginTabs';
 
 export const Register = () => {
   const navigate = useNavigate();

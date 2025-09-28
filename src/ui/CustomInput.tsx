@@ -13,12 +13,12 @@ export const CustomInput = styled(Input)`
 
   &:hover {
     border: 1px solid ${theme.colors.brandAccentHover};
-    box-shadow: 0 0 0.208vw rgba(167, 139, 250, 0.3);
+    box-shadow: 0 0 0.208vw rgba(172, 148, 241, 0.3);
   }
 
   &.ant-input-outlined:focus {
     border-color: ${theme.colors.brandPrimaryHover} !important;
-    box-shadow: 0 0 2px 1px rgba(138, 92, 246, 0.201);
+    box-shadow: 0 0 2px 1px rgba(166, 129, 252, 0.201);
     outline: none;
   }
 

@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { Login } from './pages/auth/Login';
+
 import { Register } from './pages/auth/Register';
-import { LoginAdmin } from './pages/auth/LoginAdmin';
 
 import { Layout } from './layouts/layout';
 import { ProfilePage } from './pages/mainPages/ProfilePage';
@@ -13,14 +12,15 @@ import { AllUsersPage } from './pages/admin/AllUsersPage';
 import { RequireAuth } from './utils/RequireAuth';
 // import { RequireAdmin } from './utils/RequireAdmin';
 import { AdminLayout } from './layouts/adminLayout';
+import { LoginTabs } from './pages/auth/LoginTabs';
 
 function App() {
   return (
     <Routes>
       {/* Публичные страницы */}
-      <Route path="/signin" element={<Login />} />
+      <Route path="/signin" element={<LoginTabs />} />
       <Route path="/signup" element={<Register />} />
-      <Route path="/signin-admin" element={<LoginAdmin />} />
+      <Route path="/signin-admin" element={<LoginTabs />} />
 
       {/* Пользовательские приватные страницы */}
       <Route

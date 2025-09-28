@@ -6,6 +6,7 @@ import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { CustomButton } from '../../ui/CustomButton';
 import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
+import { Card } from './Login';
 
 export const LoginAdmin = () => {
   const onFinish = (values: { email: string; password: string }) => {
@@ -14,73 +15,52 @@ export const LoginAdmin = () => {
   };
 
   return (
-    <Container>
-      <Card>
-        <Title>Добро пожаловать</Title>
-        <Subtitle>Войдите в аккаунт админ-панели для продолжения</Subtitle>
+    <Card>
+      <Title>Добро пожаловать</Title>
+      <Subtitle>Войдите в аккаунт админ-панели</Subtitle>
 
-        <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
-          <Form.Item
-            label={<CustomLabel isRequired>Email</CustomLabel>}
-            name="email"
-            rules={[
-              { required: true, message: 'Введите Email' },
-              { type: 'email', message: 'Введите корректный Email' },
-            ]}
-            required={false}
-            style={{ marginBottom: '0.58vw' }}
-          >
-            <CustomInput placeholder="example@company.com" />
-          </Form.Item>
+      <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
+        <Form.Item
+          label={<CustomLabel isRequired>Email</CustomLabel>}
+          name="email"
+          rules={[
+            { required: true, message: 'Введите Email' },
+            { type: 'email', message: 'Введите корректный Email' },
+          ]}
+          required={false}
+          style={{ marginBottom: '0.58vw' }}
+        >
+          <CustomInput placeholder="example@company.com" />
+        </Form.Item>
 
-          <Form.Item
-            label={<CustomLabel isRequired>Пароль</CustomLabel>}
-            name="password"
-            rules={[
-              { required: true, message: 'Введите пароль' },
-              {
-                min: 8,
-                message: 'Пароль должен содержать минимум 8 символов',
-              },
-              {
-                pattern: /[0-9]/,
-                message: 'Пароль должен содержать хотя бы одну цифру',
-              },
-            ]}
-            required={false}
-          >
-            <CustomPasswordInput type="password" placeholder="Введите пароль" />
-          </Form.Item>
+        <Form.Item
+          label={<CustomLabel isRequired>Пароль</CustomLabel>}
+          name="password"
+          rules={[
+            { required: true, message: 'Введите пароль' },
+            {
+              min: 8,
+              message: 'Пароль должен содержать минимум 8 символов',
+            },
+            {
+              pattern: /[0-9]/,
+              message: 'Пароль должен содержать хотя бы одну цифру',
+            },
+          ]}
+          required={false}
+        >
+          <CustomPasswordInput type="password" placeholder="Введите пароль" />
+        </Form.Item>
 
-          <Form.Item>
-            <CustomButton type="primary" htmlType="submit" $width="100%">
-              Войти
-            </CustomButton>
-          </Form.Item>
-        </Form>
-        <GreyLinkText>Забыли пароль?</GreyLinkText>
-      </Card>
-    </Container>
+        <Form.Item>
+          <CustomButton type="primary" htmlType="submit" $width="100%">
+            Войти
+          </CustomButton>
+        </Form.Item>
+      </Form>
+    </Card>
   );
 };
-
-export const Container = styled.div`
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: ${theme.colors.backgroundPage};
-`;
-
-export const Card = styled.div`
-  background: ${theme.colors.backgroundCard};
-  padding: 1.5vw 2.725vw; /* 43px 24px */
-  border-radius: 0.825vw;
-  box-shadow: 0 0.208vw 1.042vw rgba(0, 0, 0, 0.05);
-  width: 100%;
-  max-width: 20vw;
-  text-align: center;
-`;
 
 export const Title = styled.h1`
   font-size: 1.65vw;

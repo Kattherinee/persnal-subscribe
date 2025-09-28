@@ -42,63 +42,54 @@ export const Login = () => {
   return (
     <>
       {contextHolder}
-      <Container>
-        <Card>
-          <Title>Добро пожаловать</Title>
-          <Subtitle>Войдите в свой аккаунт для продолжения</Subtitle>
 
-          <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
-            <Form.Item
-              label={<CustomLabel isRequired>Email</CustomLabel>}
-              name="login"
-              rules={[
-                { required: true, message: 'Введите Email' },
-                { type: 'email', message: 'Введите корректный Email' },
-              ]}
-              required={false}
-              style={{ marginBottom: '0.58vw' }}
-            >
-              <CustomInput placeholder="example@company.com" />
-            </Form.Item>
+      <Card>
+        <Title>Добро пожаловать</Title>
+        <Subtitle>Войдите в свой аккаунт для продолжения</Subtitle>
 
-            <Form.Item
-              label={<CustomLabel isRequired>Пароль</CustomLabel>}
-              name="password"
-              rules={[{ required: true, message: 'Введите пароль' }]}
-              required={false}
-            >
-              <CustomPasswordInput type="password" placeholder="Введите пароль" />
-            </Form.Item>
+        <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
+          <Form.Item
+            label={<CustomLabel isRequired>Email</CustomLabel>}
+            name="login"
+            rules={[
+              { required: true, message: 'Введите Email' },
+              { type: 'email', message: 'Введите корректный Email' },
+            ]}
+            required={false}
+            style={{ marginBottom: '0.58vw' }}
+          >
+            <CustomInput placeholder="example@company.com" />
+          </Form.Item>
 
-            <Form.Item>
-              <CustomButton type="primary" htmlType="submit" $width="100%">
-                Войти
-              </CustomButton>
-            </Form.Item>
-          </Form>
+          <Form.Item
+            label={<CustomLabel isRequired>Пароль</CustomLabel>}
+            name="password"
+            rules={[{ required: true, message: 'Введите пароль' }]}
+            required={false}
+          >
+            <CustomPasswordInput type="password" placeholder="Введите пароль" />
+          </Form.Item>
 
-          <LinkText to="/signup">Создать новый аккаунт</LinkText>
-        </Card>
-      </Container>
+          <Form.Item style={{ marginBottom: '0.78vw' }}>
+            <CustomButton type="primary" htmlType="submit" $width="100%">
+              Войти
+            </CustomButton>
+          </Form.Item>
+        </Form>
+
+        <LinkText to="/signup">Создать новый аккаунт</LinkText>
+      </Card>
     </>
   );
 };
 
-export const Container = styled.div`
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: ${theme.colors.backgroundPage};
-`;
-
 export const Card = styled.div`
   background: ${theme.colors.backgroundCard};
-  padding: 1.9vw 2.725vw 1.6vw; /* 43px 24px */
+  padding: 1.9vw 2.725vw 1.5vw;
   border-radius: 0.825vw;
   box-shadow: 0 0.208vw 1.042vw rgba(0, 0, 0, 0.05);
-  width: 100%;
-  max-width: 26vw;
+
+  width: 24vw;
   text-align: center;
 `;
 
@@ -121,10 +112,11 @@ export const LinkText = styled(Link)`
   font-weight: 500;
   color: ${theme.colors.brandPrimary};
   cursor: pointer;
-  margin: -0.225vw 0 1vw;
+
   text-decoration: none;
 
   &:hover {
     text-decoration: underline;
+    color: ${theme.colors.brandPrimaryHover};
   }
 `;
