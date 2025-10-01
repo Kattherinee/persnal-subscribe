@@ -2,10 +2,17 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Outlet, NavLink } from 'react-router-dom';
 import { theme } from '../assets/theme/theme';
-import { MenuFoldOutlined, MenuUnfoldOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import {
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UsergroupAddOutlined,
+} from '@ant-design/icons';
+import { useAdminStore } from '../store/adminStore';
 
 export const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const { logoutAdmin } = useAdminStore();
 
   return (
     <LayoutWrapper>
@@ -21,7 +28,9 @@ export const AdminLayout = () => {
         <SidebarFooter>
           {!collapsed && (
             <>
-              <SidebarLink to={'/signin'}>↩ Выйти</SidebarLink>
+              <SidebarLink to={'/signin-admin'} onClick={() => logoutAdmin()}>
+                <LogoutOutlined /> Выйти
+              </SidebarLink>
             </>
           )}
         </SidebarFooter>

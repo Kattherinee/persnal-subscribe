@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { theme } from '../assets/theme/theme';
 import { CustomButton } from '../ui/CustomButton';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 interface PlanCardProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   price: string;
   features: string[];
   onSelect?: () => void;
@@ -21,39 +22,39 @@ export const CardPlan: React.FC<PlanCardProps> = ({
     <Card>
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
-      <Price>{price}</Price>
-
+      <Price>
+        <span>₽</span> {price} <PriceText>руб/ мес</PriceText>
+      </Price>
+      <CustomButton onClick={onSelect} type="primary" $mode="primary">
+        Выбрать план
+      </CustomButton>
       <Features $count={features.length}>
         {features.map((feature, i) => (
           <Feature key={i}>
-            <Dot />
+            <CheckCircleOutlined style={{ color: theme.colors.brandPrimary }} />
             <span>{feature}</span>
           </Feature>
         ))}
       </Features>
-
-      <CustomButton onClick={onSelect} type="primary" $mode="primary">
-        Выбрать план
-      </CustomButton>
     </Card>
   );
 };
 
 const Card = styled.div`
   background: ${theme.colors.backgroundCard};
-  border: 1px solid ${theme.colors.border};
+  border: 1px solid ${theme.colors.brandPrimaryTransparent};
   border-radius: 0.6rem;
-
   padding: 1.5rem;
+  padding-bottom: 2rem;
   width: 100%;
-  max-width: 40vw;
+  max-width: 27vw;
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 4px 2px rgba(24, 24, 24, 0.046);
   transition: transform 0.2s ease;
 
   button {
-    margin-top: auto;
+    border-radius: 20px;
   }
 
   &:hover {
@@ -63,11 +64,11 @@ const Card = styled.div`
 `;
 
 const Title = styled.h3`
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: ${theme.fonts.fontWeightSemibold};
   color: ${theme.colors.textPrimary};
   margin-block: 0;
-  margin-bottom: 0.43vw;
+  margin-bottom: 0.23vw;
 `;
 
 const Subtitle = styled.div`
@@ -76,28 +77,45 @@ const Subtitle = styled.div`
 `;
 
 const Price = styled.div`
-  font-size: 1.4rem;
+  display: flex;
+  font-size: 1.9rem;
   font-weight: ${theme.fonts.fontWeightMedium};
   color: ${theme.colors.textMedium};
-  margin: 0.9vw 0 1.2vw;
+  margin: 0.4vw 0 0.7vw;
+  line-height: 180%;
+  span {
+    margin-right: 0.1rem;
+    color: ${theme.colors.textSecondary};
+    font-size: 1.3rem;
+    line-height: 2rem;
+    margin-bottom: auto;
+  }
+`;
+const PriceText = styled.div`
+  margin-left: 0.3rem;
+  font-size: 0.9rem;
+  line-height: 2.5rem;
+  margin-top: auto;
+  font-weight: 600;
 `;
 
 const Features = styled.div<{ $count: number }>`
   display: grid;
   gap: 0.5vw;
-  margin-bottom: 1rem;
+  margin-top: 1.2rem;
+  /* 
+  grid-template-columns: ${({ $count }) => ($count > 2 ? 'repeat(2, 1fr)' : '1fr')};
 
-  grid-template-columns: ${({ $count }) => ($count > 3 ? 'repeat(2, 1fr)' : '1fr')};
-
-  grid-auto-rows: ${({ $count }) => ($count > 6 ? 'minmax(1.5rem, auto)' : 'auto')};
+  grid-auto-rows: ${({ $count }) => ($count > 4 ? 'minmax(1.5rem, auto)' : 'auto')}; */
 `;
 
 const Feature = styled.div`
   display: flex;
   align-items: center;
   gap: 0.6vw;
-  font-size: 0.8vw;
+  font-size: 1vw;
   color: ${theme.colors.textMedium};
+  font-weight: 500;
 `;
 
 export const Dot = styled.div`

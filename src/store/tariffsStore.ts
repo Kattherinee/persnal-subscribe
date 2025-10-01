@@ -1,12 +1,18 @@
 import { create } from 'zustand';
-import type { Tariff } from '../dto/tariffs';
+import type { ITariff } from '../dto/tariffs';
+import { persist } from 'zustand/middleware';
 
 interface TariffsState {
-  tariffs: Tariff[];
-  setTariffs: (tariffs: Tariff[]) => void;
+  tariffs: ITariff[];
+  setTariffs: (tariffs: ITariff[]) => void;
 }
 
-export const useTariffsStore = create<TariffsState>((set) => ({
-  tariffs: [],
-  setTariffs: (tariffs) => set({ tariffs }),
-}));
+export const useTariffsStore = create<TariffsState>()(
+  persist(
+    (set) => ({
+      tariffs: [],
+      setTariffs: (tariffs) => set({ tariffs }),
+    }),
+    { name: 'TariffsStore' },
+  ),
+);

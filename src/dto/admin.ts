@@ -1,14 +1,18 @@
-export interface AdminLoginParams {
-  email: string;
+export interface IAdminLoginParams {
+  login: string;
   password: string;
 }
-export interface Admin {
-  id: string;
-  email: string;
-  role: 'admin';
+
+export interface IAdminAuthResponse {
+  access_token: string;
+  role: string;
+}
+export interface IAdmin {
+  access_token: string;
+  role: string;
 }
 
-export interface tableUser {
+export interface ITableUser {
   id: string;
   email: string;
   fullName: string;

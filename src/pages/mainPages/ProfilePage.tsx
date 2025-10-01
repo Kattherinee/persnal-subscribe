@@ -5,7 +5,7 @@ import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
-import { deleteUser, updateUser } from '../../api/auth';
+import { deleteUser, updateUser } from '../../api/user';
 import { ChangePasswordModal } from '../../components/ChangePasswordModal';
 import { App } from 'antd';
 import { WarningTwoTone } from '@ant-design/icons';
@@ -142,7 +142,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.h2`
-  font-size: 1.2vw;
+  font-size: 1.3vw;
   margin-block: 0;
   font-weight: ${theme.fonts.fontWeightSemibold};
   color: ${theme.colors.textPrimary};
@@ -156,7 +156,7 @@ export const Subtitle = styled.p`
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.6vw;
+  gap: 0.2vw;
   margin-bottom: 1.2vw;
 `;
 export const PageCard = styled.div`

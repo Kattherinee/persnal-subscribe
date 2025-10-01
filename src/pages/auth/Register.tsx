@@ -8,7 +8,7 @@ import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
 import { CustomButton } from '../../ui/CustomButton';
-import { registerUser } from '../../api/auth';
+import { registerUser } from '../../api/user';
 import { Container } from './LoginTabs';
 
 export const Register = () => {

@@ -1,4 +1,4 @@
-export interface Tariff {
+export interface ITariff {
   id: string;
   title: string;
   price: string;

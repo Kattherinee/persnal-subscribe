@@ -7,7 +7,7 @@ import { CustomButton } from '../ui/CustomButton';
 import { CustomLabel } from '../ui/CustomLabel';
 import { CustomPasswordInput } from '../ui/CustomPasswordInput';
 import { useAuthStore } from '../store/authStore';
-import { updatePassword } from '../api/auth';
+import { updatePassword } from '../api/user';
 import type { AxiosError } from 'axios';
 
 type GenerateKeyModalProps = {

@@ -79,6 +79,10 @@ export const AllUsersPage = () => {
         );
       },
     },
+    {
+      title: 'Активен до',
+      dataIndex: 'TariffEndDate',
+    },
   ];
 
   return (

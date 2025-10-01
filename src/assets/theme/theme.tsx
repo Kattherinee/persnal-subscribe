@@ -10,7 +10,8 @@ export const theme = {
 
     // Тексты
     textPrimary: '#1e293b', // основной текст
-    textMedium: '#333b49', // chtlybq текст
+    textMedium: '#333b49',
+    text: '#4b5561', // chtlybq текст
     textSecondary: '#64748b', // второстепенный текст
     textMuted: '#64748b', // приглушённый
     textInverse: '#f0f0f0', // для светлого текста на кнопках
@@ -20,7 +21,7 @@ export const theme = {
     brandPrimaryHover: '#764dd7', // hover-состояние
     brandAccent: '#a855f7', // дополнительный акцент
     brandAccentHover: '#9333ea', // можно добавить для hover
-    brandPrimaryTransparent: '#8a5cf64c',
+    brandPrimaryTransparent: '#775fff48',
 
     // Состояния
     error: '#ef4444',
@@ -40,6 +41,7 @@ export const theme = {
     sidebarTextMuted: '#64748b',
     sidebarBorder: '#e2e8f0',
     sideBarActivebg: '#e9e9f0',
+    sideBarBrandActivebg: '#5b4fff20',
   },
 
   fonts: {

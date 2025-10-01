@@ -129,7 +129,7 @@ const SidebarLink = styled(NavLink)`
   }
 
   &.active {
-    background: ${theme.colors.sideBarActivebg};
+    background: ${theme.colors.sideBarBrandActivebg};
     color: ${theme.colors.textPrimary};
   }
 
