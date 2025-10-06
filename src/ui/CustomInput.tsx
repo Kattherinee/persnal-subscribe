@@ -12,7 +12,7 @@ export const CustomInput = styled(Input)`
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    border: 1px solid ${theme.colors.brandAccentHover};
+    border: 1px solid ${theme.colors.brandPrimary};
     box-shadow: 0 0 0.208vw rgba(172, 148, 241, 0.3);
   }
 
