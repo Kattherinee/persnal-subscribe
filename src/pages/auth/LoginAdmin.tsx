@@ -29,7 +29,6 @@ export const LoginAdmin = () => {
         role: res.role,
       });
 
-      // messageLogin.success('Успешный вход!');
       navigate('/admin/users');
     } catch (err) {
       const error = err as AxiosError;
@@ -47,13 +46,13 @@ export const LoginAdmin = () => {
 
         <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
           <Form.Item
-            label={<CustomLabel isRequired>Email</CustomLabel>}
+            label={<CustomLabel isRequired>Логин</CustomLabel>}
             name="login"
-            rules={[{ required: true, message: 'Введите Email' }]}
+            rules={[{ required: true, message: 'Введите логин' }]}
             required={false}
             style={{ marginBottom: '0.58vw' }}
           >
-            <CustomInput placeholder="example@company.com" />
+            <CustomInput placeholder="Введите логин" />
           </Form.Item>
 
           <Form.Item

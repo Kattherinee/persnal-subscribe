@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Register } from './pages/auth/Register';
 
 import { Layout } from './layouts/layout';
-import { ProfilePage } from './pages/mainPages/ProfilePage';
+import { ProfilePage } from './pages/mainPages/ProfilePage/ProfilePage';
 import { TariffsPage } from './pages/mainPages/TariffsPage';
 import { MyTariffsPage } from './pages/mainPages/MyTariffsPage';
 import { PlanDetailPage } from './pages/PlanDetailPage';

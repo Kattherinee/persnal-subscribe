@@ -19,8 +19,6 @@ export const theme = {
     // Основные акценты
     brandPrimary: '#8b5cf6', // основной фирменный
     brandPrimaryHover: '#764dd7', // hover-состояние
-    brandAccent: '#a855f7', // дополнительный акцент
-    brandAccentHover: '#9333ea', // можно добавить для hover
     brandPrimaryTransparent: '#775fff48',
 
     // Состояния

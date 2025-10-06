@@ -23,7 +23,6 @@ export const ChangePasswordModal = ({ open, onClose }: GenerateKeyModalProps) =>
     try {
       if (!user) return;
       const payload = {
-        userId: user.id,
         newPassword: values.newPassword,
       };
 

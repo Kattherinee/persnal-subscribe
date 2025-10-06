@@ -2,13 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Outlet, NavLink } from 'react-router-dom';
 import { theme } from '../assets/theme/theme';
-import {
-  LogoutOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UsergroupAddOutlined,
-} from '@ant-design/icons';
+import { LogoutOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { useAdminStore } from '../store/adminStore';
+import { AdminHeader } from '../components/admin/AdminHeader';
 
 export const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -37,25 +33,7 @@ export const AdminLayout = () => {
       </Sidebar>
 
       <Main>
-        <Header>
-          <HeaderLeft>
-            {collapsed ? (
-              <MenuUnfoldOutlined
-                size={20}
-                onClick={() => setCollapsed(false)}
-                style={{ cursor: 'pointer' }}
-              />
-            ) : (
-              <MenuFoldOutlined
-                size={20}
-                onClick={() => setCollapsed(true)}
-                style={{ cursor: 'pointer' }}
-              />
-            )}
-            <h1>Админ-панель</h1>
-          </HeaderLeft>
-        </Header>
-
+        <AdminHeader collapsed={collapsed} setCollapsed={setCollapsed} />
         <Content $collapsed={collapsed}>
           <Outlet />
         </Content>
@@ -127,28 +105,6 @@ const Main = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
-`;
-
-const Header = styled.header`
-  height: 56px;
-  border-bottom: 1px solid ${theme.colors.border};
-  background: ${theme.colors.backgroundCard};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
-`;
-
-const HeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-
-  h1 {
-    font-size: 1rem;
-    font-weight: ${theme.fonts.fontWeightSemibold};
-    color: ${theme.colors.textPrimary};
-  }
 `;
 
 const Content = styled.main<{ $collapsed: boolean }>`

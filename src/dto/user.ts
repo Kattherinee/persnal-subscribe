@@ -10,24 +10,20 @@ export interface ILoginParams {
 }
 
 export interface User {
-  id: string;
   email: string;
   fullname: string;
 }
 
 export interface IUserAuthResponse {
   access_token: string;
-  id: string;
   email: string;
   fullname: string;
 }
 export interface IUserUpdateParams {
-  id: string;
   email: string;
   fullname: string;
 }
 
 export interface IPasswordUpdateParams {
-  userId: string;
   newPassword: string;
 }

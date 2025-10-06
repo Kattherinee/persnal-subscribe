@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CardPlan } from '../../components/CardPlan';
-import { Subtitle, Title, TitleContainer, Wrapper } from './ProfilePage';
+import { Subtitle, Title, TitleContainer, Wrapper } from './ProfilePage/ProfilePage';
 import { useTariffsStore } from '../../store/tariffsStore';
 import { useEffect } from 'react';
 import { getAvailableTariff } from '../../api/tariffs';

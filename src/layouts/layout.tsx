@@ -2,15 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Outlet, NavLink } from 'react-router-dom';
 import { theme } from '../assets/theme/theme';
-import {
-  CreditCardOutlined,
-  KeyOutlined,
-  LogoutOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { CreditCardOutlined, KeyOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { useAuthStore } from '../store/authStore';
+import { UserHeader } from '../components/UserHeader';
 
 export const Layout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -55,25 +49,7 @@ export const Layout = () => {
       </Sidebar>
 
       <Main>
-        <Header>
-          <HeaderLeft>
-            {collapsed ? (
-              <MenuUnfoldOutlined
-                size={20}
-                onClick={() => setCollapsed(false)}
-                style={{ cursor: 'pointer' }}
-              />
-            ) : (
-              <MenuFoldOutlined
-                size={20}
-                onClick={() => setCollapsed(true)}
-                style={{ cursor: 'pointer' }}
-              />
-            )}
-            <h1>Личный кабинет</h1>
-          </HeaderLeft>
-        </Header>
-
+        <UserHeader collapsed={collapsed} setCollapsed={setCollapsed} />
         <Content $collapsed={collapsed}>
           <Outlet />
         </Content>
@@ -148,28 +124,6 @@ const Main = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
-`;
-
-const Header = styled.header`
-  height: 56px;
-  border-bottom: 1px solid ${theme.colors.border};
-  background: ${theme.colors.backgroundCard};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
-`;
-
-const HeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-
-  h1 {
-    font-size: 1rem;
-    font-weight: ${theme.fonts.fontWeightSemibold};
-    color: ${theme.colors.textPrimary};
-  }
 `;
 
 const Content = styled.main<{ $collapsed: boolean }>`

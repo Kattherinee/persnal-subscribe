@@ -1,25 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from 'styled-components';
-import { theme } from '../../assets/theme/theme';
-import { CustomButton } from '../../ui/CustomButton';
-import { CustomLabel } from '../../ui/CustomLabel';
-import { CustomInput } from '../../ui/CustomInput';
+import { theme } from '../../../assets/theme/theme';
+import { CustomButton } from '../../../ui/CustomButton';
+import { CustomLabel } from '../../../ui/CustomLabel';
+import { CustomInput } from '../../../ui/CustomInput';
 import { useState } from 'react';
-import { useAuthStore } from '../../store/authStore';
-import { deleteUser, updateUser } from '../../api/user';
-import { ChangePasswordModal } from '../../components/ChangePasswordModal';
+import { useAuthStore } from '../../../store/authStore';
+import { deleteUser, updateUser } from '../../../api/user';
+import { ChangePasswordModal } from '../../../components/ChangePasswordModal';
 import { App } from 'antd';
 import { WarningTwoTone } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import type { AxiosError } from 'axios';
+import { modalButtonStyles } from './modalButtonStyles';
 
 export const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { user, setUser, logout } = useAuthStore();
   const [formData, setFormData] = useState({
     fullname: user?.fullname || '',
     email: user?.email || '',
-    id: user?.id || '',
   });
   const navigate = useNavigate();
   const { modal, message } = App.useApp();
@@ -44,32 +46,48 @@ export const ProfilePage = () => {
   const handleCancel = () => {
     if (!user) return;
     setFormData({ ...formData, fullname: user.fullname, email: user.email });
+    setIsEditing(false);
   };
 
   const handleDeleteAccount = () => {
-    console.log('handleDeleteAccount вызвана');
     modal.confirm({
       title: 'Вы уверены, что хотите удалить аккаунт?',
       icon: <WarningTwoTone twoToneColor="#ff1c1c" />,
       content: 'Это действие нельзя отменить. Все ваши данные будут безвозвратно удалены.',
       okText: 'Удалить',
-      okType: 'danger',
-
       cancelText: 'Отмена',
-      async onOk() {
-        try {
-          if (!user) return;
-
-          await deleteUser(user.id);
-          navigate('/signup');
-          logout();
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-          message.error('Ошибка при удалении аккаунта', error);
-        }
+      okButtonProps: {
+        style: modalButtonStyles.dangerButton,
+        onMouseEnter: (e) => {
+          Object.assign(e.currentTarget.style, modalButtonStyles.dangerButtonHover);
+        },
+        onMouseLeave: (e) => {
+          Object.assign(e.currentTarget.style, modalButtonStyles.dangerButton);
+        },
       },
-      onCancel() {},
+      cancelButtonProps: {
+        style: modalButtonStyles.cancelButton,
+        onMouseEnter: (e) => {
+          Object.assign(e.currentTarget.style, modalButtonStyles.cancelButtonHover);
+        },
+        onMouseLeave: (e) => {
+          Object.assign(e.currentTarget.style, modalButtonStyles.cancelButton);
+        },
+      },
+      onOk: deleteAccount,
     });
+  };
+
+  const deleteAccount = async () => {
+    try {
+      if (!user) return;
+      await deleteUser();
+      navigate('/signup');
+      logout();
+    } catch (error: any) {
+      message.error('Ошибка при удалении аккаунта');
+      console.error(error);
+    }
   };
 
   return (
@@ -153,12 +171,14 @@ export const Subtitle = styled.p`
   color: ${theme.colors.textMuted};
   margin-block: 0;
 `;
+
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.2vw;
   margin-bottom: 1.2vw;
 `;
+
 export const PageCard = styled.div`
   background: ${theme.colors.backgroundCard};
   border: 1px solid ${theme.colors.border};
@@ -174,6 +194,7 @@ const CardTitle = styled.h3`
   margin-block: 0;
   margin-bottom: 0.75rem;
 `;
+
 const CardInfo = styled.div`
   font-size: 0.83vw;
   color: ${theme.colors.textMuted};

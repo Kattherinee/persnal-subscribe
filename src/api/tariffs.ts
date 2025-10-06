@@ -1,8 +1,8 @@
 import type { ITariff } from '../dto/tariffs';
-import { createAuthenticatedRequest } from './baseRequest';
+import { createAuthenticateUserRequest } from './baseRequest';
 
 export const getAvailableTariff = async () => {
-  const request = createAuthenticatedRequest();
+  const request = createAuthenticateUserRequest();
   const response = await request.get<ITariff[]>('/Tariff/GetAvailableTariff');
   return response.data;
 };

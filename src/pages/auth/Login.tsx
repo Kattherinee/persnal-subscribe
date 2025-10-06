@@ -26,7 +26,6 @@ export const Login = () => {
 
       setAuth(
         {
-          id: res.id,
           email: res.email,
           fullname: res.fullname,
         },
@@ -51,12 +50,9 @@ export const Login = () => {
 
         <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
           <Form.Item
-            label={<CustomLabel isRequired>Email</CustomLabel>}
+            label={<CustomLabel isRequired>Логин</CustomLabel>}
             name="login"
-            rules={[
-              { required: true, message: 'Введите Email' },
-              { type: 'email', message: 'Введите корректный Email' },
-            ]}
+            rules={[{ required: true, message: 'Введите логин' }]}
             required={false}
             style={{ marginBottom: '0.58vw' }}
           >

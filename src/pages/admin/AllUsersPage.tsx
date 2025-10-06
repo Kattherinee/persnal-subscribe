@@ -3,7 +3,13 @@ import { Table } from 'antd';
 
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
-import { PageCard, Subtitle, Title, TitleContainer, Wrapper } from '../mainPages/ProfilePage';
+import {
+  PageCard,
+  Subtitle,
+  Title,
+  TitleContainer,
+  Wrapper,
+} from '../mainPages/ProfilePage/ProfilePage';
 import { UsergroupAddOutlined } from '@ant-design/icons';
 import { StyledTag } from '../../components/CardMyPlan';
 
