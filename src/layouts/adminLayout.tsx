@@ -17,7 +17,7 @@ export const AdminLayout = () => {
         <SidebarMenu $collapsed={collapsed}>
           <SidebarLink to="/admin/users">
             <UsergroupAddOutlined />
-            Все пользователи
+            All users
           </SidebarLink>
         </SidebarMenu>
 
@@ -25,7 +25,7 @@ export const AdminLayout = () => {
           {!collapsed && (
             <>
               <SidebarLink to={'/signin-admin'} onClick={() => logoutAdmin()}>
-                <LogoutOutlined /> Выйти
+                <LogoutOutlined /> Exit
               </SidebarLink>
             </>
           )}

@@ -23,26 +23,26 @@ export const Register = () => {
 
       await registerUser(payload);
       navigate('/signin');
-      message.success('Регистрация успешно завершена!');
+      message.success('Registration completed successfully!');
     } catch (err: any) {
-      message.error(err.response?.data?.message || 'Ошибка регистрации');
+      message.error(err.response?.data?.message || 'Registration error');
     }
   };
 
   return (
     <Container>
       <Card>
-        <Title>Регистрация</Title>
-        <Subtitle>Создайте новый аккаунт для начала</Subtitle>
+        <Title>Registration</Title>
+        <Subtitle>Create a new account to get started</Subtitle>
         <Form name="registration" layout="vertical" onFinish={onFinish} autoComplete="off">
           <Form.Item
-            label={<CustomLabel isRequired>Имя</CustomLabel>}
+            label={<CustomLabel isRequired>Name</CustomLabel>}
             name="name"
             required={false}
-            rules={[{ required: true, message: 'Введите имя' }]}
+            rules={[{ required: true, message: 'Please enter name' }]}
             style={{ marginBottom: '0.58vw' }}
           >
-            <CustomInput placeholder="Введите ваше имя" />
+            <CustomInput placeholder="Enter your name" />
           </Form.Item>
 
           <Form.Item
@@ -51,76 +51,79 @@ export const Register = () => {
             required={false}
             style={{ marginBottom: '0.58vw' }}
             rules={[
-              { required: true, message: 'Введите Email' },
-              { type: 'email', message: 'Введите корректный Email' },
+              { required: true, message: 'Please enter email' },
+              { type: 'email', message: 'Please enter valid email' },
             ]}
           >
             <CustomInput placeholder="example@company.com" />
           </Form.Item>
 
           <Form.Item
-            label={<CustomLabel isRequired>Пароль</CustomLabel>}
+            label={<CustomLabel isRequired>Password</CustomLabel>}
             name="password"
             style={{ marginBottom: '0.58vw' }}
             rules={[
-              { required: true, message: 'Введите пароль' },
+              { required: true, message: 'Please enter password' },
               {
                 min: 8,
-                message: 'Пароль должен содержать минимум 8 символов',
+                message: 'Password must contain at least 8 characters',
               },
               {
                 pattern: /[0-9]/,
-                message: 'Пароль должен содержать хотя бы одну цифру',
+                message: 'Password must contain at least one number',
               },
             ]}
             required={false}
           >
-            <CustomPasswordInput type="password" placeholder="Введите пароль" />
+            <CustomPasswordInput type="password" placeholder="Enter password" />
           </Form.Item>
           <Form.Item
-            label={<CustomLabel isRequired>Подтверждение пароля</CustomLabel>}
+            label={<CustomLabel isRequired>Confirm Password</CustomLabel>}
             name="confirmPassword"
             dependencies={['password']}
             rules={[
-              { required: true, message: 'Подтвердите пароль' },
+              { required: true, message: 'Please confirm password' },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error('Пароли не совпадают'));
+                  return Promise.reject(new Error('Passwords do not match'));
                 },
               }),
             ]}
             required={false}
           >
-            <CustomPasswordInput type="password" placeholder="Подтвердите пароль" />
+            <CustomPasswordInput type="password" placeholder="Confirm password" />
           </Form.Item>
 
           <Form.Item>
             <CustomButton type="primary" htmlType="submit" block $width="100%">
-              Зарегистрироваться
+              Register
             </CustomButton>
           </Form.Item>
         </Form>
         <LinkContainer>
-          <GreyText>Уже есть аккаунт? </GreyText>
-          <LinkText to="/signin">Войти</LinkText>
+          <GreyText>Already have an account? </GreyText>
+          <LinkText to="/signin">Sign In</LinkText>
         </LinkContainer>
       </Card>
     </Container>
   );
 };
+
 const GreyText = styled.span`
   font-size: 0.78vw;
   color: ${theme.colors.textSecondary};
 `;
+
 const LinkContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5vw;
 `;
+
 export const LinkText = styled(Link)`
   display: block;
   font-size: 0.78vw;

@@ -32,7 +32,7 @@ export const LoginAdmin = () => {
       navigate('/admin/users');
     } catch (err) {
       const error = err as AxiosError;
-      messageLogin.error('Ошибка авторизации: неверный логин/пароль, или аккаунт был удален');
+      messageLogin.error('Authorization error: incorrect login/password, or account was deleted');
       console.log(error);
     }
   };
@@ -41,32 +41,32 @@ export const LoginAdmin = () => {
     <>
       {contextHolder}
       <Card>
-        <Title>Добро пожаловать</Title>
-        <Subtitle>Войдите в аккаунт админ-панели</Subtitle>
+        <Title>Welcome</Title>
+        <Subtitle>Sign in to admin panel</Subtitle>
 
         <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
           <Form.Item
-            label={<CustomLabel isRequired>Логин</CustomLabel>}
+            label={<CustomLabel isRequired>Login</CustomLabel>}
             name="login"
-            rules={[{ required: true, message: 'Введите логин' }]}
+            rules={[{ required: true, message: 'Please enter login' }]}
             required={false}
             style={{ marginBottom: '0.58vw' }}
           >
-            <CustomInput placeholder="Введите логин" />
+            <CustomInput placeholder="Enter login" />
           </Form.Item>
 
           <Form.Item
-            label={<CustomLabel isRequired>Пароль</CustomLabel>}
+            label={<CustomLabel isRequired>Password</CustomLabel>}
             name="password"
-            rules={[{ required: true, message: 'Введите пароль' }]}
+            rules={[{ required: true, message: 'Please enter password' }]}
             required={false}
           >
-            <CustomPasswordInput type="password" placeholder="Введите пароль" />
+            <CustomPasswordInput type="password" placeholder="Enter password" />
           </Form.Item>
 
           <Form.Item>
             <CustomButton type="primary" htmlType="submit" $width="100%">
-              Войти
+              Sign In
             </CustomButton>
           </Form.Item>
         </Form>

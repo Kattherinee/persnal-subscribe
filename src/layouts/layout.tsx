@@ -25,15 +25,15 @@ export const Layout = () => {
         <SidebarMenu $collapsed={collapsed}>
           <SidebarLink to="/">
             <UserOutlined />
-            Мои данные
+            My profile
           </SidebarLink>
           <SidebarLink to="/tariffs">
             <CreditCardOutlined />
-            Доступные тарифы
+            Available tariffs
           </SidebarLink>
           <SidebarLink to="/my-tariffs">
             <KeyOutlined />
-            Мои тарифы
+            My tariffs
           </SidebarLink>
         </SidebarMenu>
 
@@ -41,7 +41,7 @@ export const Layout = () => {
           {!collapsed && (
             <>
               <SidebarLink className="logout" to={'/signin'} onClick={() => logout()}>
-                <LogoutOutlined /> Выйти
+                <LogoutOutlined /> Exit
               </SidebarLink>
             </>
           )}

@@ -25,7 +25,7 @@ export const UploadFileModal = ({ open, onClose }: UploadFileModalProps) => {
     customRequest: async ({ file, onSuccess, onError }) => {
       try {
         messageApi.loading({
-          content: 'Получение ссылки для загрузки...',
+          content: 'Getting upload link...',
           key: 'upload',
           duration: 0,
         });
@@ -33,11 +33,11 @@ export const UploadFileModal = ({ open, onClose }: UploadFileModalProps) => {
         const { storageFileId, uploadFileLink } = await GetUploadLinkPlugin();
 
         if (!storageFileId || !uploadFileLink) {
-          throw new Error('Не удалось получить ссылку для загрузки');
+          throw new Error('Failed to get upload link');
         }
 
-        //Загружаем файл напрямую по presigned URL
-        messageApi.loading({ content: 'Загрузка файла...', key: 'upload', duration: 0 });
+        // Upload file directly via presigned URL
+        messageApi.loading({ content: 'Uploading file...', key: 'upload', duration: 0 });
 
         await axios.put(uploadFileLink, file, {
           headers: {
@@ -45,18 +45,18 @@ export const UploadFileModal = ({ open, onClose }: UploadFileModalProps) => {
           },
         });
 
-        messageApi.loading({ content: 'Подтверждение загрузки...', key: 'upload', duration: 0 });
+        messageApi.loading({ content: 'Confirming upload...', key: 'upload', duration: 0 });
 
         await ConfirmUploadPlugin({ storageFileId });
 
         messageApi.destroy('upload');
-        messageApi.success('Файл успешно загружен!');
+        messageApi.success('File uploaded successfully!');
         onSuccess?.({ storageFileId });
         onClose();
       } catch (error) {
-        console.error('Ошибка загрузки:', error);
+        console.error('Upload error:', error);
         messageApi.destroy('upload');
-        messageApi.error('Ошибка при загрузке файла.');
+        messageApi.error('Error uploading file.');
         onError?.(error as Error);
       }
     },
@@ -69,7 +69,7 @@ export const UploadFileModal = ({ open, onClose }: UploadFileModalProps) => {
         title={
           <Title>
             <UploadOutlined style={{ marginRight: 8 }} />
-            Загрузить плагин
+            Upload Plugin
           </Title>
         }
         open={open}
@@ -82,9 +82,9 @@ export const UploadFileModal = ({ open, onClose }: UploadFileModalProps) => {
           <p className="ant-upload-drag-icon">
             <InboxOutlined style={{ color: theme.colors.brandPrimary }} />
           </p>
-          <p className="ant-upload-text">Нажмите или перетащите файл сюда для загрузки</p>
+          <p className="ant-upload-text">Click or drag file here to upload</p>
           <p className="ant-upload-hint">
-            Поддерживается одиночная загрузка. Не загружайте конфиденциальные или запрещённые файлы.
+            Single upload supported. Do not upload confidential or prohibited files.
           </p>
         </StyledDragger>
       </Modal>
@@ -98,6 +98,7 @@ const Title = styled.h3`
   color: ${theme.colors.textPrimary};
   margin-block: 0;
 `;
+
 const StyledDragger = styled(Dragger)`
   margin: 0.1vw;
 

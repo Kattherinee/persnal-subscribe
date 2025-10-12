@@ -12,27 +12,43 @@ type CardMyPlanProps = {
   endDate?: string;
   isActive: boolean;
   idPlan: string;
+  accessKey: string;
 };
 
-export const CardMyPlan = ({ title, price, endDate, isActive, idPlan }: CardMyPlanProps) => {
+export const CardMyPlan = ({
+  title,
+  price,
+  endDate,
+  isActive,
+  idPlan,
+  accessKey,
+}: CardMyPlanProps) => {
   const [open, setOpen] = useState(false);
   return (
     <Card>
       <Info>
         <Title>{title}</Title>
-        <Price>{price}</Price>
-        {endDate && <DateText>Действует до: {endDate}</DateText>}
+        <Divider />
+        <Price>
+          <span>$</span> {price.slice(0, -1)} <PriceText>USD/month</PriceText>
+        </Price>
+        {endDate && (
+          <>
+            <Divider />
+            <DateText>Valid until: {new Date(endDate).toLocaleDateString()}</DateText>
+          </>
+        )}
       </Info>
 
       <Actions>
-        <StyledTag $isActive={isActive}>Активен</StyledTag>
-        {isActive && (
+        <StyledTag $isActive={!isActive}>{!isActive ? 'Active' : 'Unactive'}</StyledTag>
+        {!isActive && (
           <>
             <CustomButton onClick={() => setOpen(true)} type="text" $mode="secondary" $height="2vw">
               <KeyOutlined />
-              Получить ключ
+              Get API key
             </CustomButton>
-            <GenerateKeyModal open={open} onClose={() => setOpen(false)} />
+            <GenerateKeyModal open={open} onClose={() => setOpen(false)} accessKey={accessKey} />
           </>
         )}
         <Link to={`/my-tariffs/${idPlan}`}>
@@ -63,25 +79,53 @@ const Card = styled.div`
 
 const Info = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 0.3vw;
+  align-items: center;
+  gap: 4vw;
 `;
 
 const Title = styled.h3`
-  font-size: 1vw;
-  margin: 0 0 0.3vw 0;
+  font-size: 1.1vw;
+  margin: 0 0 0.1vw 0;
   font-weight: ${theme.fonts.fontWeightMedium};
-  color: ${theme.colors.textPrimary};
-`;
-
-const Price = styled.p`
-  font-size: 0.92vw;
-  margin: 0;
   color: ${theme.colors.textMedium};
 `;
 
+const Divider = styled.div`
+  width: 1.5px;
+  height: 1.2vw;
+  background-color: ${theme.colors.border};
+  font-weight: 400;
+  &:nth-child(2) {
+    width: 1px;
+  }
+`;
+
+const Price = styled.div`
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: ${theme.fonts.fontWeightMedium};
+  color: ${theme.colors.textMedium};
+
+  line-height: 180%;
+  span {
+    margin-right: 0.1rem;
+    color: ${theme.colors.textSecondary};
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    margin-bottom: auto;
+  }
+`;
+const PriceText = styled.div`
+  margin-left: 0.3rem;
+  font-size: 0.8rem;
+  line-height: 2rem;
+  margin-top: auto;
+  font-weight: 600;
+`;
 const DateText = styled.span`
   font-size: 0.85vw;
+  line-height: 2.1rem;
+  margin-top: auto;
   color: ${theme.colors.textSecondary};
 `;
 

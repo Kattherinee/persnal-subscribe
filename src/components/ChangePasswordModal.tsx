@@ -19,6 +19,7 @@ export const ChangePasswordModal = ({ open, onClose }: GenerateKeyModalProps) =>
   const [messageApi, contextHolder] = message.useMessage();
   const { user } = useAuthStore();
   const [form] = Form.useForm();
+
   const onFinish = async (values: { newPassword: string }) => {
     try {
       if (!user) return;
@@ -27,11 +28,11 @@ export const ChangePasswordModal = ({ open, onClose }: GenerateKeyModalProps) =>
       };
 
       await updatePassword(payload);
-      messageApi.success('Пароль изменен успешно!');
+      messageApi.success('Password changed successfully!');
       form.resetFields();
       onClose();
     } catch (err) {
-      messageApi.error('Ошибка смены пароля');
+      messageApi.error('Error changing password');
       const error = err as AxiosError;
       console.error(error.response);
       form.resetFields();
@@ -43,7 +44,7 @@ export const ChangePasswordModal = ({ open, onClose }: GenerateKeyModalProps) =>
     <>
       {contextHolder}
       <Modal
-        title={<Title>{<KeyOutlined />} Сменить пароль</Title>}
+        title={<Title>{<KeyOutlined />} Change Password</Title>}
         open={open}
         onCancel={onClose}
         footer={null}
@@ -59,29 +60,29 @@ export const ChangePasswordModal = ({ open, onClose }: GenerateKeyModalProps) =>
         >
           <Form.Item
             name="newPassword"
-            label={<CustomLabel isRequired>Новый пароль</CustomLabel>}
+            label={<CustomLabel isRequired>New Password</CustomLabel>}
             rules={[
-              { required: true, message: 'Введите пароль' },
+              { required: true, message: 'Please enter password' },
               {
                 min: 8,
-                message: 'Пароль должен содержать минимум 8 символов',
+                message: 'Password must contain at least 8 characters',
               },
               {
                 pattern: /[0-9]/,
-                message: 'Пароль должен содержать хотя бы одну цифру',
+                message: 'Password must contain at least one number',
               },
             ]}
             required={false}
           >
-            <CustomPasswordInput type="password" placeholder="Введите новый пароль" />
+            <CustomPasswordInput type="password" placeholder="Enter new password" />
           </Form.Item>
 
           <ButtonsContainer>
             <CustomButton type="text" $mode="secondary" $width="100%" onClick={onClose}>
-              Отмена
+              Cancel
             </CustomButton>
             <CustomButton type="primary" htmlType="submit" $width="100%">
-              Сменить пароль
+              Change Password
             </CustomButton>
           </ButtonsContainer>
         </Form>

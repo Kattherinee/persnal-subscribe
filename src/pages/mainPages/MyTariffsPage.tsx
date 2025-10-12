@@ -2,12 +2,28 @@ import styled from 'styled-components';
 
 import { Subtitle, Title, TitleContainer, Wrapper } from './ProfilePage/ProfilePage';
 import { CardMyPlan } from '../../components/CardMyPlan';
-import { mockPlans } from '../../assets/mockData';
-// import { CustomButton } from '../../../ui/CustomButton';
-// import { CustomLabel } from '../../../ui/CustomLabel';
-// import { CustomInput } from '../../../ui/CustomInput';
+import { useEffect } from 'react';
+import { getUserTariffs } from '../../api/tariffs';
+import { App } from 'antd';
+import { useUserTariffsStore } from '../../store/userTariffsStore';
 
 export const MyTariffsPage = () => {
+  const { message } = App.useApp();
+  const { userTariffs, setUserTariffs } = useUserTariffsStore();
+  useEffect(() => {
+    const fetchTariffs = async () => {
+      try {
+        const res = await getUserTariffs();
+        setUserTariffs(res);
+      } catch (error) {
+        message.error('Ошибка загрузки тарифов');
+        console.error('Failed to fetch tariffs:', error);
+      }
+    };
+
+    fetchTariffs();
+  }, [setUserTariffs, message]);
+  console.log('userTariffs', userTariffs);
   return (
     <Wrapper>
       <TitleContainer>
@@ -15,7 +31,7 @@ export const MyTariffsPage = () => {
         <Subtitle>Управление активными подписками и получение API ключей</Subtitle>
       </TitleContainer>
       <CardContainer>
-        {mockPlans.map((plan, i) => {
+        {userTariffs.map((plan, i) => {
           return (
             <CardMyPlan
               key={i}
@@ -24,6 +40,7 @@ export const MyTariffsPage = () => {
               endDate={plan.endDate}
               isActive={plan.isActive}
               idPlan={plan.id}
+              accessKey={plan.accessKey}
             />
           );
         })}

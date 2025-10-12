@@ -1,92 +1,62 @@
 import { Modal, Spin, message } from 'antd';
 import styled from 'styled-components';
-import { useState } from 'react';
 import { theme } from '../assets/theme/theme';
 import { CopyOutlined, KeyOutlined, LoadingOutlined } from '@ant-design/icons';
 import { CustomButton } from '../ui/CustomButton';
 
-type GenerateKeyModalProps = {
+interface IProps {
   open: boolean;
   onClose: () => void;
-};
+  accessKey?: string;
+}
 
-export const GenerateKeyModal = ({ open, onClose }: GenerateKeyModalProps) => {
-  const [loading, setLoading] = useState(false);
-  const [apiKey, setApiKey] = useState<string | null>(null);
+export const GenerateKeyModal = ({ open, onClose, accessKey }: IProps) => {
   const [messageApi, contextHolder] = message.useMessage();
 
-  const handleGenerate = async () => {
-    setLoading(true);
-    try {
-      // моковый запрос
-      await new Promise((res) => setTimeout(res, 1500));
-      const mockKey = 'sk-proj-abc123xyz890example';
-      setApiKey(mockKey);
-    } catch (e) {
-      messageApi.error('Ошибка при генерации ключа');
-      console.log(e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleCopy = async () => {
-    if (!apiKey) return;
-    await navigator.clipboard.writeText(apiKey);
-    messageApi.success('Ключ скопирован!');
-  };
+    if (!accessKey) return;
+    await navigator.clipboard.writeText(accessKey);
 
+    messageApi.success('The key was copied!');
+  };
   return (
     <>
       {contextHolder}
       <Modal
-        title={<Title>{<KeyOutlined />} Получить API ключ</Title>}
+        title={<Title>{<KeyOutlined />} Get API key</Title>}
         open={open}
         onCancel={onClose}
         footer={null}
         centered
         width={400}
       >
-        {!apiKey ? (
-          <Wrapper>
-            <InfoText>Создайте новый API ключ для тарифа "Базовый".</InfoText>
-            <CustomButton
-              type="primary"
-              $mode="primary"
-              onClick={handleGenerate}
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <Spin
-                    size="small"
-                    indicator={<LoadingOutlined spin />}
-                    style={{ marginRight: '0.3vw', color: theme.colors.textInverse }}
-                  />{' '}
-                  Генерация
-                </>
-              ) : (
-                'Сгенерировать ключ'
-              )}
-            </CustomButton>
-          </Wrapper>
-        ) : (
+        {accessKey ? (
           <Wrapper>
             <ApiContainer>
-              <InfoText>Ваш API ключ:</InfoText>
+              <InfoText>Your API key:</InfoText>
               <KeyBox>
-                <KeyValue>{apiKey}</KeyValue>
+                <KeyValue>{accessKey}</KeyValue>
                 <CopyBtn onClick={handleCopy}>
                   <CopyOutlined />
                 </CopyBtn>
               </KeyBox>
             </ApiContainer>
             <Warning>
-              <strong>Важно:</strong> Сохраните этот ключ в безопасном месте.
+              <strong>Important:</strong> Save this key in a safe place.
             </Warning>
             <CustomButton type="primary" $mode="primary" onClick={onClose}>
-              Готово
+              Done
             </CustomButton>
+          </Wrapper>
+        ) : (
+          <Wrapper>
+            <Spin
+              size="default"
+              indicator={<LoadingOutlined spin />}
+              style={{ marginRight: '0.3vw', color: theme.colors.brandPrimaryTransparent }}
+            >
+              Getting the key...
+            </Spin>
           </Wrapper>
         )}
       </Modal>
@@ -132,6 +102,9 @@ const KeyValue = styled.span`
   font-family: monospace;
   font-size: 0.9vw;
   color: ${theme.colors.textPrimary};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const CopyBtn = styled.button`

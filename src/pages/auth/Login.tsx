@@ -32,27 +32,28 @@ export const Login = () => {
         res.access_token,
       );
 
-      messageLogin.success('Успешный вход!');
+      messageLogin.success('Login successful!');
       navigate('/');
     } catch (err) {
       const error = err as AxiosError;
-      messageLogin.error('Ошибка авторизации: неверный логин/пароль, или аккаунт был удален');
+      messageLogin.error('Authorization error: incorrect login/password, or account was deleted');
       console.log(error);
     }
   };
+
   return (
     <>
       {contextHolder}
 
       <Card>
-        <Title>Добро пожаловать</Title>
-        <Subtitle>Войдите в свой аккаунт для продолжения</Subtitle>
+        <Title>Welcome</Title>
+        <Subtitle>Sign in to your account to continue</Subtitle>
 
         <Form name="login" layout="vertical" onFinish={onFinish} autoComplete="on">
           <Form.Item
-            label={<CustomLabel isRequired>Логин</CustomLabel>}
+            label={<CustomLabel isRequired>Login</CustomLabel>}
             name="login"
-            rules={[{ required: true, message: 'Введите логин' }]}
+            rules={[{ required: true, message: 'Please enter login' }]}
             required={false}
             style={{ marginBottom: '0.58vw' }}
           >
@@ -60,22 +61,22 @@ export const Login = () => {
           </Form.Item>
 
           <Form.Item
-            label={<CustomLabel isRequired>Пароль</CustomLabel>}
+            label={<CustomLabel isRequired>Password</CustomLabel>}
             name="password"
-            rules={[{ required: true, message: 'Введите пароль' }]}
+            rules={[{ required: true, message: 'Please enter password' }]}
             required={false}
           >
-            <CustomPasswordInput type="password" placeholder="Введите пароль" />
+            <CustomPasswordInput type="password" placeholder="Enter password" />
           </Form.Item>
 
           <Form.Item style={{ marginBottom: '0.78vw' }}>
             <CustomButton type="primary" htmlType="submit" $width="100%">
-              Войти
+              Sign In
             </CustomButton>
           </Form.Item>
         </Form>
 
-        <LinkText to="/signup">Создать новый аккаунт</LinkText>
+        <LinkText to="/signup">Create new account</LinkText>
       </Card>
     </>
   );

@@ -20,18 +20,19 @@ interface IProps {
 export const UserHeader = ({ collapsed, setCollapsed }: IProps) => {
   const [isDownloading, setIsDownloading] = useState(false);
   const { modal, message } = App.useApp();
+
   const downloadPlugin = async () => {
     try {
       setIsDownloading(true);
-      message.loading({ content: 'Получение ссылки...', key: 'download', duration: 0 });
+      message.loading({ content: 'Getting download link...', key: 'download', duration: 0 });
 
       const downloadLink = await GetPluginLink();
 
       if (!downloadLink) {
-        throw new Error('Не удалось получить ссылку для скачивания');
+        throw new Error('Failed to get download link');
       }
 
-      message.loading({ content: 'Скачивание файла...', key: 'download', duration: 0 });
+      message.loading({ content: 'Downloading file...', key: 'download', duration: 0 });
 
       const link = document.createElement('a');
       link.href = downloadLink;
@@ -42,20 +43,21 @@ export const UserHeader = ({ collapsed, setCollapsed }: IProps) => {
 
       message.destroy('download');
     } catch (error) {
-      console.error('Ошибка скачивания:', error);
+      console.error('Download error:', error);
       message.destroy('download');
-      message.error('Ошибка при скачивании плагина');
+      message.error('Error downloading plugin');
     } finally {
       setIsDownloading(false);
     }
   };
+
   const handleDownloadPlugin = () => {
     modal.confirm({
-      title: 'Скачать плагин?',
+      title: 'Download Plugin?',
       icon: <InfoCircleTwoTone twoToneColor="#7e1cff" />,
-      content: 'Вы уверены, что хотите скачать активный плагин?',
-      okText: 'Скачать',
-      cancelText: 'Отмена',
+      content: 'Are you sure you want to download the active plugin?',
+      okText: 'Download',
+      cancelText: 'Cancel',
       okButtonProps: {
         style: modalButtonStyles.okButton,
         onMouseEnter: (e) => {
@@ -77,6 +79,7 @@ export const UserHeader = ({ collapsed, setCollapsed }: IProps) => {
       onOk: downloadPlugin,
     });
   };
+
   return (
     <Header>
       <HeaderLeft>
@@ -93,7 +96,7 @@ export const UserHeader = ({ collapsed, setCollapsed }: IProps) => {
             style={{ cursor: 'pointer' }}
           />
         )}
-        <h1>Личный кабинет</h1>
+        <h1>Personal Account</h1>
       </HeaderLeft>
       <CustomButton
         $mode="primary"
@@ -102,7 +105,7 @@ export const UserHeader = ({ collapsed, setCollapsed }: IProps) => {
         style={{ marginLeft: 'auto' }}
       >
         <DownloadOutlined style={{ marginRight: '0.4rem' }} />
-        Скачать плагин
+        Download Plugin
       </CustomButton>
     </Header>
   );

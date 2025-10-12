@@ -3,7 +3,7 @@ import { CardPlan } from '../../components/CardPlan';
 import { Subtitle, Title, TitleContainer, Wrapper } from './ProfilePage/ProfilePage';
 import { useTariffsStore } from '../../store/tariffsStore';
 import { useEffect } from 'react';
-import { getAvailableTariff } from '../../api/tariffs';
+import { getAvailableTariff, payTariff } from '../../api/tariffs';
 import { App } from 'antd';
 
 export const TariffsPage = () => {
@@ -24,10 +24,20 @@ export const TariffsPage = () => {
     fetchTariffs();
   }, [setTariffs, message]);
 
+  const onSelectPlan = async (id: string) => {
+    try {
+      const res = payTariff(id);
+      window.location.href = (await res) as string;
+    } catch (error) {
+      message.error('Failed to choose tariff');
+      console.error('Failed to pay tariff:', error);
+    }
+  };
+
   return (
     <Wrapper>
       <TitleContainer>
-        <Title>Доступные тарифы</Title>
+        <Title>Available tariffs</Title>
         <Subtitle>Выберите подходящий тариф для ваших задач</Subtitle>
       </TitleContainer>
       <CardContainer>
@@ -38,33 +48,10 @@ export const TariffsPage = () => {
               title={plan.title}
               price={plan.price}
               features={plan.features}
+              onSelect={() => onSelectPlan(plan.id)}
             />
           );
         })}
-        <CardPlan
-          title="Стартер"
-          price="599"
-          features={['1 проект', '5GB хранилища', 'Email поддержка']}
-        />
-        {/* <CardPlan
-          title="PRO Тариф"
-          price="1599"
-          features={['3 проект', '5GB хранилища', 'Email поддержка', '1 vtczw', 'И еще че то']}
-        /> */}
-        {/* <CardPlan
-          title="PRO PRO Тариф"
-          price="1599"
-          features={[
-            '3 проект',
-            '5GB хранилища',
-            'Email поддержка',
-            '1 vtczw',
-            'И еще че то',
-            'Email поддержка',
-            '1 vtczw',
-            'И еще че то',
-          ]}
-        /> */}
       </CardContainer>
     </Wrapper>
   );

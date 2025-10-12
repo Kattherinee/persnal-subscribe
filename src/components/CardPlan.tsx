@@ -23,10 +23,10 @@ export const CardPlan: React.FC<PlanCardProps> = ({
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
       <Price>
-        <span>₽</span> {price} <PriceText>руб/ мес</PriceText>
+        <span>$</span> {price.slice(0, -1)} <PriceText>USD/month</PriceText>
       </Price>
       <CustomButton onClick={onSelect} type="primary" $mode="primary">
-        Выбрать план
+        Choose plan
       </CustomButton>
       <Features $count={features.length}>
         {features.map((feature, i) => (

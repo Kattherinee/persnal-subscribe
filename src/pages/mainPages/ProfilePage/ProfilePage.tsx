@@ -35,9 +35,9 @@ export const ProfilePage = () => {
       await updateUser(formData);
       setUser(formData);
       setIsEditing(false);
-      message.success('Успешно отредактировано!');
+      message.success('Successfully updated!');
     } catch (err) {
-      message.error('Ошибка редактирования профиля');
+      message.error('Profile update error');
       const error = err as AxiosError;
       console.error(error.response);
     }
@@ -51,11 +51,11 @@ export const ProfilePage = () => {
 
   const handleDeleteAccount = () => {
     modal.confirm({
-      title: 'Вы уверены, что хотите удалить аккаунт?',
+      title: 'Are you sure you want to delete your account?',
       icon: <WarningTwoTone twoToneColor="#ff1c1c" />,
-      content: 'Это действие нельзя отменить. Все ваши данные будут безвозвратно удалены.',
-      okText: 'Удалить',
-      cancelText: 'Отмена',
+      content: 'This action cannot be undone. All your data will be permanently deleted.',
+      okText: 'Delete',
+      cancelText: 'Cancel',
       okButtonProps: {
         style: modalButtonStyles.dangerButton,
         onMouseEnter: (e) => {
@@ -85,7 +85,7 @@ export const ProfilePage = () => {
       navigate('/signup');
       logout();
     } catch (error: any) {
-      message.error('Ошибка при удалении аккаунта');
+      message.error('Error deleting account');
       console.error(error);
     }
   };
@@ -93,17 +93,17 @@ export const ProfilePage = () => {
   return (
     <Wrapper>
       <TitleContainer>
-        <Title>Мои данные</Title>
-        <Subtitle>Управление основной информацией аккаунта</Subtitle>
+        <Title>My profile</Title>
+        <Subtitle>Manage your account's main information</Subtitle>
       </TitleContainer>
 
       <PageCard>
-        <CardTitle>Профиль</CardTitle>
-        <CardInfo>Основная информация о вашем аккаунте</CardInfo>
+        <CardTitle>Profile</CardTitle>
+        <CardInfo>Main information about your account</CardInfo>
 
         <FieldRow>
           <Field>
-            <CustomLabel>Имя</CustomLabel>
+            <CustomLabel>Name</CustomLabel>
             <CustomInput
               value={formData?.fullname}
               disabled={!isEditing}
@@ -124,27 +124,27 @@ export const ProfilePage = () => {
           {isEditing ? (
             <>
               <CustomButton $mode="primary" onClick={handleSave}>
-                Сохранить изменения
+                Save changes
               </CustomButton>
               <CustomButton $mode="secondary" onClick={handleCancel}>
-                Отмена
+                Cancel
               </CustomButton>
               <CustomButton
                 style={{ marginLeft: 'auto' }}
                 $mode="secondary"
                 onClick={() => setIsModalOpen(true)}
               >
-                Сменить пароль
+                Change password
               </CustomButton>
               <ChangePasswordModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
               <CustomButton $mode="secondary" onClick={handleDeleteAccount}>
-                Удалить аккаунт
+                Delete account
               </CustomButton>
             </>
           ) : (
             <>
               <CustomButton $mode="secondary" onClick={() => setIsEditing(true)}>
-                Редактировать профиль
+                Edit profile
               </CustomButton>
             </>
           )}

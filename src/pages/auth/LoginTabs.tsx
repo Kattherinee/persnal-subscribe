@@ -18,10 +18,10 @@ export const LoginTabs = () => {
   return (
     <Container>
       <StyledTabs activeKey={activeKey} onChange={handleTabChange} centered>
-        <Tabs.TabPane tab="Пользователь" key="user">
+        <Tabs.TabPane tab="User" key="user">
           <Login />
         </Tabs.TabPane>
-        <Tabs.TabPane tab="Админ" key="admin">
+        <Tabs.TabPane tab="Admin" key="admin">
           <LoginAdmin />
         </Tabs.TabPane>
       </StyledTabs>

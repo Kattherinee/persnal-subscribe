@@ -4,14 +4,15 @@ export interface ITariff {
   price: string;
   features: string[];
 }
-export interface MyTariff {
+export interface IMyTariff {
   id: string;
   title: string;
   price: string;
+  accessKey: string;
   endDate: string;
   isActive: boolean;
 }
-export interface MyDetailTariff {
+export interface IMyDetailTariff {
   id: string;
   title: string;
   price: string;

@@ -26,10 +26,10 @@ export const AdminHeader = ({ collapsed, setCollapsed }: IProps) => {
             style={{ cursor: 'pointer', fontSize: 20 }}
           />
         )}
-        <h1>Админ-панель</h1>
+        <h1>Admin-Panel</h1>
       </HeaderLeft>
       <CustomButton onClick={() => setIsModalOpen(true)} type="primary">
-        <UploadOutlined style={{ marginRight: 5 }} /> Загрузить плагин
+        <UploadOutlined style={{ marginRight: 5 }} /> Upload plugin
       </CustomButton>
       <UploadFileModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Header>
