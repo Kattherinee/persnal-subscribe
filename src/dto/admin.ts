@@ -12,10 +12,10 @@ export interface IAdmin {
   role: string;
 }
 
-export interface ITableUser {
+export interface IUserDto {
   id: string;
-  email: string;
   fullName: string;
-  lastPlan: string;
-  planStatus: string;
+  email: string;
+  tariffTitle?: string;
+  tariffEndDate?: string;
 }

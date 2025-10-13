@@ -18,3 +18,9 @@ export const getUserTariffs = async () => {
   const response = await request.get<IMyTariff[]>('/Tariff/GetUserTariff');
   return response.data;
 };
+
+export const getTariffDetail = async (tariffId: string) => {
+  const request = createAuthenticateUserRequest();
+  const response = await request.get(`/Tariff/GetTariffDetail?tariffId=${tariffId}`);
+  return response.data;
+};

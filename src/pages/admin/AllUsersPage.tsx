@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Table } from 'antd';
-
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import {
@@ -12,82 +11,67 @@ import {
 } from '../mainPages/ProfilePage/ProfilePage';
 import { UsergroupAddOutlined } from '@ant-design/icons';
 import { StyledTag } from '../../components/CardMyPlan';
-
-// import { UserDto } from '../types/UserDto';
-export type UserDto = {
-  UserId: string;
-  FullName: string;
-  Email: string;
-  TariffTitle: string;
-  TariffEndDate: string; // UTC
-};
+import { getUserInfo } from '../../api/admin';
+import type { IUserDto } from '../../dto/admin';
+import { useAdminStore } from '../../store/adminStore';
 
 export const AllUsersPage = () => {
-  const [users, setUsers] = useState<UserDto[]>([]);
+  const { setUsers, users } = useAdminStore();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        // 🔥 моковый запрос
-        const mock: UserDto[] = [
-          {
-            UserId: '1',
-            FullName: 'Алексей Козлов',
-            Email: 'alexey.kozlov@example.com',
-            TariffTitle: 'Стартер',
-            TariffEndDate: '2024-02-01T00:00:00Z',
-          },
-          {
-            UserId: '2',
-            FullName: 'Анна Николаева',
-            Email: 'anna.nikolaeva@example.com',
-            TariffTitle: 'Премиум',
-            TariffEndDate: '2026-02-15T00:00:00Z',
-          },
-        ];
-        setUsers(mock);
+        const res = await getUserInfo();
+        setUsers(res);
+      } catch (error) {
+        console.error('Failed to fetch users:', error);
       } finally {
         setLoading(false);
       }
     };
     fetchUsers();
-  }, []);
+  }, [setUsers]);
 
-  const columns: ColumnsType<UserDto> = [
+  const columns: ColumnsType<IUserDto> = [
     {
       title: '№',
       render: (_, __, index) => index + 1,
       width: 80,
     },
     {
-      title: 'ФИО',
-      dataIndex: 'FullName',
+      title: 'Full name',
+      dataIndex: 'fullName',
+      render: (text) => text || '—',
     },
     {
       title: 'Email',
-      dataIndex: 'Email',
+      dataIndex: 'email',
+      render: (text) => text || '—',
     },
     {
-      title: 'Текущий план',
-      dataIndex: 'TariffTitle',
+      title: 'Current plan',
+      dataIndex: 'tariffTitle',
+      render: (text) => text || '—',
     },
     {
-      title: 'Статус',
-      dataIndex: 'TariffEndDate',
-      render: (date: string) => {
-        const isExpired = dayjs(date).isBefore(dayjs());
+      title: 'Status',
+      dataIndex: 'tariffEndDate',
+      render: (date?: string) => {
+        const isActive = dayjs(date).isAfter(dayjs(), 'day') || dayjs(date).isSame(dayjs(), 'day');
+
         return (
-          <StyledTag $isActive={!isExpired} $width="5vw">
-            {!isExpired ? 'Активен' : 'Неактивен'}
+          <StyledTag $isActive={isActive} $width="5vw">
+            {isActive ? 'Active' : 'Inactive'}
           </StyledTag>
         );
       },
     },
     {
-      title: 'Активен до',
-      dataIndex: 'TariffEndDate',
+      title: 'Active until',
+      dataIndex: 'tariffEndDate',
+      render: (date?: string) => (date ? dayjs(date).format('DD.MM.YYYY') : '—'),
     },
   ];
 
@@ -95,17 +79,16 @@ export const AllUsersPage = () => {
     <Wrapper>
       <TitleContainer>
         <Title>
-          <UsergroupAddOutlined style={{ marginRight: '0.4vw' }} /> Список пользователей (
-          {users.length})
+          <UsergroupAddOutlined style={{ marginRight: '0.4vw' }} /> User list ({users.length})
         </Title>
-        <Subtitle>Полная информация о пользователях системы</Subtitle>
+        <Subtitle>Complete information about system users</Subtitle>
       </TitleContainer>
 
       <PageCard>
-        <Table<UserDto>
+        <Table<IUserDto>
           dataSource={users}
           columns={columns}
-          rowKey="UserId"
+          rowKey="id"
           loading={loading}
           pagination={false}
         />

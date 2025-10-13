@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { theme } from '../assets/theme/theme';
 import { LogoutOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { useAdminStore } from '../store/adminStore';
 import { AdminHeader } from '../components/admin/AdminHeader';
+import { SidebarLink } from './layout';
 
 export const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -24,7 +25,7 @@ export const AdminLayout = () => {
         <SidebarFooter>
           {!collapsed && (
             <>
-              <SidebarLink to={'/signin-admin'} onClick={() => logoutAdmin()}>
+              <SidebarLink className="logout" to={'/signin-admin'} onClick={() => logoutAdmin()}>
                 <LogoutOutlined /> Exit
               </SidebarLink>
             </>
@@ -71,29 +72,6 @@ const SidebarMenu = styled.nav<{ $collapsed: boolean }>`
   flex-direction: column;
   flex: 1;
   padding: 0 0.5rem;
-`;
-
-const SidebarLink = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  gap: 0.4vw;
-  padding: 0.6rem 1rem;
-  margin: 0.2rem 0;
-  border-radius: 0.4rem;
-  color: ${theme.colors.textSecondary};
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: ${theme.fonts.fontWeightMedium};
-
-  &.active {
-    background: ${theme.colors.sideBarActivebg};
-    color: ${theme.colors.textPrimary};
-  }
-
-  &:hover {
-    background: ${theme.colors.brandPrimaryTransparent};
-    color: ${theme.colors.textPrimary};
-  }
 `;
 
 const SidebarFooter = styled.div`

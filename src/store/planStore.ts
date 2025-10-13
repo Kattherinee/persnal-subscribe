@@ -1,10 +1,10 @@
 import { create } from 'zustand';
-import type { MyDetailTariff } from '../dto/tariffs';
+import type { IMyDetailTariff } from '../dto/tariffs';
 import { devtools } from 'zustand/middleware';
 
 interface PlanState {
-  plan: MyDetailTariff | null;
-  setPlan: (plan: MyDetailTariff | null) => void;
+  plan: IMyDetailTariff | null;
+  setPlan: (plan: IMyDetailTariff | null) => void;
 }
 
 export const usePlanStore = create(

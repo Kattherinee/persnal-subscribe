@@ -88,7 +88,7 @@ const SidebarMenu = styled.nav<{ $collapsed: boolean }>`
   padding: 0 0.5rem;
 `;
 
-const SidebarLink = styled(NavLink)`
+export const SidebarLink = styled(NavLink)`
   display: flex;
   align-items: center;
   gap: 0.4vw;

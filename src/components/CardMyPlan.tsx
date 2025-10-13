@@ -5,24 +5,9 @@ import { Link } from 'react-router-dom';
 import { KeyOutlined } from '@ant-design/icons';
 import { GenerateKeyModal } from './GenerateKeyModal ';
 import { useState } from 'react';
+import type { IMyTariff } from '../dto/tariffs';
 
-type CardMyPlanProps = {
-  title: string;
-  price: string;
-  endDate?: string;
-  isActive: boolean;
-  idPlan: string;
-  accessKey: string;
-};
-
-export const CardMyPlan = ({
-  title,
-  price,
-  endDate,
-  isActive,
-  idPlan,
-  accessKey,
-}: CardMyPlanProps) => {
+export const CardMyPlan = ({ title, price, endDate, isActive, id, accessKey }: IMyTariff) => {
   const [open, setOpen] = useState(false);
   return (
     <Card>
@@ -30,19 +15,21 @@ export const CardMyPlan = ({
         <Title>{title}</Title>
         <Divider />
         <Price>
-          <span>$</span> {price.slice(0, -1)} <PriceText>USD/month</PriceText>
+          <span>$</span> {price} <PriceText>USD/month</PriceText>
         </Price>
         {endDate && (
           <>
             <Divider />
-            <DateText>Valid until: {new Date(endDate).toLocaleDateString()}</DateText>
+            <DateText>
+              Valid until: <b> {new Date(endDate).toLocaleDateString()}</b>
+            </DateText>
           </>
         )}
       </Info>
 
       <Actions>
-        <StyledTag $isActive={!isActive}>{!isActive ? 'Active' : 'Unactive'}</StyledTag>
-        {!isActive && (
+        <StyledTag $isActive={isActive}>{isActive ? 'Active' : 'Unactive'}</StyledTag>
+        {isActive && (
           <>
             <CustomButton onClick={() => setOpen(true)} type="text" $mode="secondary" $height="2vw">
               <KeyOutlined />
@@ -51,13 +38,13 @@ export const CardMyPlan = ({
             <GenerateKeyModal open={open} onClose={() => setOpen(false)} accessKey={accessKey} />
           </>
         )}
-        <Link to={`/my-tariffs/${idPlan}`}>
+        <Link to={`/my-tariffs/${id}`}>
           <CustomButton
             type={isActive ? 'primary' : 'text'}
             $mode={isActive ? 'primary' : 'secondary'}
             $height="2vw"
           >
-            Подробнее
+            Details
           </CustomButton>
         </Link>
       </Actions>
@@ -75,6 +62,7 @@ const Card = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 3vw;
 `;
 
 const Info = styled.div`

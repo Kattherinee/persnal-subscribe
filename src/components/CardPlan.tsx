@@ -3,27 +3,19 @@ import { theme } from '../assets/theme/theme';
 import { CustomButton } from '../ui/CustomButton';
 import { CheckCircleOutlined } from '@ant-design/icons';
 
-interface PlanCardProps {
+interface IProps {
   title: string;
-  subtitle?: string;
-  price: string;
+  price: number;
   features: string[];
   onSelect?: () => void;
 }
 
-export const CardPlan: React.FC<PlanCardProps> = ({
-  title,
-  subtitle,
-  price,
-  features,
-  onSelect,
-}) => {
+export const CardPlan: React.FC<IProps> = ({ title, price, features, onSelect }) => {
   return (
     <Card>
       <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
       <Price>
-        <span>$</span> {price.slice(0, -1)} <PriceText>USD/month</PriceText>
+        <span>$</span> {price} <PriceText>USD/month</PriceText>
       </Price>
       <CustomButton onClick={onSelect} type="primary" $mode="primary">
         Choose plan
@@ -69,11 +61,6 @@ const Title = styled.h3`
   color: ${theme.colors.textPrimary};
   margin-block: 0;
   margin-bottom: 0.23vw;
-`;
-
-const Subtitle = styled.div`
-  font-size: 0.9rem;
-  color: ${theme.colors.textMuted};
 `;
 
 const Price = styled.div`

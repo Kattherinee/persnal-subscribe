@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { IAdmin, ITableUser } from '../dto/admin';
+import type { IAdmin, IUserDto } from '../dto/admin';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { devtools } from 'zustand/middleware';
 
@@ -8,8 +8,8 @@ interface AdminState {
   setAuthAdmin: (admin: IAdmin) => void;
   logoutAdmin: () => void;
   isAuthenticated: () => boolean;
-  users: ITableUser[];
-  setUsers: (users: ITableUser[]) => void;
+  users: IUserDto[];
+  setUsers: (users: IUserDto[]) => void;
 }
 
 export const useAdminStore = create<AdminState>()(

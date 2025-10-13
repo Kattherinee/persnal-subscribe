@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 import { theme } from '../assets/theme/theme';
 import { Progress, Spin } from 'antd';
 import { ArrowLeftOutlined, CalendarOutlined, CreditCardOutlined } from '@ant-design/icons';
-import { mockPlanActive, mockPlanDisAbled } from '../assets/mockData';
+// import { mockPlanActive } from '../assets/mockData';
 import { StyledTag } from '../components/CardMyPlan';
 import { Dot } from '../components/CardPlan';
-import type { MyDetailTariff } from '../dto/tariffs';
+// import type { IMyDetailTariff } from '../dto/tariffs';
 import { usePlanStore } from '../store/planStore';
+// import { getTariffDetail } from '../api/tariffs';
 
 export const PlanDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,14 +18,16 @@ export const PlanDetailPage = () => {
   const setPlan = usePlanStore((state) => state.setPlan);
 
   useEffect(() => {
-    // заглушка под API запрос
     async function fetchPlan() {
       setLoading(true);
       try {
-        // допустим GET /api/plans/:id
-        const res = await fetch(`/api/plan/${id}`);
-        const data: MyDetailTariff = await res.json();
-        setPlan(data);
+        if (!id) return;
+        // const res = getTariffDetail(id);
+        // console.log('res', res);
+        // const data: IMyDetailTariff = await res;
+        // console.log('data', data);
+        // // const data: IMyDetailTariff = await res.json();
+        // setPlan(data);
       } catch (e) {
         console.error('Ошибка при загрузке тарифа:', e);
       } finally {
@@ -32,7 +35,7 @@ export const PlanDetailPage = () => {
       }
     }
     fetchPlan();
-    setPlan(mockPlanActive);
+    // setPlan(mockPlanActive);
   }, [id, setPlan]);
 
   if (loading)

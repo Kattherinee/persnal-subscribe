@@ -27,8 +27,8 @@ export const MyTariffsPage = () => {
   return (
     <Wrapper>
       <TitleContainer>
-        <Title>Мои тарифы</Title>
-        <Subtitle>Управление активными подписками и получение API ключей</Subtitle>
+        <Title>My tariffs</Title>
+        <Subtitle>Managing active subscriptions and obtaining API keys</Subtitle>
       </TitleContainer>
       <CardContainer>
         {userTariffs.map((plan, i) => {
@@ -39,7 +39,7 @@ export const MyTariffsPage = () => {
               price={plan.price}
               endDate={plan.endDate}
               isActive={plan.isActive}
-              idPlan={plan.id}
+              id={plan.id}
               accessKey={plan.accessKey}
             />
           );
