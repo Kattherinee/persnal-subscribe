@@ -1,4 +1,4 @@
-import type { IMyTariff, ITariff } from '../dto/tariffs';
+import type { IMyDetailTariff, IMyTariff, ITariff } from '../dto/tariffs';
 import { createAuthenticateUserRequest } from './baseRequest';
 
 export const getAvailableTariff = async () => {
@@ -21,6 +21,8 @@ export const getUserTariffs = async () => {
 
 export const getTariffDetail = async (tariffId: string) => {
   const request = createAuthenticateUserRequest();
-  const response = await request.get(`/Tariff/GetTariffDetail?tariffId=${tariffId}`);
+  const response = await request.get<IMyDetailTariff>(
+    `/Tariff/GetTariffDetail?tariffId=${tariffId}`,
+  );
   return response.data;
 };

@@ -12,7 +12,9 @@ import { registerUser } from '../../api/user';
 import { Container } from './LoginTabs';
 
 export const Register = () => {
+  const [form] = Form.useForm();
   const navigate = useNavigate();
+
   const onFinish = async (values: { email: string; password: string; name: string }) => {
     try {
       const payload = {
@@ -29,12 +31,30 @@ export const Register = () => {
     }
   };
 
+  // Автофокус на первом поле с ошибкой
+  const onFinishFailed = (errorInfo: any) => {
+    const firstErrorField = errorInfo.errorFields?.[0]?.name?.[0];
+    if (firstErrorField) {
+      const field = form.getFieldInstance(firstErrorField);
+      if (field && typeof field.focus === 'function') {
+        field.focus();
+      }
+    }
+  };
+
   return (
     <Container>
       <Card>
         <Title>Registration</Title>
         <Subtitle>Create a new account to get started</Subtitle>
-        <Form name="registration" layout="vertical" onFinish={onFinish} autoComplete="off">
+        <Form
+          form={form}
+          name="registration"
+          layout="vertical"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
           <Form.Item
             label={<CustomLabel isRequired>Name</CustomLabel>}
             name="name"
@@ -69,14 +89,23 @@ export const Register = () => {
                 message: 'Password must contain at least 8 characters',
               },
               {
+                pattern: /[a-zA-Z]/,
+                message: 'Password must contain at least one letter',
+              },
+              {
                 pattern: /[0-9]/,
                 message: 'Password must contain at least one number',
+              },
+              {
+                pattern: /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/,
+                message: 'Password must contain at least one special character',
               },
             ]}
             required={false}
           >
             <CustomPasswordInput type="password" placeholder="Enter password" />
           </Form.Item>
+
           <Form.Item
             label={<CustomLabel isRequired>Confirm Password</CustomLabel>}
             name="confirmPassword"
@@ -103,6 +132,7 @@ export const Register = () => {
             </CustomButton>
           </Form.Item>
         </Form>
+
         <LinkContainer>
           <GreyText>Already have an account? </GreyText>
           <LinkText to="/signin">Sign In</LinkText>
@@ -134,5 +164,6 @@ export const LinkText = styled(Link)`
 
   &:hover {
     text-decoration: underline;
+    color: ${theme.colors.brandPrimaryHover};
   }
 `;

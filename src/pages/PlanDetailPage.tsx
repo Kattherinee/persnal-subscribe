@@ -2,14 +2,17 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { theme } from '../assets/theme/theme';
-import { Progress, Spin } from 'antd';
-import { ArrowLeftOutlined, CalendarOutlined, CreditCardOutlined } from '@ant-design/icons';
-// import { mockPlanActive } from '../assets/mockData';
+import { Spin } from 'antd';
+import {
+  ArrowLeftOutlined,
+  CalendarOutlined,
+  CheckCircleOutlined,
+  CreditCardOutlined,
+} from '@ant-design/icons';
 import { StyledTag } from '../components/CardMyPlan';
-import { Dot } from '../components/CardPlan';
-// import type { IMyDetailTariff } from '../dto/tariffs';
 import { usePlanStore } from '../store/planStore';
-// import { getTariffDetail } from '../api/tariffs';
+import { getTariffDetail } from '../api/tariffs';
+import { Price, PriceText } from '../components/CardPlan';
 
 export const PlanDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,21 +25,25 @@ export const PlanDetailPage = () => {
       setLoading(true);
       try {
         if (!id) return;
-        // const res = getTariffDetail(id);
-        // console.log('res', res);
-        // const data: IMyDetailTariff = await res;
-        // console.log('data', data);
-        // // const data: IMyDetailTariff = await res.json();
-        // setPlan(data);
+        const res = await getTariffDetail(id);
+        setPlan(res);
       } catch (e) {
-        console.error('Ошибка при загрузке тарифа:', e);
+        console.error('Error loading tariff:', e);
       } finally {
         setLoading(false);
       }
     }
     fetchPlan();
-    // setPlan(mockPlanActive);
   }, [id, setPlan]);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
 
   if (loading)
     return (
@@ -44,21 +51,14 @@ export const PlanDetailPage = () => {
         <Spin />
       </Loader>
     );
-  if (!plan) return <div>Тариф не найден</div>;
+  if (!plan) return <div>Tariff not found</div>;
 
   return (
     <Page>
-      <HeaderContainer>
-        <BackAndTitle>
-          <Back onClick={() => window.history.back()}>
-            <ArrowLeftOutlined />
-            <span>Назад</span>
-          </Back>
-
-          <HeaderTitle>Тариф: {plan.title}</HeaderTitle>
-        </BackAndTitle>
-      </HeaderContainer>
-
+      <Back onClick={() => window.history.back()}>
+        <ArrowLeftOutlined />
+        <span>Back</span>
+      </Back>
       <Content>
         <LeftColumn>
           <Card>
@@ -69,72 +69,57 @@ export const PlanDetailPage = () => {
                   {plan.title}
                 </Title>
                 <StyledTag $isActive={plan.isActive}>
-                  {plan.isActive ? 'Активен' : 'Неактивен'}
+                  {plan.isActive ? 'Active' : 'Inactive'}
                 </StyledTag>
               </TitleContainer>
-
-              <Price>{plan.price}</Price>
+              <Price>
+                <span>$</span> {plan.price} <PriceText>USD/month</PriceText>
+              </Price>
             </PlanInfo>
 
             <DateBlock>
               <DateItem>
                 <Label>
                   <CalendarOutlined style={{ marginRight: '0.4vw' }} />
-                  Дата создания
+                  Creation Date
                 </Label>
-                <Value>{plan.startDate}</Value>
+                <Value>{formatDate(plan.startDate)}</Value>
               </DateItem>
               <DateItem>
                 <Label>
                   <CalendarOutlined style={{ marginRight: '0.4vw' }} />
-                  Действует до
+                  Valid Until
                 </Label>
-                <Value>{plan.endDate}</Value>
+                <Value>{formatDate(plan.endDate)}</Value>
               </DateItem>
             </DateBlock>
 
             <InfoText>
               {plan.isActive
-                ? "Для получения API ключей перейдите в раздел 'Мои тарифы' и нажмите кнопку 'Получить ключ'"
-                : 'Для неактивного тарифа нет API ключей'}
+                ? "To get API keys, go to the 'My Tariffs' section and click the 'Get Key' button"
+                : 'There are no API keys for inactive tariffs'}
             </InfoText>
           </Card>
         </LeftColumn>
 
         <RightColumn>
           <Card>
-            <SubTitle>Возможности тарифа</SubTitle>
+            <SubTitle>Tariff Features</SubTitle>
             <Features>
               {plan.features.map((feature, i) => (
                 <Feature key={i}>
-                  <Dot />
+                  <CheckCircleOutlined style={{ color: theme.colors.brandPrimary }} />
                   <span>{feature}</span>
                 </Feature>
               ))}
             </Features>
           </Card>
-
-          {plan.isActive && (
-            <Card>
-              <SubTitle>Использование</SubTitle>
-              <UsageText>
-                Запросы сегодня <b>{plan.usage.today}</b> / {plan.usage.limit}
-              </UsageText>
-              <Progress
-                percent={(plan.usage.today / plan.usage.limit) * 100}
-                showInfo={false}
-                strokeColor={theme.colors.brandPrimary}
-              />
-              <MutedText>Статистика обновляется каждые 5 минут</MutedText>
-            </Card>
-          )}
         </RightColumn>
       </Content>
     </Page>
   );
 };
 
-/* -------- STYLES -------- */
 const Page = styled.div`
   display: flex;
   flex-direction: column;
@@ -142,26 +127,11 @@ const Page = styled.div`
   font-family: ${theme.fonts.fontFamily};
 `;
 
-const HeaderContainer = styled.header`
-  height: 56px;
-  border-bottom: 1px solid ${theme.colors.border};
-  box-shadow: 0 0 4px 2px rgba(24, 24, 24, 0.046);
-  background: ${theme.colors.backgroundCard};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const BackAndTitle = styled.div`
-  display: flex;
-  gap: 1vw;
-  margin-left: 15vw;
-`;
-
 const Back = styled.div`
   display: flex;
   align-items: center;
+  align-self: self-start;
+  margin-left: 8.9vw;
   gap: 0.4vw;
   font-size: 0.78vw;
   color: ${theme.colors.textPrimary};
@@ -172,19 +142,12 @@ const Back = styled.div`
   }
 `;
 
-const HeaderTitle = styled.h2`
-  font-size: 1.05vw;
-  font-weight: ${theme.fonts.fontRegular};
-  color: ${theme.colors.textPrimary};
-  margin: 0;
-`;
-
 const Content = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 1.5vw;
   width: 60vw;
-  margin-top: 2vw;
+  margin-top: 1vw;
 `;
 
 const LeftColumn = styled.div``;
@@ -205,7 +168,7 @@ const Card = styled.div`
 const PlanInfo = styled.div``;
 
 const Title = styled.h3`
-  font-size: 1.12vw;
+  font-size: 1.22vw;
   font-weight: ${theme.fonts.fontWeightMedium};
   color: ${theme.colors.textPrimary};
   margin: 0 0 0.4vw;
@@ -213,12 +176,11 @@ const Title = styled.h3`
 const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
-`;
+  align-items: center;
 
-const Price = styled.p`
-  font-size: 1vw;
-  color: ${theme.colors.textSecondary};
-  margin: 0;
+  ${StyledTag} {
+    height: fit-content;
+  }
 `;
 
 const DateBlock = styled.div`
@@ -267,33 +229,21 @@ const SubTitle = styled.h4`
 `;
 
 const Features = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.68vw;
+  display: grid;
+  gap: 0.5vw;
+  margin-top: 1.2rem;
 `;
 
 const Feature = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.8vw;
+  gap: 0.6vw;
   font-size: 1vw;
   color: ${theme.colors.textMedium};
+  font-weight: 500;
 `;
 
-const UsageText = styled.p`
-  font-size: 0.9vw;
-  color: ${theme.colors.textPrimary};
-  margin-bottom: 0.8vw;
-`;
-
-const MutedText = styled.span`
-  font-size: 0.75vw;
-  color: ${theme.colors.textSecondary};
-  display: block;
-  margin-top: 0.6vw;
-`;
-
-const Loader = styled.div`
+export const Loader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

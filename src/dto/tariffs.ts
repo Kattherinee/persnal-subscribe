@@ -19,9 +19,5 @@ export interface IMyDetailTariff {
   startDate: string;
   endDate: string;
   features: string[];
-  usage: {
-    today: number;
-    limit: number;
-  };
   isActive: boolean;
 }

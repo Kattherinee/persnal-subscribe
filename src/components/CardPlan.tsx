@@ -63,7 +63,7 @@ const Title = styled.h3`
   margin-bottom: 0.23vw;
 `;
 
-const Price = styled.div`
+export const Price = styled.div`
   display: flex;
   font-size: 1.9rem;
   font-weight: ${theme.fonts.fontWeightMedium};
@@ -78,7 +78,7 @@ const Price = styled.div`
     margin-bottom: auto;
   }
 `;
-const PriceText = styled.div`
+export const PriceText = styled.div`
   margin-left: 0.3rem;
   font-size: 0.9rem;
   line-height: 2.5rem;
@@ -103,11 +103,4 @@ const Feature = styled.div`
   font-size: 1vw;
   color: ${theme.colors.textMedium};
   font-weight: 500;
-`;
-
-export const Dot = styled.div`
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: ${theme.colors.brandPrimary};
 `;

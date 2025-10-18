@@ -38,7 +38,7 @@ export const TariffsPage = () => {
     <Wrapper>
       <TitleContainer>
         <Title>Available tariffs</Title>
-        <Subtitle>Выберите подходящий тариф для ваших задач</Subtitle>
+        <Subtitle>Choose available tariff for your purposes</Subtitle>
       </TitleContainer>
       <CardContainer>
         {tariffs.map((plan) => {
