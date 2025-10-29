@@ -9,11 +9,20 @@ import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
 import { loginUser } from '../../api/auth';
 import { useAuthStore } from '../../store/authStore';
 import type { AxiosError } from 'axios';
+import { useEffect, useState } from 'react';
 
 export const Login = () => {
   const { setAuth } = useAuthStore();
   const navigate = useNavigate();
   const [messageLogin, contextHolder] = message.useMessage();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const onFinish = async (values: { login: string; password: string }) => {
     try {
@@ -55,7 +64,7 @@ export const Login = () => {
             name="login"
             rules={[{ required: true, message: 'Please enter login' }]}
             required={false}
-            style={{ marginBottom: '0.58vw' }}
+            style={{ marginBottom: isMobile ? '2.8vw' : '0.58vw' }}
           >
             <CustomInput placeholder="example@company.com" />
           </Form.Item>
@@ -69,7 +78,7 @@ export const Login = () => {
             <CustomPasswordInput type="password" placeholder="Enter password" />
           </Form.Item>
 
-          <Form.Item style={{ marginBottom: '0.78vw' }}>
+          <Form.Item style={{ marginBottom: isMobile ? '1.98vw' : '0.78vw' }}>
             <CustomButton type="primary" htmlType="submit" $width="100%">
               Sign In
             </CustomButton>
@@ -90,6 +99,11 @@ export const Card = styled.div`
 
   width: 24vw;
   text-align: center;
+  @media (max-width: 769px) {
+    width: 80vw;
+    padding: 5vw 5.725vw 2.8vw;
+    border-radius: 1.825vw;
+  }
 `;
 
 export const Title = styled.h1`
@@ -97,12 +111,20 @@ export const Title = styled.h1`
   font-weight: 400;
   margin-bottom: 0.5vw;
   color: ${theme.colors.textPrimary};
+  @media (max-width: 769px) {
+    font-size: 5.1vw;
+    margin-bottom: 1.5vw;
+  }
 `;
 
 export const Subtitle = styled.p`
   font-size: 0.95vw;
   color: ${theme.colors.textMuted};
   margin-bottom: 1.43vw;
+  @media (max-width: 769px) {
+    margin-bottom: 2.9vw;
+    font-size: 3.95vw;
+  }
 `;
 
 export const LinkText = styled(Link)`
@@ -117,5 +139,9 @@ export const LinkText = styled(Link)`
   &:hover {
     text-decoration: underline;
     color: ${theme.colors.brandPrimaryHover};
+  }
+  @media (max-width: 769px) {
+    font-size: 3.28vw;
+    margin-bottom: 2vw;
   }
 `;

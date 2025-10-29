@@ -29,4 +29,10 @@ export const CustomInput = styled(Input)`
       box-shadow: none;
     }
   }
+  @media (max-width: 769px) {
+    height: 7.95vw;
+    padding: 0 1.8vw;
+    font-size: 3.15vw;
+    border-radius: 1.3vw;
+  }
 `;

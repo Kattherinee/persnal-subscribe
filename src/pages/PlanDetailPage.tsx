@@ -140,6 +140,12 @@ const Back = styled.div`
   &:hover {
     color: ${theme.colors.brandPrimary};
   }
+  @media (max-width: 769px) {
+    margin-left: 2.9vw;
+    margin-bottom: 2vw;
+    gap: 1.4vw;
+    font-size: 3.78vw;
+  }
 `;
 
 const Content = styled.div`
@@ -148,6 +154,11 @@ const Content = styled.div`
   gap: 1.5vw;
   width: 60vw;
   margin-top: 1vw;
+  @media (max-width: 769px) {
+    grid-template-columns: 1fr;
+    width: 90vw;
+    gap: 3.5vw;
+  }
 `;
 
 const LeftColumn = styled.div``;
@@ -155,6 +166,9 @@ const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1vw;
+  @media (max-width: 769px) {
+    gap: 3.3vw;
+  }
 `;
 
 const Card = styled.div`
@@ -163,6 +177,11 @@ const Card = styled.div`
   padding: 1.5vw;
   border: 0.05vw solid ${theme.colors.border};
   box-shadow: 0 0 4px 2px rgba(24, 24, 24, 0.046);
+  @media (max-width: 769px) {
+    border-radius: 1.6vw;
+    padding: 5.5vw;
+    border: 0.05vw solid ${theme.colors.border};
+  }
 `;
 
 const PlanInfo = styled.div``;
@@ -172,6 +191,10 @@ const Title = styled.h3`
   font-weight: ${theme.fonts.fontWeightMedium};
   color: ${theme.colors.textPrimary};
   margin: 0 0 0.4vw;
+  @media (max-width: 769px) {
+    margin: 0 0 1.4vw;
+    font-size: 4.62vw;
+  }
 `;
 const TitleContainer = styled.div`
   display: flex;
@@ -188,6 +211,11 @@ const DateBlock = styled.div`
   grid-template-columns: 1fr 1fr;
   margin-top: 1.4vw;
   gap: 1vw;
+  @media (max-width: 769px) {
+    gap: 3.3vw;
+    grid-template-columns: 1fr;
+    margin-top: 3.4vw;
+  }
 `;
 
 const DateItem = styled.div`
@@ -198,6 +226,9 @@ const DateItem = styled.div`
 const Label = styled.span`
   font-size: 0.8vw;
   color: ${theme.colors.textSecondary};
+  @media (max-width: 769px) {
+    font-size: 3.33vw;
+  }
 `;
 
 const Value = styled.div`
@@ -207,6 +238,13 @@ const Value = styled.div`
   padding: 0.6vw;
   border-radius: 0.4vw;
   margin-top: 0.3vw;
+  @media (max-width: 769px) {
+    font-size: 3.95vw;
+    padding: 1.8vw;
+    text-align: center;
+    border-radius: 1.4vw;
+    margin-top: 1.3vw;
+  }
 `;
 
 const InfoText = styled.p`
@@ -217,6 +255,11 @@ const InfoText = styled.p`
 
   margin-block: 0;
   margin-top: 1vw;
+  @media (max-width: 769px) {
+    margin-top: 3vw;
+    padding: 3.8vw;
+    font-size: 3.5vw;
+  }
 `;
 
 const SubTitle = styled.h4`
@@ -226,12 +269,20 @@ const SubTitle = styled.h4`
   font-weight: ${theme.fonts.fontWeightMedium};
   margin-block: 0;
   margin-bottom: 0.9vw;
+  @media (max-width: 769px) {
+    margin-bottom: 3.9vw;
+    font-size: 4.15vw;
+  }
 `;
 
 const Features = styled.div`
   display: grid;
   gap: 0.5vw;
   margin-top: 1.2rem;
+  @media (max-width: 769px) {
+    gap: 1.6vw;
+    margin-top: 1.3rem;
+  }
 `;
 
 const Feature = styled.div`
@@ -241,6 +292,10 @@ const Feature = styled.div`
   font-size: 1vw;
   color: ${theme.colors.textMedium};
   font-weight: 500;
+  @media (max-width: 769px) {
+    gap: 1.6vw;
+    font-size: 3.4vw;
+  }
 `;
 
 export const Loader = styled.div`

@@ -123,23 +123,24 @@ export const ProfilePage = () => {
         <Buttons>
           {isEditing ? (
             <>
-              <CustomButton $mode="primary" onClick={handleSave}>
-                Save changes
-              </CustomButton>
-              <CustomButton $mode="secondary" onClick={handleCancel}>
-                Cancel
-              </CustomButton>
-              <CustomButton
-                style={{ marginLeft: 'auto' }}
-                $mode="secondary"
-                onClick={() => setIsModalOpen(true)}
-              >
-                Change password
-              </CustomButton>
+              <BottomRow>
+                <CustomButton $mode="primary" onClick={handleSave}>
+                  Save changes
+                </CustomButton>
+                <CustomButton $mode="secondary" onClick={handleCancel}>
+                  Cancel
+                </CustomButton>
+              </BottomRow>
+              <TopRow>
+                <CustomButton $mode="secondary" onClick={() => setIsModalOpen(true)}>
+                  Change password
+                </CustomButton>
+                <CustomButton $mode="secondary" onClick={handleDeleteAccount}>
+                  Delete account
+                </CustomButton>
+              </TopRow>
+
               <ChangePasswordModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
-              <CustomButton $mode="secondary" onClick={handleDeleteAccount}>
-                Delete account
-              </CustomButton>
             </>
           ) : (
             <>
@@ -164,12 +165,18 @@ export const Title = styled.h2`
   margin-block: 0;
   font-weight: ${theme.fonts.fontWeightSemibold};
   color: ${theme.colors.textPrimary};
+  @media (max-width: 769px) {
+    font-size: 4.25vw;
+  }
 `;
 
 export const Subtitle = styled.p`
   font-size: 0.9vw;
   color: ${theme.colors.textMuted};
   margin-block: 0;
+  @media (max-width: 769px) {
+    font-size: 3.75vw;
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -177,6 +184,10 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   gap: 0.2vw;
   margin-bottom: 1.2vw;
+  @media (max-width: 769px) {
+    gap: 0.94vw;
+    margin-bottom: 4.2vw;
+  }
 `;
 
 export const PageCard = styled.div`
@@ -185,6 +196,9 @@ export const PageCard = styled.div`
   border-radius: 0.6rem;
   padding: 1.2vw 0.94vw;
   box-shadow: 0 0 4px 2px rgba(45, 45, 45, 0.046);
+  @media (max-width: 769px) {
+    padding: 3.2vw 4vw 4vw;
+  }
 `;
 
 const CardTitle = styled.h3`
@@ -193,18 +207,29 @@ const CardTitle = styled.h3`
   color: ${theme.colors.textPrimary};
   margin-block: 0;
   margin-bottom: 0.75rem;
+  @media (max-width: 769px) {
+    display: none;
+  }
 `;
 
 const CardInfo = styled.div`
   font-size: 0.83vw;
   color: ${theme.colors.textMuted};
   margin-bottom: 0.94vw;
+  @media (max-width: 769px) {
+    display: none;
+  }
 `;
 
 const FieldRow = styled.div`
   display: flex;
   gap: 2rem;
   margin-bottom: 1rem;
+  @media (max-width: 769px) {
+    flex-direction: column;
+    gap: 5.28vw;
+    margin-bottom: 3.2vw;
+  }
 `;
 
 const Field = styled.div`
@@ -212,11 +237,57 @@ const Field = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.83vw;
+  @media (max-width: 769px) {
+    gap: 2.28vw;
+  }
 `;
 
 const Buttons = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
   margin-top: 1rem;
+
+  @media (max-width: 769px) {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2vw;
+    margin-top: 6vw;
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+`;
+
+const TopRow = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  button {
+    width: 10vw;
+  }
+
+  @media (max-width: 769px) {
+    display: grid;
+    margin-top: 2.5vw;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5vw;
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+`;
+
+const BottomRow = styled(TopRow)`
+  button {
+    width: 8vw;
+  }
+  @media (max-width: 769px) {
+    button {
+      width: 100%;
+    }
+    margin-top: 1.8vw;
+  }
 `;

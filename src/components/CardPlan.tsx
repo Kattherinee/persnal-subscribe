@@ -53,6 +53,9 @@ const Card = styled.div`
     transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
+  @media (max-width: 769px) {
+    max-width: unset;
+  }
 `;
 
 const Title = styled.h3`
@@ -61,6 +64,10 @@ const Title = styled.h3`
   color: ${theme.colors.textPrimary};
   margin-block: 0;
   margin-bottom: 0.23vw;
+  @media (max-width: 769px) {
+    margin-bottom: 1.03vw;
+    font-size: 1.5rem;
+  }
 `;
 
 export const Price = styled.div`
@@ -77,6 +84,14 @@ export const Price = styled.div`
     line-height: 2rem;
     margin-bottom: auto;
   }
+  @media (max-width: 769px) {
+    font-size: 2.3rem;
+    margin: 1.1vw 0 2.73vw;
+    span {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
 `;
 export const PriceText = styled.div`
   margin-left: 0.3rem;
@@ -90,6 +105,9 @@ const Features = styled.div<{ $count: number }>`
   display: grid;
   gap: 0.5vw;
   margin-top: 1.2rem;
+  @media (max-width: 769px) {
+    gap: 2.65vw;
+  }
   /* 
   grid-template-columns: ${({ $count }) => ($count > 2 ? 'repeat(2, 1fr)' : '1fr')};
 
@@ -103,4 +121,8 @@ const Feature = styled.div`
   font-size: 1vw;
   color: ${theme.colors.textMedium};
   font-weight: 500;
+  @media (max-width: 769px) {
+    gap: 1.6vw;
+    font-size: 3.7vw;
+  }
 `;

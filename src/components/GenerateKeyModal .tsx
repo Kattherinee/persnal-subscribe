@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { theme } from '../assets/theme/theme';
 import { CopyOutlined, KeyOutlined, LoadingOutlined } from '@ant-design/icons';
 import { CustomButton } from '../ui/CustomButton';
+import { useEffect, useState } from 'react';
 
 interface IProps {
   open: boolean;
@@ -12,6 +13,14 @@ interface IProps {
 
 export const GenerateKeyModal = ({ open, onClose, accessKey }: IProps) => {
   const [messageApi, contextHolder] = message.useMessage();
+  const [mobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleCopy = async () => {
     if (!accessKey) return;
@@ -44,7 +53,12 @@ export const GenerateKeyModal = ({ open, onClose, accessKey }: IProps) => {
             <Warning>
               <strong>Important:</strong> Save this key in a safe place.
             </Warning>
-            <CustomButton type="primary" $mode="primary" onClick={onClose}>
+            <CustomButton
+              type="primary"
+              $mode="primary"
+              onClick={onClose}
+              $height={mobile ? '8vw' : 'auto'}
+            >
               Done
             </CustomButton>
           </Wrapper>
@@ -69,23 +83,36 @@ const Title = styled.h3`
   font-weight: ${theme.fonts.fontWeightMedium};
   color: ${theme.colors.textPrimary};
   margin-block: 0;
+  @media (max-width: 769px) {
+    font-size: 4.1vw;
+  }
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2vw;
+  @media (max-width: 769px) {
+    gap: 4.1vw;
+  }
 `;
 
 const InfoText = styled.label`
   font-size: 0.95vw;
   color: ${theme.colors.textSecondary};
   margin-block: 0;
+  @media (max-width: 769px) {
+    font-size: 3.8vw;
+  }
 `;
 const ApiContainer = styled.div`
   margin-top: 0.4vw;
   display: flex;
   flex-direction: column;
   gap: 0.4vw;
+  @media (max-width: 769px) {
+    margin-top: 2.14vw;
+    gap: 2.14vw;
+  }
 `;
 
 const KeyBox = styled.div`
@@ -95,6 +122,11 @@ const KeyBox = styled.div`
   padding: 0.6vw;
   border-radius: 0.5vw;
   border: 0.05vw solid ${theme.colors.border};
+  @media (max-width: 769px) {
+    padding: 3.16vw;
+    border-radius: 1.5vw;
+    border: 0.15vw solid ${theme.colors.border};
+  }
 `;
 
 const KeyValue = styled.span`
@@ -105,6 +137,9 @@ const KeyValue = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  @media (max-width: 769px) {
+    font-size: 3.9vw;
+  }
 `;
 
 const CopyBtn = styled.button`
@@ -112,6 +147,9 @@ const CopyBtn = styled.button`
   border: none;
   cursor: pointer;
   font-size: 1vw;
+  @media (max-width: 769px) {
+    font-size: 4.9vw;
+  }
 `;
 
 const Warning = styled.div`
@@ -121,4 +159,9 @@ const Warning = styled.div`
   border-radius: 0.5vw;
   border: 1px solid #ffd438;
   padding: 0.6vw;
+  @media (max-width: 769px) {
+    font-size: 3.5vw;
+    padding: 3.16vw;
+    border-radius: 1.5vw;
+  }
 `;

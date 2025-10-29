@@ -10,11 +10,22 @@ import { Card } from './Login';
 import { loginAdmin } from '../../api/auth';
 import type { AxiosError } from 'axios';
 import { useAdminStore } from '../../store/adminStore';
+import { useEffect, useState } from 'react';
 
 export const LoginAdmin = () => {
   const navigate = useNavigate();
   const [messageLogin, contextHolder] = message.useMessage();
   const { setAuthAdmin } = useAdminStore();
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const onFinish = async (values: { login: string; password: string }) => {
     try {
       const payload = {
@@ -50,7 +61,7 @@ export const LoginAdmin = () => {
             name="login"
             rules={[{ required: true, message: 'Please enter login' }]}
             required={false}
-            style={{ marginBottom: '0.58vw' }}
+            style={{ marginBottom: isMobile ? '2.8vw' : '0.58vw' }}
           >
             <CustomInput placeholder="Enter login" />
           </Form.Item>
@@ -78,14 +89,22 @@ export const LoginAdmin = () => {
 export const Title = styled.h1`
   font-size: 1.65vw;
   font-weight: 400;
-  margin-bottom: 0.2vw;
+  margin-bottom: 0.5vw;
   color: ${theme.colors.textPrimary};
+  @media (max-width: 769px) {
+    font-size: 5.1vw;
+    margin-bottom: 1.5vw;
+  }
 `;
 
 export const Subtitle = styled.p`
   font-size: 0.95vw;
   color: ${theme.colors.textMuted};
   margin-bottom: 1.43vw;
+  @media (max-width: 769px) {
+    margin-bottom: 2.9vw;
+    font-size: 3.95vw;
+  }
 `;
 
 export const LinkText = styled(Link)`

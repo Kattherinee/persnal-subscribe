@@ -60,4 +60,7 @@ export const TariffsPage = () => {
 const CardContainer = styled.div`
   display: flex;
   gap: 1.3vw;
+  @media (max-width: 769px) {
+    gap: 3.3vw;
+  }
 `;

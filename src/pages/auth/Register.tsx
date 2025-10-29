@@ -10,10 +10,19 @@ import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
 import { CustomButton } from '../../ui/CustomButton';
 import { registerUser } from '../../api/user';
 import { Container } from './LoginTabs';
+import { useEffect, useState } from 'react';
 
 export const Register = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const onFinish = async (values: { email: string; password: string; name: string }) => {
     try {
@@ -60,7 +69,7 @@ export const Register = () => {
             name="name"
             required={false}
             rules={[{ required: true, message: 'Please enter name' }]}
-            style={{ marginBottom: '0.58vw' }}
+            style={{ marginBottom: isMobile ? '2.8vw' : '0.58vw' }}
           >
             <CustomInput placeholder="Enter your name" />
           </Form.Item>
@@ -69,7 +78,7 @@ export const Register = () => {
             label={<CustomLabel isRequired>Email</CustomLabel>}
             name="email"
             required={false}
-            style={{ marginBottom: '0.58vw' }}
+            style={{ marginBottom: isMobile ? '2.8vw' : '0.58vw' }}
             rules={[
               { required: true, message: 'Please enter email' },
               { type: 'email', message: 'Please enter valid email' },
@@ -81,7 +90,7 @@ export const Register = () => {
           <Form.Item
             label={<CustomLabel isRequired>Password</CustomLabel>}
             name="password"
-            style={{ marginBottom: '0.58vw' }}
+            style={{ marginBottom: isMobile ? '2.8vw' : '0.58vw' }}
             rules={[
               { required: true, message: 'Please enter password' },
               {
@@ -145,6 +154,9 @@ export const Register = () => {
 const GreyText = styled.span`
   font-size: 0.78vw;
   color: ${theme.colors.textSecondary};
+  @media (max-width: 769px) {
+    font-size: 3.18vw;
+  }
 `;
 
 const LinkContainer = styled.div`
@@ -152,6 +164,10 @@ const LinkContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.5vw;
+  @media (max-width: 769px) {
+    gap: 1.5vw;
+    margin-top: -2vw;
+  }
 `;
 
 export const LinkText = styled(Link)`
@@ -165,5 +181,8 @@ export const LinkText = styled(Link)`
   &:hover {
     text-decoration: underline;
     color: ${theme.colors.brandPrimaryHover};
+  }
+  @media (max-width: 769px) {
+    font-size: 3.18vw;
   }
 `;

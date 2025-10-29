@@ -17,4 +17,8 @@ export const CustomLabel = styled.span<{ isRequired?: boolean }>`
         margin-left: 0.3vw;
       }
     `}
+  @media (max-width: 769px) {
+    font-size: 3.25vw;
+
+  }
 `;

@@ -96,10 +96,18 @@ const Title = styled.h3`
   font-weight: ${theme.fonts.fontWeightMedium};
   color: ${theme.colors.textPrimary};
   margin-block: 0;
+  @media (max-width: 769px) {
+    font-size: 4.25vw;
+    margin-bottom: 3vw;
+  }
 `;
 
 const ButtonsContainer = styled.div`
   margin-top: 2vw;
   display: flex;
   gap: 1vw;
+  @media (max-width: 769px) {
+    margin-top: 6vw;
+    gap: 3vw;
+  }
 `;

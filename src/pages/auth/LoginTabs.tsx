@@ -34,6 +34,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background: ${theme.colors.backgroundPage};
+  @media (max-width: 769px) {
+    align-items: start;
+    margin-top: 50vw;
+  }
 `;
 
 const StyledTabs = styled(Tabs)`
@@ -55,5 +59,14 @@ const StyledTabs = styled(Tabs)`
     background: ${theme.colors.brandPrimary};
     height: 3px;
     border-radius: 3px;
+  }
+  @media (max-width: 769px) {
+    .ant-tabs-tab {
+      font-size: 4.45vw;
+    }
+    .ant-tabs-ink-bar {
+      height: 6px;
+      border-radius: 6px;
+    }
   }
 `;

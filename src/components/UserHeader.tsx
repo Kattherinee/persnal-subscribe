@@ -15,9 +15,10 @@ import { modalButtonStyles } from '../pages/mainPages/ProfilePage/modalButtonSty
 interface IProps {
   collapsed: boolean;
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  isMobile: boolean;
 }
 
-export const UserHeader = ({ collapsed, setCollapsed }: IProps) => {
+export const UserHeader = ({ collapsed, setCollapsed, isMobile }: IProps) => {
   const [isDownloading, setIsDownloading] = useState(false);
   const { modal, message } = App.useApp();
 
@@ -85,15 +86,13 @@ export const UserHeader = ({ collapsed, setCollapsed }: IProps) => {
       <HeaderLeft>
         {collapsed ? (
           <MenuUnfoldOutlined
-            size={20}
             onClick={() => setCollapsed(false)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', fontSize: isMobile ? 20 : 15 }}
           />
         ) : (
           <MenuFoldOutlined
-            size={20}
             onClick={() => setCollapsed(true)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', fontSize: isMobile ? 20 : 15 }}
           />
         )}
         <h1>Personal Account</h1>
@@ -104,7 +103,7 @@ export const UserHeader = ({ collapsed, setCollapsed }: IProps) => {
         disabled={isDownloading}
         style={{ marginLeft: 'auto' }}
       >
-        <DownloadOutlined style={{ marginRight: '0.4rem' }} />
+        <DownloadOutlined style={{ marginRight: isMobile ? 2 : 0.4 }} />
         Download Plugin
       </CustomButton>
     </Header>
@@ -112,13 +111,17 @@ export const UserHeader = ({ collapsed, setCollapsed }: IProps) => {
 };
 
 const Header = styled.header`
-  height: 56px;
+  height: 4vw;
   border-bottom: 1px solid ${theme.colors.border};
   background: ${theme.colors.backgroundCard};
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1rem;
+  padding: 0 0.84vw;
+  @media (max-width: 769px) {
+    height: 15vw;
+    padding: 0 3.8vw;
+  }
 `;
 
 const HeaderLeft = styled.div`
@@ -127,9 +130,15 @@ const HeaderLeft = styled.div`
   gap: 0.75rem;
 
   h1 {
-    font-size: 1rem;
+    font-size: 1.15vw;
     font-weight: ${theme.fonts.fontWeightSemibold};
     color: ${theme.colors.textPrimary};
     margin: 0;
+  }
+  @media (max-width: 769px) {
+    gap: 3.2vw;
+    h1 {
+      font-size: 4.65vw;
+    }
   }
 `;

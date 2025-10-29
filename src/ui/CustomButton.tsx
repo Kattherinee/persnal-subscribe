@@ -36,4 +36,9 @@ export const CustomButton = styled(Button)<CustomButtonProps>`
             border-color: ${theme.colors.brandPrimaryHover} !important;
           }
         `}
+  @media (max-width: 769px) {
+    font-size: 3.15vw;
+    width: ${({ $width }) => ($width ? $width : 'auto')};
+    height: ${({ $height }) => ($height ? $height : '7.5vw')};
+  }
 `;

@@ -4,11 +4,20 @@ import { CustomButton } from '../ui/CustomButton';
 import { Link } from 'react-router-dom';
 import { KeyOutlined } from '@ant-design/icons';
 import { GenerateKeyModal } from './GenerateKeyModal ';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { IMyTariff } from '../dto/tariffs';
 
 export const CardMyPlan = ({ title, price, endDate, isActive, id, accessKey }: IMyTariff) => {
   const [open, setOpen] = useState(false);
+  const [mobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <Card>
       <Info>
@@ -31,7 +40,13 @@ export const CardMyPlan = ({ title, price, endDate, isActive, id, accessKey }: I
         <StyledTag $isActive={isActive}>{isActive ? 'Active' : 'Unactive'}</StyledTag>
         {isActive && (
           <>
-            <CustomButton onClick={() => setOpen(true)} type="text" $mode="secondary" $height="2vw">
+            <CustomButton
+              onClick={() => setOpen(true)}
+              type="text"
+              $mode="secondary"
+              $height={mobile ? '7vw' : '2vw'}
+              className="api"
+            >
               <KeyOutlined />
               Get API key
             </CustomButton>
@@ -42,7 +57,7 @@ export const CardMyPlan = ({ title, price, endDate, isActive, id, accessKey }: I
           <CustomButton
             type={isActive ? 'primary' : 'text'}
             $mode={isActive ? 'primary' : 'secondary'}
-            $height="2vw"
+            $height={mobile ? '7vw' : '2vw'}
           >
             Details
           </CustomButton>
@@ -63,12 +78,21 @@ const Card = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 3vw;
+  @media (max-width: 769px) {
+    flex-direction: column;
+    padding: 3.1vw 4.8vw 3.5vw;
+    margin-bottom: 3vw;
+  }
 `;
 
 const Info = styled.div`
   display: flex;
   align-items: center;
   gap: 4vw;
+  @media (max-width: 769px) {
+    justify-content: space-around;
+    width: 100%;
+  }
 `;
 
 const Title = styled.h3`
@@ -76,6 +100,10 @@ const Title = styled.h3`
   margin: 0 0 0.1vw 0;
   font-weight: ${theme.fonts.fontWeightMedium};
   color: ${theme.colors.textMedium};
+  @media (max-width: 769px) {
+    font-size: 4.1vw;
+    margin: 0 0 0.1vw 0;
+  }
 `;
 
 const Divider = styled.div`
@@ -85,6 +113,9 @@ const Divider = styled.div`
   font-weight: 400;
   &:nth-child(2) {
     width: 1px;
+  }
+  @media (max-width: 769px) {
+    height: 3.2vw;
   }
 `;
 
@@ -102,6 +133,14 @@ const Price = styled.div`
     line-height: 1.5rem;
     margin-bottom: auto;
   }
+  @media (max-width: 769px) {
+    font-size: 1.9rem;
+    margin: 1.1vw 0 1.73vw;
+    span {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
 `;
 const PriceText = styled.div`
   margin-left: 0.3rem;
@@ -115,12 +154,29 @@ const DateText = styled.span`
   line-height: 2.1rem;
   margin-top: auto;
   color: ${theme.colors.textSecondary};
+  @media (max-width: 769px) {
+    font-size: 3.15vw;
+    line-height: 5.1vw;
+    margin-top: unset;
+    width: min-content;
+    b {
+      font-size: 3.85vw;
+    }
+  }
 `;
 
 const Actions = styled.div`
   display: flex;
   align-items: center;
   gap: 0.6vw;
+  @media (max-width: 769px) {
+    justify-content: space-around;
+    width: 100%;
+    gap: 6.6vw;
+    .api {
+      width: 100%;
+    }
+  }
 `;
 
 export const StyledTag = styled.div<{ $isActive: boolean; $width?: string }>`
@@ -141,4 +197,9 @@ export const StyledTag = styled.div<{ $isActive: boolean; $width?: string }>`
   margin-right: 0.3vw;
   width: ${({ $width }) => ($width ? $width : 'fit-content')};
   text-align: center;
+  @media (max-width: 769px) {
+    font-size: 3.25vw;
+    padding: 0.05vw 2.2vw;
+    border-radius: 1.5vw;
+  }
 `;
