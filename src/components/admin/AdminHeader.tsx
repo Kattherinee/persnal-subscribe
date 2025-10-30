@@ -8,10 +8,9 @@ import { useState } from 'react';
 interface IProps {
   collapsed: boolean;
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
-  isMobile: boolean;
 }
 
-export const AdminHeader = ({ collapsed, setCollapsed, isMobile }: IProps) => {
+export const AdminHeader = ({ collapsed, setCollapsed }: IProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <Header>

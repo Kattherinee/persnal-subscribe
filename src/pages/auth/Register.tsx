@@ -33,7 +33,7 @@ export const Register = () => {
       };
 
       await registerUser(payload);
-      navigate('/signin');
+      navigate('/thank-you');
       message.success('Registration completed successfully!');
     } catch (err: any) {
       message.error(err.response?.data?.message || 'Registration error');

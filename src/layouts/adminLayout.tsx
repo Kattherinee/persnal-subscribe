@@ -12,7 +12,6 @@ export const AdminLayout = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { logoutAdmin } = useAdminStore();
 
-  // Проверяем ширину окна
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize();
@@ -20,12 +19,10 @@ export const AdminLayout = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // На мобильных сайдбар скрыт по умолчанию
   useEffect(() => {
     if (isMobile) setCollapsed(true);
   }, [isMobile]);
 
-  // Блокируем скролл, если открыт sidebar
   useEffect(() => {
     if (isMobile) {
       document.body.style.overflow = collapsed ? 'auto' : 'hidden';
@@ -47,11 +44,7 @@ export const AdminLayout = () => {
 
         <SidebarFooter>
           {!collapsed && (
-            <SidebarLink
-              className="logout"
-              to="/signin-admin"
-              onClick={() => logoutAdmin()}
-            >
+            <SidebarLink className="logout" to="/signin-admin" onClick={() => logoutAdmin()}>
               <LogoutOutlined /> Exit
             </SidebarLink>
           )}
@@ -59,11 +52,7 @@ export const AdminLayout = () => {
       </Sidebar>
 
       <Main>
-        <AdminHeader
-          collapsed={collapsed}
-          setCollapsed={setCollapsed}
-          isMobile={isMobile}
-        />
+        <AdminHeader collapsed={collapsed} setCollapsed={setCollapsed} />
         <Content $collapsed={collapsed} $isMobile={isMobile}>
           <Outlet />
         </Content>
@@ -80,8 +69,7 @@ const LayoutWrapper = styled.div`
 `;
 
 const Sidebar = styled.div<{ $collapsed: boolean; $isMobile: boolean }>`
-  width: ${({ $collapsed, $isMobile }) =>
-    $isMobile ? '210px' : $collapsed ? '20px' : '210px'};
+  width: ${({ $collapsed, $isMobile }) => ($isMobile ? '210px' : $collapsed ? '20px' : '210px')};
   transition: all 0.3s ease;
   background: ${theme.colors.backgroundSidebar};
   border-right: 1px solid ${theme.colors.sidebarBorder};
@@ -89,6 +77,13 @@ const Sidebar = styled.div<{ $collapsed: boolean; $isMobile: boolean }>`
   flex-direction: column;
   padding-bottom: 1rem;
   z-index: 1000;
+  overflow-y: auto;
+
+  /* ✅ Исправление */
+  height: 100vh;
+  @supports (height: 100dvh) {
+    height: 100dvh;
+  }
 
   ${({ $isMobile, $collapsed }) =>
     $isMobile &&
@@ -96,8 +91,8 @@ const Sidebar = styled.div<{ $collapsed: boolean; $isMobile: boolean }>`
     position: fixed;
     top: 0;
     left: ${$collapsed ? '-210px' : '0'};
-    height: 100vh;
     box-shadow: ${$collapsed ? 'none' : '0 0 20px rgba(0,0,0,0.3)'};
+    overscroll-behavior: contain; /* предотвратить прокрутку body */
   `}
 `;
 
@@ -106,6 +101,7 @@ const Overlay = styled.div`
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   z-index: 999;
+  height: 100vh;
 `;
 
 const SidebarHeader = styled.div<{ $collapsed: boolean }>`
@@ -129,6 +125,7 @@ const SidebarMenu = styled.nav<{ $collapsed: boolean }>`
 
   @media (max-width: 769px) {
     padding: 0 3vw;
+    height: fit-content;
   }
 `;
 
@@ -138,6 +135,7 @@ const SidebarFooter = styled.div`
 
   @media (max-width: 769px) {
     padding: 0 3vw;
+    margin-bottom: 5vw;
     font-size: 3.4vw;
   }
 `;
@@ -152,11 +150,7 @@ const Main = styled.main`
 const Content = styled.main<{ $collapsed: boolean; $isMobile: boolean }>`
   flex: 1;
   padding: ${({ $collapsed, $isMobile }) =>
-    $isMobile
-      ? '1.2rem 1rem'
-      : $collapsed
-      ? '1.6vw 7vw 1.6vw 7vw'
-      : '1.6vw 4vw 1.6vw 3.5vw'};
+    $isMobile ? '1.2rem 1rem' : $collapsed ? '1.6vw 7vw 1.6vw 7vw' : '1.6vw 4vw 1.6vw 3.5vw'};
   overflow-y: auto;
   color: ${theme.colors.textPrimary};
 `;

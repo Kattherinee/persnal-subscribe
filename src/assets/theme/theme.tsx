@@ -40,6 +40,7 @@ export const theme = {
     sidebarBorder: '#e2e8f0',
     sideBarActivebg: '#e9e9f0',
     sideBarBrandActivebg: '#5b4fff20',
+    success: '#52c41a',
   },
 
   fonts: {

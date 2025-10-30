@@ -13,12 +13,14 @@ import { RequireAuth } from './utils/RequireAuth';
 import { RequireAdmin } from './utils/RequireAdmin';
 import { AdminLayout } from './layouts/adminLayout';
 import { LoginTabs } from './pages/auth/LoginTabs';
+import { RegistrationSuccess } from './pages/RegistrationSuccess';
 
 function App() {
   return (
     <Routes>
       {/* Публичные страницы */}
       <Route path="/signin" element={<LoginTabs />} />
+      <Route path="/thank-you" element={<RegistrationSuccess />} />
       <Route path="/signup" element={<Register />} />
       <Route path="/signin-admin" element={<LoginTabs />} />
 

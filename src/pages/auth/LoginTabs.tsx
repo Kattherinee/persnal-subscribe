@@ -34,10 +34,6 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background: ${theme.colors.backgroundPage};
-  @media (max-width: 769px) {
-    align-items: start;
-    margin-top: 50vw;
-  }
 `;
 
 const StyledTabs = styled(Tabs)`

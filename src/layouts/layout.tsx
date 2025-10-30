@@ -84,7 +84,7 @@ const LayoutWrapper = styled.div`
 `;
 
 const Sidebar = styled.div<{ $collapsed: boolean; $isMobile: boolean }>`
-  width: ${({ $collapsed, $isMobile }) => ($isMobile ? '340px' : $collapsed ? '20px' : '240px')};
+  width: ${({ $collapsed, $isMobile }) => ($isMobile ? '70vw' : $collapsed ? '20px' : '15vw')};
   transition: all 0.3s ease;
   background: ${theme.colors.backgroundSidebar};
   border-right: 1px solid ${theme.colors.sidebarBorder};
@@ -112,11 +112,12 @@ const Overlay = styled.div`
 `;
 
 const SidebarHeader = styled.div<{ $collapsed: boolean }>`
-  padding: 0 0.84vw;
+  padding: 0 1.44vw;
   margin-bottom: 1.6vw;
   display: ${({ $collapsed }) => ($collapsed ? 'none' : 'flex')};
   align-items: center;
   gap: 0.84vw;
+  font-size: 1vw;
   @media (max-width: 769px) {
     font-size: 4vw;
     padding: 0 4vw;
@@ -129,7 +130,7 @@ const SidebarMenu = styled.nav<{ $collapsed: boolean }>`
   display: ${({ $collapsed }) => ($collapsed ? 'none' : 'flex')};
   flex-direction: column;
   flex: 1;
-  padding: 0 0.5rem;
+  padding: 0 0.8rem;
   @media (max-width: 769px) {
     padding: 0 1rem 0 1rem;
   }
@@ -172,6 +173,10 @@ export const SidebarLink = styled(NavLink)`
 const SidebarFooter = styled.div`
   padding: 0 0.5rem;
   font-size: 0.85rem;
+  margin-bottom: 0.8vw;
+  @media (max-width: 769px) {
+    margin-bottom: 5vw;
+  }
 `;
 
 const Main = styled.main`

@@ -87,12 +87,12 @@ export const UserHeader = ({ collapsed, setCollapsed, isMobile }: IProps) => {
         {collapsed ? (
           <MenuUnfoldOutlined
             onClick={() => setCollapsed(false)}
-            style={{ cursor: 'pointer', fontSize: isMobile ? 20 : 15 }}
+            style={{ cursor: 'pointer', fontSize: 20 }}
           />
         ) : (
           <MenuFoldOutlined
             onClick={() => setCollapsed(true)}
-            style={{ cursor: 'pointer', fontSize: isMobile ? 20 : 15 }}
+            style={{ cursor: 'pointer', fontSize: 20 }}
           />
         )}
         <h1>Personal Account</h1>
