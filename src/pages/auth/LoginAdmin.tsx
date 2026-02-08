@@ -6,7 +6,6 @@ import { CustomLabel } from '../../ui/CustomLabel';
 import { CustomInput } from '../../ui/CustomInput';
 import { CustomButton } from '../../ui/CustomButton';
 import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
-import { Card } from './Login';
 import { loginAdmin } from '../../api/auth';
 import type { AxiosError } from 'axios';
 import { useAdminStore } from '../../store/adminStore';
@@ -49,7 +48,7 @@ export const LoginAdmin = () => {
   };
 
   return (
-    <>
+    <Container>
       {contextHolder}
       <Card>
         <Title>Welcome</Title>
@@ -82,9 +81,32 @@ export const LoginAdmin = () => {
           </Form.Item>
         </Form>
       </Card>
-    </>
+    </Container>
   );
 };
+
+export const Container = styled.div`
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${theme.colors.backgroundPage};
+`;
+
+export const Card = styled.div`
+  background: ${theme.colors.backgroundCard};
+  padding: 1.9vw 2.725vw 1.5vw;
+  border-radius: 0.825vw;
+  box-shadow: 0 0.208vw 1.042vw rgba(0, 0, 0, 0.05);
+
+  width: 24vw;
+  text-align: center;
+  @media (max-width: 769px) {
+    width: 80vw;
+    padding: 5vw 5.725vw 2.8vw;
+    border-radius: 1.825vw;
+  }
+`;
 
 export const Title = styled.h1`
   font-size: 1.65vw;

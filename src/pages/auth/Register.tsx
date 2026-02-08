@@ -9,7 +9,7 @@ import { CustomInput } from '../../ui/CustomInput';
 import { CustomPasswordInput } from '../../ui/CustomPasswordInput';
 import { CustomButton } from '../../ui/CustomButton';
 import { registerUser } from '../../api/user';
-import { Container } from './LoginTabs';
+import { Container } from './Login';
 import { useEffect, useState } from 'react';
 
 export const Register = () => {

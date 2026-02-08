@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { CustomButton } from '../ui/CustomButton';
 import { theme } from '../assets/theme/theme';
-import { Container } from './auth/LoginTabs';
+import { Container } from './auth/Login';
 import { Card } from './auth/Login';
 
 export const RegistrationSuccess = () => {

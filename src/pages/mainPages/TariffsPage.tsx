@@ -37,7 +37,7 @@ export const TariffsPage = () => {
   return (
     <Wrapper>
       <TitleContainer>
-        <Title>Available tariffs</Title>
+        <Title>Pricing Plans</Title>
         <Subtitle>Choose available tariff for your purposes</Subtitle>
       </TitleContainer>
       <CardContainer>

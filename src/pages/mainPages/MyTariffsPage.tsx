@@ -35,7 +35,7 @@ export const MyTariffsPage = () => {
     return (
       <Wrapper>
         <TitleContainer>
-          <Title>My tariffs</Title>
+          <Title>Subscription</Title>
           <Subtitle>Managing active subscriptions and obtaining API keys</Subtitle>
         </TitleContainer>
 
@@ -49,7 +49,7 @@ export const MyTariffsPage = () => {
   return (
     <Wrapper>
       <TitleContainer>
-        <Title>My tariffs</Title>
+        <Title>Subscription</Title>
         <Subtitle>Managing active subscriptions and obtaining API keys</Subtitle>
       </TitleContainer>
       <CardContainer>

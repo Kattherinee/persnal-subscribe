@@ -51,9 +51,8 @@ export const Login = () => {
   };
 
   return (
-    <>
+    <Container>
       {contextHolder}
-
       <Card>
         <Title>Welcome</Title>
         <Subtitle>Sign in to your account to continue</Subtitle>
@@ -87,9 +86,17 @@ export const Login = () => {
 
         <LinkText to="/signup">Create new account</LinkText>
       </Card>
-    </>
+    </Container>
   );
 };
+
+export const Container = styled.div`
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${theme.colors.backgroundPage};
+`;
 
 export const Card = styled.div`
   background: ${theme.colors.backgroundCard};
